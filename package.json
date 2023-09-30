@@ -1,0 +1,11 @@
+{
+  "name": "blalbal",
+  "version": "0.0.1",
+  "description": "balbal",
+  "productName": "blalba",
+  "author": "blalballa",
+  "private": true,
+  "scripts": {
+    "start": "start /w dotnet run && exit"
+  }
+}

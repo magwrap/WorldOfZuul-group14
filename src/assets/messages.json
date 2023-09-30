@@ -1,0 +1,8 @@
+{
+  "WelcomeMessage" : "\nWelcome to the World of Zuul!\nWorld of Zuul is a new, incredibly boring adventure game.\n",
+  "HelpMessage": "You are lost. You are alone. You wander around the university.\nNavigate by typing 'north', 'south', 'east', or 'west'.\nType 'look' for more details.\nType 'back' to go to the previous room.\nType 'help' to printthis message again.\nType 'quit' to exit the game.\n",
+  "InputMessage": "Please enter a command.",
+  "UnknownCommandMessage": "I don't know that command.",
+  "AskForCommandMessage": "Please input your command.",
+  "GoodbyeMessage": "Thank you for playing!"
+}
