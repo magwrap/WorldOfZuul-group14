@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\New folder\\WorldOfZuul-my\\test.csproj": {}
+    "F:\\SemesterProject\\WorldOfZuul-my\\test.csproj": {}
   },
   "projects": {
-    "F:\\New folder\\WorldOfZuul-my\\test.csproj": {
+    "F:\\SemesterProject\\WorldOfZuul-my\\test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\New folder\\WorldOfZuul-my\\test.csproj",
+        "projectUniqueName": "F:\\SemesterProject\\WorldOfZuul-my\\test.csproj",
         "projectName": "test",
-        "projectPath": "F:\\New folder\\WorldOfZuul-my\\test.csproj",
+        "projectPath": "F:\\SemesterProject\\WorldOfZuul-my\\test.csproj",
         "packagesPath": "C:\\Users\\jasie\\.nuget\\packages\\",
-        "outputPath": "F:\\New folder\\WorldOfZuul-my\\obj\\",
+        "outputPath": "F:\\SemesterProject\\WorldOfZuul-my\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

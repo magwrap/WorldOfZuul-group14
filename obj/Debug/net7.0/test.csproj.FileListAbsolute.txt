@@ -26,3 +26,17 @@ F:\New folder\WorldOfZuul-my\obj\Debug\net7.0\refint\test.dll
 F:\New folder\WorldOfZuul-my\obj\Debug\net7.0\test.pdb
 F:\New folder\WorldOfZuul-my\obj\Debug\net7.0\test.genruntimeconfig.cache
 F:\New folder\WorldOfZuul-my\obj\Debug\net7.0\ref\test.dll
+F:\SemesterProject\WorldOfZuul-my\bin\Debug\net7.0\test.exe
+F:\SemesterProject\WorldOfZuul-my\bin\Debug\net7.0\test.deps.json
+F:\SemesterProject\WorldOfZuul-my\bin\Debug\net7.0\test.runtimeconfig.json
+F:\SemesterProject\WorldOfZuul-my\bin\Debug\net7.0\test.dll
+F:\SemesterProject\WorldOfZuul-my\bin\Debug\net7.0\test.pdb
+F:\SemesterProject\WorldOfZuul-my\obj\Debug\net7.0\test.GeneratedMSBuildEditorConfig.editorconfig
+F:\SemesterProject\WorldOfZuul-my\obj\Debug\net7.0\test.AssemblyInfoInputs.cache
+F:\SemesterProject\WorldOfZuul-my\obj\Debug\net7.0\test.AssemblyInfo.cs
+F:\SemesterProject\WorldOfZuul-my\obj\Debug\net7.0\test.csproj.CoreCompileInputs.cache
+F:\SemesterProject\WorldOfZuul-my\obj\Debug\net7.0\test.dll
+F:\SemesterProject\WorldOfZuul-my\obj\Debug\net7.0\refint\test.dll
+F:\SemesterProject\WorldOfZuul-my\obj\Debug\net7.0\test.pdb
+F:\SemesterProject\WorldOfZuul-my\obj\Debug\net7.0\test.genruntimeconfig.cache
+F:\SemesterProject\WorldOfZuul-my\obj\Debug\net7.0\ref\test.dll

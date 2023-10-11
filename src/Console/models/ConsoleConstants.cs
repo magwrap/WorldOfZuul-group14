@@ -2,7 +2,7 @@ namespace WorldOfZuul
 {
   public struct ConsoleConstants
   {
-    public const int Delay = 0;
+    public const int Delay = 10;
     public const string Text = "";
     public const bool Breakline = true;
     public const ConsoleColor BackgroundColor = ConsoleColor.Black;

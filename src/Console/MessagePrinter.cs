@@ -51,12 +51,18 @@ namespace WorldOfZuul
     public void PrintAskForCommandMessage()
     {
       if (messages == null) return;
-      GameConsole.WriteLine(messages.AskForCommandMessage);
+      GameConsole.WriteLine(messages.AskForCommandMessage, bgColor: ConsoleColor.DarkBlue);
     }
     public void PrintGoodbyeMessage()
     {
       if (messages == null) return;
       GameConsole.WriteLine(messages.GoodbyeMessage, fgColor: ConsoleColor.Green);
+    }
+
+    public void PrintShutdownMessage()
+    {
+      if (messages == null) return;
+      GameConsole.WriteLine(messages.ShutdownMessage, delay: 75);
     }
   }
 }

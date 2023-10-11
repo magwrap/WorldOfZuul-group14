@@ -10,11 +10,6 @@
     {
       string[] words = inputLine.Split();
 
-      foreach (string word in words)
-      {
-        Console.WriteLine(word);
-      }
-
       //checks if the command is valid in commandWords, if it isn't returns null
       if (words.Length == 0 || !commandWords.IsValidCommand(words[0]))
       {

@@ -1,0 +1,86 @@
+{
+  "rooms" : [
+    {
+      "jsonLocation": "rooms/exampleRoom.json"
+    },
+    {
+      "id": 1,
+      "name": "hub",
+      "north" : 5,
+      "west": 2,
+      "east": 3,
+      "south": 4,
+      "shortDesc": "",
+      "longDesc": "",
+      "npcs" : [1, 2]
+    },
+    {
+      "id": 2,
+      "name": "pacific",
+      "north" : 0,
+      "west": 1,
+      "east": 0,
+      "south": 0,
+      "shortDesc": "",
+      "longDesc": "",
+      "npcs" : [],
+      "subRooms": [
+        {
+          "id": 1,
+          "name" : "coastOfAmerica",
+          "north" : 0,
+          "west": 0,
+          "east": 2,
+          "south": 0,
+          "shortDesc": "",
+          "longDesc": "",
+          "npcs" : []
+        },
+        {
+          "id": 2,
+          "name" : "coastOfJapan",
+          "north" : 0,
+          "west": 1,
+          "east": 0,
+          "south": 0,
+          "shortDesc": "",
+          "longDesc": "",
+          "npcs" : []
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "africa",
+      "north" : 0,
+      "west": 0,
+      "east": 1,
+      "south": 0,
+      "shortDesc": "",
+      "longDesc": "",
+      "npcs" : []
+    },
+    {
+      "id": 4,
+      "name": "asia",
+      "north" : 1,
+      "west": 0,
+      "east": 0,
+      "south": 0,
+      "shortDesc": "",
+      "longDesc": "",
+      "npcs" : []
+    },
+    {
+      "id": 5,
+      "name": "boss",
+      "north" : 0,
+      "west": 0,
+      "east": 0,
+      "south": 1,
+      "shortDesc": "",
+      "longDesc": "",
+      "npcs" : []
+    }
+  ]
+}

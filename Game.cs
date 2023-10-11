@@ -24,25 +24,22 @@ namespace WorldOfZuul
 
     public Game()
     {
-      //TODO: fix rooms
-      if (currentRoom != null && previousRoom != null)
-      {
-        actions.CreateRooms(ref currentRoom);
-        Console.WriteLine(currentRoom.ShortDescription);
-        Play();
-      }
+      currentRoom = actions.CreateRooms();
     }
 
     public void Play()
     {
       messagePrinter.PrintWelcome();
-      // user.AskForUserName();
-      // user.AskForPlayerClass();
+      user.AskForUserName();
+      user.AskForPlayerClass();
+
+      GameConsole.WriteLine($"Hello {user.GetUsername()}");
 
       while (continuePlaying)
       {
         GameConsole.WriteLine(currentRoom?.ShortDescription);
         AskForCommand();
+
         continuePlaying = actions.DecideAction(
          ref command,
         ref currentRoom,
@@ -50,6 +47,9 @@ namespace WorldOfZuul
         );
       }
       messagePrinter.PrintGoodbyeMessage();
+      Thread.Sleep(300);
+      messagePrinter.PrintShutdownMessage();
+
     }
 
     public void AskForCommand()

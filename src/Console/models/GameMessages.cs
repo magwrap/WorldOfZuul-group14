@@ -8,6 +8,7 @@ namespace WorldOfZuul
     public string? UnknownCommandMessage { get; set; }
     public string? AskForCommandMessage { get; set; }
     public string? GoodbyeMessage { get; set; }
+    public string? ShutdownMessage { get; set; }
 
   }
 }
