@@ -2,6 +2,7 @@
 *This is semester project world of zuul implementation*
 
 ## RUN THE GAME
+Download node.js - https://nodejs.org/en/download
 > npm start 
 
 ### **description**
