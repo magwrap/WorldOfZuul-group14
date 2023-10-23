@@ -2,8 +2,12 @@
 *This is semester project world of zuul implementation*
 
 ## RUN THE GAME
+### !!! only for windows !!!
 Download node.js - https://nodejs.org/en/download
 > npm start 
+* on different os you would have to use just dontnet run
+
+## BODY
 
 ### **description**
 What this game is about
