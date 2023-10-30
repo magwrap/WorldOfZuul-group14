@@ -4,14 +4,14 @@ namespace WorldOfZuul
   {
     private static readonly MessagePrinter messagePrinter = new();
 
-    public delegate bool ActionMethod(Room? currentRoom, Room? previousRoom, string[]? arguments = null);
+    public delegate bool ActionMethod(Room currentRoom, Room? previousRoom, string[]? arguments = null);
 
     private readonly Rooms? rooms;
 
     private readonly Dictionary<ActionsEnum, ActionMethod> actions;
 
 
-    public ActionDispatcher(ref Rooms? passedRooms)
+    public ActionDispatcher(ref Rooms passedRooms)
     {
       rooms = passedRooms;
 
@@ -19,7 +19,7 @@ namespace WorldOfZuul
      {
         {
           ActionsEnum.LOOK, delegate(
-              Room? currentRoom,  Room? previousRoom,
+              Room currentRoom,  Room? previousRoom,
              string[]? arguments
           )
           {
@@ -29,7 +29,7 @@ namespace WorldOfZuul
         },
         {
           ActionsEnum.BACK, delegate(
-              Room? currentRoom,  Room? previousRoom,
+              Room currentRoom,  Room? previousRoom,
              string[]? arguments
           )
           {
@@ -48,7 +48,7 @@ namespace WorldOfZuul
         },
         {
           ActionsEnum.MOVE,  delegate (
-             Room? currentRoom,  Room? previousRoom,
+             Room currentRoom,  Room? previousRoom,
             string[]? arguments
           )
           {
@@ -59,7 +59,7 @@ namespace WorldOfZuul
               if (currentRoom?.Exits.ContainsKey(directionsKey) == true)
               {
                 SetPreviousRoom(currentRoom);
-                SetCurrentRoom(currentRoom?.Exits[directionsKey]);
+                SetCurrentRoom(currentRoom.Exits[directionsKey]);
               }
               else
               {
@@ -71,7 +71,7 @@ namespace WorldOfZuul
         },
         {
           ActionsEnum.HELP, delegate(
-             Room? currentRoom,  Room? previousRoom,
+             Room currentRoom,  Room? previousRoom,
             string[]? arguments
           )
           {
@@ -81,7 +81,7 @@ namespace WorldOfZuul
         },
         {
           ActionsEnum.QUIT, delegate(
-             Room? currentRoom,  Room? previousRoom,
+             Room currentRoom,  Room? previousRoom,
             string[]? arguments
           )
           {
@@ -99,7 +99,7 @@ namespace WorldOfZuul
 
     public bool DecideAction(ref Command? command)
     {
-      if (command != null)
+      if (command != null && rooms != null && rooms.CurrentRoom != null)
       {
         ActionsEnum actionKey = (ActionsEnum)Enum.Parse(typeof(ActionsEnum), command.Name);
         return actions[actionKey](rooms.CurrentRoom, rooms.PreviousRoom, command.Arguments);
@@ -109,10 +109,12 @@ namespace WorldOfZuul
     }
     private void SetCurrentRoom(Room room)
     {
+      if (rooms == null) return;
       rooms.CurrentRoom = room;
     }
     private void SetPreviousRoom(Room room)
     {
+      if (rooms == null) return;
       rooms.PreviousRoom = room;
     }
   }
