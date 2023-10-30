@@ -23,7 +23,7 @@ namespace WorldOfZuul
              string[]? arguments
           )
           {
-            GameConsole.WriteLine(currentRoom?.LongDescription, bgColor: ConsoleColor.DarkYellow);
+            GameConsole.WriteLine(currentRoom?.LongDescription, bgColor: ConsoleColor.DarkGreen);
             return true;
           }
         },
