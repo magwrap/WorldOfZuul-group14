@@ -19,7 +19,7 @@ namespace WorldOfZuul
 
       Console.BackgroundColor = bgColor;
       Console.ForegroundColor = fgColor;
-
+      //test TODO: remove this comment
 
       foreach (char c in text)
       {
