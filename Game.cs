@@ -13,18 +13,17 @@ namespace WorldOfZuul
 {
   public class Game
   {
-    private protected Room? currentRoom;
-    private protected Room? previousRoom;
     private protected Command? command;
     private protected bool continuePlaying = true;
     private protected static MessagePrinter messagePrinter = new();
-    private protected Actions actions = new(ref messagePrinter);
-    private readonly Parser parser = new();
+    private protected Rooms rooms = new();
     private readonly User user = new();
+    private readonly ActionDispatcher actionDispatcher;
 
     public Game()
     {
-      currentRoom = actions.CreateRooms();
+      rooms.CreateRooms();
+      actionDispatcher = new(ref rooms);
     }
 
     public void Play()
@@ -37,15 +36,15 @@ namespace WorldOfZuul
 
       while (continuePlaying)
       {
-        GameConsole.WriteLine(currentRoom?.ShortDescription);
+        GameConsole.WriteLine(rooms.CurrentRoom?.ShortDescription);
         AskForCommand();
 
-        continuePlaying = actions.DecideAction(
-         ref command,
-        ref currentRoom,
-        ref previousRoom
+
+        continuePlaying = actionDispatcher.DecideAction(
+         ref command
         );
       }
+
       messagePrinter.PrintGoodbyeMessage();
       Thread.Sleep(300);
       messagePrinter.PrintShutdownMessage();
@@ -56,7 +55,7 @@ namespace WorldOfZuul
     {
       messagePrinter.PrintAskForCommandMessage();
 
-      while ((command = parser.GetCommand(GameConsole.Input())) == null)
+      while ((command = Parser.GetCommand(GameConsole.Input())) == null)
       {
         messagePrinter.PrintUnknownCommandMessage();
       }

@@ -8,7 +8,8 @@ namespace WorldOfZuul
       bool breakline = ConsoleConstants.Breakline,
       ConsoleColor bgColor = ConsoleConstants.BackgroundColor,
       ConsoleColor fgColor = ConsoleConstants.ForegroundColor,
-      bool resetColor = ConsoleConstants.ResetColor
+      bool resetColor = ConsoleConstants.ResetColor,
+      int paddingLeft = ConsoleConstants.paddingLeft
     )
     {
       if (string.IsNullOrEmpty(text))
@@ -19,7 +20,7 @@ namespace WorldOfZuul
 
       Console.BackgroundColor = bgColor;
       Console.ForegroundColor = fgColor;
-      //test TODO: remove this comment
+      Console.Write("".PadLeft(paddingLeft));
 
       foreach (char c in text)
       {
@@ -45,11 +46,11 @@ namespace WorldOfZuul
       do
       {
         WriteLine(text, delay, breakline, bgColor, fgColor, resetColor);
-        Console.Write(">>");
+        WriteLine(">>", breakline: false);
       }
       while (string.IsNullOrEmpty(input = Console.ReadLine()));
 
-      input = input.ToString().Normalize().ToLower();
+      input = input.ToString().Normalize().ToUpper();
       return input;
     }
   }
