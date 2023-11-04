@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WorldOfZuul
 {
-  public struct GameDialogs
+  public class GameDialogs
   {
 
   }

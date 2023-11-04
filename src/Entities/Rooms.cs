@@ -1,35 +1,34 @@
+using WorldOfZuul.Africa;
+
 namespace WorldOfZuul
 {
   public class Rooms
   {
-    private protected Room? outside;
-    private protected Room? theatre;
-    private protected Room? pub;
-    private protected Room? lab;
-    private protected Room? office;
-    public Room? CurrentRoom { get; set; }
+    private protected Room? hub;
+    private protected Room? pacific;
+    private protected AfricaRoom? africa;
+    private protected Room? asia;
+    private protected Room? boss;
+    private protected GameRooms? rooms;
+    public Room? CurrentRoom
+    { get; set; }
     public Room? PreviousRoom { get; set; }
 
     public void CreateRooms()
     {
+      rooms = JsonFileReader.GetMainRooms();
+
       //creates rooms and returns the current one
-      outside = new("Outside", "You are standing outside the main entrance of the university. To the east is a large building, to the south is a computing lab, and to the west is the campus pub.");
-      theatre = new("Theatre", "You find yourself inside a large lecture theatre. Rows of seats ascend up to the back, and there's a podium at the front. It's quite dark and quiet.");
-      pub = new("Pub", "You've entered the campus pub. It's a cozy place, with a few students chatting over drinks. There's a bar near you and some pool tables at the far end.");
-      lab = new("Lab", "You're in a computing lab. Desks with computers line the walls, and there's an office to the east. The hum of machines fills the room.");
-      office = new("Office", "You've entered what seems to be an administration office. There's a large desk with a computer on it, and some bookshelves lining one wall.");
+      if (rooms == null || rooms.Rooms == null) return;
+      hub = new(rooms.Rooms[(int)RoomsEnum.HUB].ShortDesc, rooms.Rooms[(int)RoomsEnum.HUB].LongDesc);
+      pacific = new(rooms.Rooms[(int)RoomsEnum.PACIFIC].ShortDesc, rooms.Rooms[(int)RoomsEnum.PACIFIC].ShortDesc);
+      africa = new(rooms.Rooms[(int)RoomsEnum.AFRICA].ShortDesc, rooms.Rooms[(int)RoomsEnum.AFRICA].ShortDesc);
+      asia = new(rooms.Rooms[(int)RoomsEnum.ASIA].ShortDesc, rooms.Rooms[(int)RoomsEnum.ASIA].ShortDesc);
+      boss = new(rooms.Rooms[(int)RoomsEnum.BOSS].ShortDesc, rooms.Rooms[(int)RoomsEnum.BOSS].ShortDesc);
 
-      outside.SetExits(null, theatre, lab, pub); // North, East, South, West
+      hub.SetExits(boss, pacific, africa, asia); // North, East, South, West
 
-      theatre.SetExit(DirectoriesEnum.WEST, outside);
-
-      pub.SetExit(DirectoriesEnum.EAST, outside);
-
-      lab.SetExits(outside, office, null, null);
-
-      office.SetExit(DirectoriesEnum.WEST, lab);
-
-      CurrentRoom = outside;
+      CurrentRoom = hub;
     }
   }
 }

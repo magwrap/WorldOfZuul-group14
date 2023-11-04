@@ -17,7 +17,6 @@ namespace WorldOfZuul
     /// <info>
     /// 
     /// </summary>
-    private readonly JsonFileReader jsonFileReader = new();
     private protected GameMessages? messages;
     private protected Command? command;
 
@@ -27,7 +26,7 @@ namespace WorldOfZuul
     }
     public void GetMessages()
     {
-      messages = jsonFileReader.GetMessages();
+      messages = JsonFileReader.GetMessages();
     }
 
     public void PrintWelcome()

@@ -1,86 +1,55 @@
 {
-  "rooms" : [
+  "Rooms" : [
     {
-      "jsonLocation": "rooms/exampleRoom.json"
+      "Id": 1,
+      "Name": "hub",
+      "North" : 5,
+      "West": 2,
+      "East": 3,
+      "South": 4,
+      "ShortDesc": "Hub",
+      "LongDesc": "",
+      "NpcIds" : [1, 2]
     },
     {
-      "id": 1,
-      "name": "hub",
-      "north" : 5,
-      "west": 2,
-      "east": 3,
-      "south": 4,
-      "shortDesc": "",
-      "longDesc": "",
-      "npcs" : [1, 2]
+      "Id": 2,
+      "Name": "pacific",
+      "North" : 0,
+      "West": 1,
+      "East": 0,
+      "South": 0,
+      "ShortDesc": "Pacific",
+      "LongDesc": ""
     },
     {
-      "id": 2,
-      "name": "pacific",
-      "north" : 0,
-      "west": 1,
-      "east": 0,
-      "south": 0,
-      "shortDesc": "",
-      "longDesc": "",
-      "npcs" : [],
-      "subRooms": [
-        {
-          "id": 1,
-          "name" : "coastOfAmerica",
-          "north" : 0,
-          "west": 0,
-          "east": 2,
-          "south": 0,
-          "shortDesc": "",
-          "longDesc": "",
-          "npcs" : []
-        },
-        {
-          "id": 2,
-          "name" : "coastOfJapan",
-          "north" : 0,
-          "west": 1,
-          "east": 0,
-          "south": 0,
-          "shortDesc": "",
-          "longDesc": "",
-          "npcs" : []
-        }
-      ]
+      "Id": 3,
+      "Name": "Africa",
+      "North" : 1,
+      "West": 0,
+      "East": 0,
+      "South": 0,
+      "ShortDesc": "Africa room",
+      "LongDesc": "As you approach the middle screen, the mission description says ”SAFE ENDANGERED KORDOFAN GIRAFFE FROM A WILDFIRE” You scream the keyword ”Africa!”. The floor below you opens, and you fall into the pipe. As you go down, it takes a sharp twist left, and you suddenly find yourself on the comfortable leather chair of a small submarine."
     },
     {
-      "id": 3,
-      "name": "africa",
-      "north" : 0,
-      "west": 0,
-      "east": 1,
-      "south": 0,
-      "shortDesc": "",
-      "longDesc": "",
-      "npcs" : []
+      "Id": 4,
+      "Name": "asia",
+      "North" : 1,
+      "West": 0,
+      "East": 0,
+      "South": 0,
+      "ShortDesc": "Asia", 
+       "LongDesc": ""
     },
     {
-      "id": 4,
-      "name": "asia",
-      "north" : 1,
-      "west": 0,
-      "east": 0,
-      "south": 0,
-      "shortDesc": "",
-      "longDesc": "",
-      "npcs" : []
-    },
-    {
-      "id": 5,
-      "name": "boss",
-      "north" : 0,
-      "west": 0,
-      "east": 0,
-      "south": 1,
-      "shortDesc": "",
-      "longDesc": "",
-      "npcs" : []
+      "Id": 5,
+      "Name": "boss",
+      "North" : 0,
+      "West": 0,
+      "East": 0,
+      "South": 1,
+      "ShortDesc": "Boss",
+      "LongDesc": ""
     }
   ]
 }

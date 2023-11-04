@@ -1,0 +1,16 @@
+{
+  "NpcIds" : [],
+  "InnerRooms" : [
+    {
+      "Id": "a",
+      "Name": "inner room 1",
+      "North" : 31,
+      "West": 32,
+      "East": 33,
+      "South": 34,
+      "ShortDesc": "",
+      "LongDesc": "inner Room blablabla",
+      "NpcIds" : [1]
+  }
+]
+}
