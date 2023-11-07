@@ -27,3 +27,17 @@ C:\Users\fifof\OneDrive\Počítač\Semester project\AsiaBranch - WorldOfZuul\Wor
 C:\Users\fifof\OneDrive\Počítač\Semester project\AsiaBranch - WorldOfZuul\WorldOfZuul-group14\obj\Debug\net6.0\WorldOfZuul.pdb
 C:\Users\fifof\OneDrive\Počítač\Semester project\AsiaBranch - WorldOfZuul\WorldOfZuul-group14\obj\Debug\net6.0\WorldOfZuul.genruntimeconfig.cache
 C:\Users\fifof\OneDrive\Počítač\Semester project\AsiaBranch - WorldOfZuul\WorldOfZuul-group14\obj\Debug\net6.0\ref\WorldOfZuul.dll
+F:\SemesterProject\WorldOfZuul-source\WorldOfZuul\bin\Debug\net6.0\WorldOfZuul.exe
+F:\SemesterProject\WorldOfZuul-source\WorldOfZuul\bin\Debug\net6.0\WorldOfZuul.deps.json
+F:\SemesterProject\WorldOfZuul-source\WorldOfZuul\bin\Debug\net6.0\WorldOfZuul.runtimeconfig.json
+F:\SemesterProject\WorldOfZuul-source\WorldOfZuul\bin\Debug\net6.0\WorldOfZuul.dll
+F:\SemesterProject\WorldOfZuul-source\WorldOfZuul\bin\Debug\net6.0\WorldOfZuul.pdb
+F:\SemesterProject\WorldOfZuul-source\WorldOfZuul\obj\Debug\net6.0\WorldOfZuul.GeneratedMSBuildEditorConfig.editorconfig
+F:\SemesterProject\WorldOfZuul-source\WorldOfZuul\obj\Debug\net6.0\WorldOfZuul.AssemblyInfoInputs.cache
+F:\SemesterProject\WorldOfZuul-source\WorldOfZuul\obj\Debug\net6.0\WorldOfZuul.AssemblyInfo.cs
+F:\SemesterProject\WorldOfZuul-source\WorldOfZuul\obj\Debug\net6.0\WorldOfZuul.csproj.CoreCompileInputs.cache
+F:\SemesterProject\WorldOfZuul-source\WorldOfZuul\obj\Debug\net6.0\WorldOfZuul.dll
+F:\SemesterProject\WorldOfZuul-source\WorldOfZuul\obj\Debug\net6.0\refint\WorldOfZuul.dll
+F:\SemesterProject\WorldOfZuul-source\WorldOfZuul\obj\Debug\net6.0\WorldOfZuul.pdb
+F:\SemesterProject\WorldOfZuul-source\WorldOfZuul\obj\Debug\net6.0\WorldOfZuul.genruntimeconfig.cache
+F:\SemesterProject\WorldOfZuul-source\WorldOfZuul\obj\Debug\net6.0\ref\WorldOfZuul.dll
