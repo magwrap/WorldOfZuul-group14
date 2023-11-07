@@ -12,16 +12,31 @@ namespace WorldOfZuul
 
         public Command? GetCommand(string inputLine)
         {
-            string[] words = inputLine.Split();
+            string[] words = inputLine.ToLower().Split();
 
-            if (words.Length == 0 || !commandWords.IsValidCommand(words[0]))
+            if (words.Length == 0)
             {
                 return null;
             }
 
             if (words.Length > 1)
             {
-                return new Command(words[0], words[1]);
+                // If there are two or more words, construct the command as a single string
+                string command = string.Join(" ", words, 0, 2);
+                if (commandWords.IsValidCommand(command))
+                {
+                    System.Console.WriteLine(command);
+                    return new Command(command);
+                }
+                else
+                {
+                    return null; // Command is invalid
+                }
+            }
+
+            if (!commandWords.IsValidCommand(words[0]))
+            {
+                return null;
             }
 
             return new Command(words[0]);
