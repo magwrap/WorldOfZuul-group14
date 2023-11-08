@@ -11,6 +11,7 @@ namespace WorldOfZuul
     private AfricaRoom? Africa;
     private Command? command;
     private bool continuePlaying = true;
+    public static string? Initials { get; set; }
 
     public Game()
     {
@@ -162,9 +163,9 @@ namespace WorldOfZuul
     {
       GameConsole.WriteLine("\nNavigate by typing ['name of the room'].\nType 'look' for more details.\nType 'back' to go to the previous room.\nType 'help' to print this message again.\nType 'quit' to exit the game.", font: FontTheme.Info);
     }
-    public static string GetInicialOfThePlayer(string inicials)
+    public static void GetInicialOfThePlayer(string initials)
     {
-      return inicials.ToUpper().Substring(0, 1);
+      Initials = initials.ToUpper().Substring(0, 1);
     }
   }
 }
