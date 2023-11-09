@@ -109,7 +109,7 @@ namespace WorldOfZuul
           }
           else if (x == j && y == i)
           {
-            Console.Write(AsiaRoom.Inicials);
+            Console.Write(Game.Initials);
             //inicials taken from the playes name at the beggining of the game, 
             //players initials are shown on the map
           }
