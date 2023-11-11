@@ -58,7 +58,7 @@ namespace WorldOfZuul
             // LoadingAnimation.Loading("Loading");
             Asia.CurrentlyInAsiaRoom();
             GameConsole.WriteLine("Welcome back to the hub", font: FontTheme.Success);
-            Move("hub");
+            currentRoom = Hub;
             break;
 
           case var currentRoom when currentRoom.Equals(Africa):

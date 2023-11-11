@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fifof\\OneDrive\\Počítač\\Semester project\\8-11-23 Merge\\WorldOfZuul-group14\\WorldOfZuul.csproj",
+      "projectUniqueName": "C:\\Users\\fifof\\OneDrive\\Počítač\\Semester project\\WorldOfZuul Group14\\11-11-23\\WorldOfZuul-group14\\WorldOfZuul.csproj",
       "projectName": "WorldOfZuul",
-      "projectPath": "C:\\Users\\fifof\\OneDrive\\Počítač\\Semester project\\8-11-23 Merge\\WorldOfZuul-group14\\WorldOfZuul.csproj",
+      "projectPath": "C:\\Users\\fifof\\OneDrive\\Počítač\\Semester project\\WorldOfZuul Group14\\11-11-23\\WorldOfZuul-group14\\WorldOfZuul.csproj",
       "packagesPath": "C:\\Users\\fifof\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\fifof\\OneDrive\\Počítač\\Semester project\\8-11-23 Merge\\WorldOfZuul-group14\\obj\\",
+      "outputPath": "C:\\Users\\fifof\\OneDrive\\Počítač\\Semester project\\WorldOfZuul Group14\\11-11-23\\WorldOfZuul-group14\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
