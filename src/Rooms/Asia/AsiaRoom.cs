@@ -19,7 +19,7 @@ namespace WorldOfZuul
 
       PrintIntroductionToTheRoom();
 
-      Game.PrintHelp();
+      Messages.PrintHelp();
 
       GameConsole.WriteLine("Heads up ranger! You also acquired a map. The map can be seen by using command 'map on' as well as turned off by command 'map off'.", font: FontTheme.NewItem);
 
@@ -42,6 +42,7 @@ namespace WorldOfZuul
           continue;
         }
 
+        //TODO: change this switch that it uses Actions class somehow
         switch (command.Name)
         {
           case "look":
@@ -109,7 +110,7 @@ namespace WorldOfZuul
             break;
 
           case "help":
-            Game.PrintHelp();
+            Messages.PrintHelp();
             break;
           case "clear":
             GameConsole.Clear();

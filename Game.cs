@@ -10,6 +10,7 @@ namespace WorldOfZuul
     private Room? Hub;
     private AfricaRoom? Africa;
     private Command? command;
+
     private bool continuePlaying = true;
     public static string? Initials { get; set; }
 
@@ -35,13 +36,17 @@ namespace WorldOfZuul
 
     public void Play()
     {
-      PrintWelcome();
+      Messages.PrintWelcome();
 
 
-      GameConsole.WriteLine("Please enter your name: ");
+      Messages.PrintAskForNameMessage();
       string inputName = GameConsole.Input();
       GetInicialOfThePlayer(inputName);
-      GameConsole.WriteLine($"\nHello {inputName}, just a little reminder, for better game experience, do not forget to make your terminal fullscreen. Enjoy!\n", font: FontTheme.Info);
+
+      GameConsole.WriteLine(
+        $"\nHello {inputName}, just a little reminder, for better game experience, do not forget to make your terminal fullscreen. Enjoy!\n",
+         font: FontTheme.Info
+      );
 
       while (continuePlaying)
       {
@@ -58,7 +63,7 @@ namespace WorldOfZuul
             // LoadingAnimation.Loading("Loading");
             Asia.CurrentlyInAsiaRoom();
             GameConsole.WriteLine("Welcome back to the hub", font: FontTheme.Success);
-            Move("hub");
+            Actions.Move("hub", ref currentRoom, ref previousRoom);
             break;
 
           case var currentRoom when currentRoom.Equals(Africa):
@@ -75,67 +80,23 @@ namespace WorldOfZuul
         command = AskForCommand();
         Console.WriteLine(command?.Name);
 
-        switch (command?.Name)
-        {
-          case "look":
-            GameConsole.WriteLine(currentRoom?.LongDescription);
-            break;
-
-          case "back":
-            if (previousRoom == null)
-              GameConsole.WriteLine("You can't go back from here!");
-            else
-              currentRoom = previousRoom;
-            break;
-
-          case "north":
-          case "south":
-          case "east":
-          case "west":
-          case "asia":
-          case "africa":
-            Move(command.Name);
-            break;
-
-          case "quit":
-            continuePlaying = false;
-            break;
-
-          case "help":
-            PrintHelp();
-            break;
-
-          default:
-            GameConsole.WriteLine("I don't know this command", font: FontTheme.Danger);
-            break;
-        }
+        continuePlaying = Actions.DecideAction(ref command, ref currentRoom, ref previousRoom);
       }
 
-      GameConsole.WriteLine("Thank you for playing World of Zuul!");
+      Messages.PrintGoodbyeMessage();
     }
 
-    private void Move(string direction)
-    {
-      if (currentRoom?.Exits.ContainsKey(direction) == true)
-      {
-        previousRoom = currentRoom;
-        currentRoom = currentRoom?.Exits[direction];
-      }
-      else
-      {
-        GameConsole.WriteLine($"You can't go {direction}!");
-      }
-    }
+
 
     public static Command AskForCommand()
     {
-      GameConsole.WriteLine("Please enter a command");
+      Messages.PrintAskForCommandMessage();
       Command? userCommand;
 
       while ((userCommand = Parser.GetCommand(GameConsole.Input("", breakline: false))) == null)
       {
         GameConsole.WriteLine(
-          "Invalid command. Type 'help' for a list of valid commands",
+
           font: FontTheme.Danger
         );
       }
@@ -150,19 +111,6 @@ namespace WorldOfZuul
 
     }
 
-
-    private static void PrintWelcome()
-    {
-      GameConsole.WriteLine("Welcome to the World of Zuul!");
-      GameConsole.WriteLine("World of Zuul is a new, incredibly boring adventure game.");
-      PrintHelp();
-      GameConsole.WriteLine();
-    }
-
-    internal static void PrintHelp()
-    {
-      GameConsole.WriteLine("\nNavigate by typing ['name of the room'].\nType 'look' for more details.\nType 'back' to go to the previous room.\nType 'help' to print this message again.\nType 'quit' to exit the game.", font: FontTheme.Info);
-    }
     public static void GetInicialOfThePlayer(string initials)
     {
       Initials = initials.ToUpper().Substring(0, 1);
