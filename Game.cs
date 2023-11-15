@@ -59,9 +59,15 @@ namespace WorldOfZuul
 
       //Greet user
       GameConsole.WriteLine(
-        $"\nHello {inputName}, just a little reminder, for better game experience, do not forget to make your terminal fullscreen. Enjoy!\n",
+        $"\nHello {inputName}, just a little reminder, for better game experience, do not forget to make your terminal fullscreen. Enjoy!",
          font: FontTheme.Info
-      );
+      );  
+
+      GameConsole.WriteLine("\n" + currentRoom?.LongDescription, fgColor:  ConsoleColor.DarkYellow, breakline: false);
+
+      Messages.PrintShowcaseOfMissions();
+
+      Messages.PrintHelp();
 
       //Main game loop
       while (continuePlaying)

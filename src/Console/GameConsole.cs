@@ -71,7 +71,7 @@ namespace WorldOfZuul
         {
           WriteLine(text, delay, breakline, bgColor, fgColor, resetColor, 0, font);
         }
-        WriteLine(">>", breakline: false);
+        WriteLine(">> ", breakline: false);
       }
       while (string.IsNullOrEmpty(input = Console.ReadLine()));
 
@@ -83,5 +83,16 @@ namespace WorldOfZuul
     {
       Console.Clear();
     }
+
+    public static void ResetColor()
+    {
+      Console.ResetColor();
+    }
+
+    public static ConsoleKeyInfo ReadKey()
+    {
+        return Console.ReadKey();
+    } 
+
   }
 }

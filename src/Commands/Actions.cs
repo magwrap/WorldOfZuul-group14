@@ -81,8 +81,30 @@ namespace WorldOfZuul
           Map.MoveOnMap(command.Name);
           return true;
 
-        case "asia" when isMissionStarted == false:
-        case "africa" when isMissionStarted == false:
+        case "chose mission" when isMissionStarted == false:
+          switch(Hub.SelectMission())
+          {
+              case 0:
+                GameConsole.WriteLine("Move to Europe"); //for future europe room, doesnt do anything yet
+                break;
+              case 1:
+                Move("asia", ref currentRoom, ref previousRoom);
+                break;
+              case 2:
+                Move("africa", ref currentRoom, ref previousRoom);
+                break;
+              case 3:
+                GameConsole.WriteLine("Move to Pacific"); //for future pacific room, doesnt do anything yet
+                break;
+              default:
+                GameConsole.WriteLine("Invalid choice");
+                break;
+
+          }
+          return true;
+
+        //case "asia" when isMissionStarted == false:
+        //case "africa" when isMissionStarted == false:
         case "camp" when isMissionStarted == true && missionName == "africa":
           Move(command.Name, ref currentRoom, ref previousRoom);
           return true;
@@ -123,6 +145,10 @@ namespace WorldOfZuul
       {
         LoadingAnimation.Loading("Quiting");
         return false;
+      }
+      else if(inputConfirmation1 != "no" && inputConfirmation1 != "n")
+      {
+        return GetQuitConfirmation();
       }
       return true;
     }
