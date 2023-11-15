@@ -3,12 +3,27 @@ namespace WorldOfZuul
 {
   public class Actions
   {
+    /// <summary>
+    /// Action dispatcher returns true or false depending if the player wants to quit the game
+    /// </summary>
+    public Actions()
+    {
 
-    //action moving player to different room
+    }
+
+
+
+    /// <summary>
+    /// Function moving player to different room
+    /// </summary>
+    /// <param name="direction">Direction in which player wants to go</param>
+    /// <param name="currentRoom">reference to currentRoom </param>
+    /// <param name="previousRoom">reference to previousRoom</param>
     public static void Move(string direction, ref Room? currentRoom, ref Room? previousRoom)
     {
       if (currentRoom?.Exits.ContainsKey(direction) == true)
       {
+        GameConsole.WriteLine($"Moving to {direction}");
         previousRoom = currentRoom;
         currentRoom = currentRoom?.Exits[direction];
       }
@@ -18,13 +33,21 @@ namespace WorldOfZuul
       }
     }
 
-    //returns boolean deciding if the game should continue
-    public static bool DecideAction(ref Command? command, ref Room? currentRoom, ref Room? previousRoom)
+    /// <summary>
+    /// Function deciding which action to do depending on the command passed
+    /// </summary>
+    /// <param name="command">Command read from the users input</param>
+    /// <param name="currentRoom">reference to current room created in game class</param>
+    /// <param name="previousRoom">reference to previous room created in game class</param>
+    /// <param name="isMissionStarted">boolean checking if the mission is started true for africa, asia etc.</param>
+    /// <param name="missionName">name of the mission for actions specified for certain missions</param>
+    /// <returns></returns>
+    public static bool DecideAction(ref Command? command, ref Room? currentRoom, ref Room? previousRoom, bool? isMissionStarted = false, string? missionName = "")
     {
       switch (command?.Name)
       {
         case "look":
-          GameConsole.WriteLine(currentRoom?.LongDescription, bgColor: ConsoleColor.DarkYellow);
+          GameConsole.WriteLine(currentRoom?.LongDescription, fgColor: ConsoleColor.DarkYellow);
           return true;
 
         case "back":
@@ -34,24 +57,74 @@ namespace WorldOfZuul
             currentRoom = previousRoom;
           return true;
 
-        case "north":
-        case "south":
-        case "east":
-        case "west":
+        case "map on":
+          Map.ChangeMapVisibility(true); //set map visible
+
+          GameConsole.WriteLine("Map is now visible", font: FontTheme.Success);
+
+          GameConsole.WriteLine("Game tip: For better orientation look at the compass on the righthand side of the map.");
+
+          Map.ShowMap(Map.PositionX, Map.PositionY);
+          return true;
+
+        case "map off":
+          Map.ChangeMapVisibility(false); //hide map
+
+          GameConsole.WriteLine("Map is no longer visible", font: FontTheme.Danger);
+
+          return true;
+
+        case "north" when isMissionStarted == true:
+        case "south" when isMissionStarted == true:
+        case "east" when isMissionStarted == true:
+        case "west" when isMissionStarted == true:
+          Map.MoveOnMap(command.Name);
+          return true;
+
+        case "asia" when isMissionStarted == false:
+        case "africa" when isMissionStarted == false:
+        case "camp" when isMissionStarted == true && missionName == "africa":
           Move(command.Name, ref currentRoom, ref previousRoom);
           return true;
 
+        case "hub" when isMissionStarted == true:
+          return GetQuitConfirmation();
+
         case "help":
-          Messages.PrintHelp();
+          if (isMissionStarted == true)
+          {
+            Messages.PrintMissionHelp();
+          }
+          else
+          {
+            Messages.PrintHelp();
+          }
+          return true;
+
+        case "clear":
+          GameConsole.Clear();
           return true;
 
         case "quit":
-          return false;
+          return GetQuitConfirmation();
 
         default:
           Messages.PrintUnknownCommandMessage();
           return true;
       }
+    }
+
+    private static bool GetQuitConfirmation()
+    {
+      GameConsole.WriteLine("Are you sure you want quit playing? All progress will be lost!", font: FontTheme.Danger);
+
+      string? inputConfirmation1 = GameConsole.Input("Yes/No");
+      if (inputConfirmation1 == "yes" || inputConfirmation1 == "y")
+      {
+        LoadingAnimation.Loading("Quiting");
+        return false;
+      }
+      return true;
     }
   }
 }
