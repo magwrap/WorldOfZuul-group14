@@ -13,11 +13,11 @@ namespace WorldOfZuul
 
 
     public void CurrentlyInAsiaRoom(ref Room? currentRoom, ref Room? previousRoom)
-    {
+    { 
+      PrintIntroductionToTheRoom();
       previousRoom = null;
       while (continuePlaying)
       {
-        PrintIntroductionToTheRoom();
         Command? command = Game.AskForCommand();
         continuePlaying = Actions.DecideAction(ref command, ref currentRoom, ref previousRoom, true, "asia");
       }

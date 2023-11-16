@@ -19,12 +19,12 @@ namespace WorldOfZuul
         "Welcome to the World of Zuul!\nWorld of Zuul is a new, incredibly boring adventure game.",
         fgColor: ConsoleColor.Green
       );
-      PrintHelp();
+      
     }
     public static void PrintHelp()
     {
       GameConsole.WriteLine(
-        "\nNavigate by typing ['name of the room'].\nType 'look' for more details.\nType 'back' to go to the previous room.\nType 'help' to print this message again.\nType 'clear' to clear out the console\nType 'quit' to exit the game.",
+        "\nNavigate by typing 'chose mission'.\nType 'look' for more details.\nType 'back' to go to the previous room.\nType 'help' to print this message again.\nType 'clear' to clear out the console\nType 'quit' to exit the game.",
          font: FontTheme.Info
         );
     }
@@ -72,6 +72,39 @@ namespace WorldOfZuul
     public static void PrintShutdownMessage()
     {
       GameConsole.WriteLine("", delay: 75);
+    }
+
+    public static void PrintShowcaseOfMissions()
+    {
+      string asciiArt = 
+                  "    ,-----------------------------------,\n" +
+                  "    |  /-----------------------------\\  |\n" +
+                  "    | |                               | |\n" +
+                  "    | |                               | |\n" +
+                  "    | |    ,--',   _._.--._____       | |\n" +
+                  "    | | .--.--';_'-.', \";_      _.,-' | |\n" +
+                  "    | |.'--'.  _.'    {`'-;_ .-.>.'   | |\n" +
+                  "    | |      '-:_      )  / `' '=.    | |\n" +
+                  "    | |        ) >     {_/,     /~)   | |\n" +
+                  "    | |        |/               `^ .' | |\n" +
+                  "    |  \\_____________________________/  |\n" +
+                  "    |___________________________________|\n" +
+                  "    ,----\\_____     []     _______/-----,\n" +
+                  "  /         /______________\\           /|\n" +
+                  " /___________________________________ / | ___\n" +
+                  "|                                   |   |    )\n" +
+                  "|  _ _ _                 [-------]  |   |     (\n" +
+                  "|  o o o                 [-------]  |  /       _)_\n" +
+                  "|__________________________________ |/        /  /\n" +
+                  "  /-------------------------------------/|    ( )/\n" +
+                  " /-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /\n" +
+                  "/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /\n" +
+                  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+
+      for (int i = 0; i < asciiArt.Length; i++)
+      {
+        Console.Write(asciiArt[i]);
+      }
     }
   }
 }
