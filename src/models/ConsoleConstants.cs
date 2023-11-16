@@ -4,7 +4,8 @@ namespace WorldOfZuul
   {
     public const int Delay = 3; //default 10
     public const string Text = "";
-    public const bool Breakline = true;
+    public const bool WriteLineBreakline = true;
+    public const bool WriteBreakline = false;
     public const ConsoleColor BackgroundColor = ConsoleColor.Black;
     public const ConsoleColor ForegroundColor = ConsoleColor.Gray;
     public const bool ResetColor = true;
