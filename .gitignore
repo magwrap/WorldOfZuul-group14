@@ -3,6 +3,6 @@
 /test.sln
 /test.csproj
 /bin
-/obj/
-/obj
+/obj/*
+obj/*
 /WorldOfZuul.sln
