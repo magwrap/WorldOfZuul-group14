@@ -4,10 +4,13 @@
   {
     public string ShortDescription { get; private set; }
     public string LongDescription { get; private set; }
+
+    public Map roomMap;
     public Dictionary<string, Room> Exits { get; private set; } = new();
 
-    public Room(string? shortDesc, string? longDesc)
+    public Room(string? shortDesc, string? longDesc, Map? map = null)
     {
+      roomMap = map ?? new();
       ShortDescription = shortDesc ?? "No short desc";
       LongDescription = longDesc ?? "No long desc";
     }
