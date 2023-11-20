@@ -1,4 +1,5 @@
 using Microsoft.VisualBasic;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Windows.Input;
 namespace WorldOfZuul
@@ -59,6 +60,44 @@ namespace WorldOfZuul
           break;
         }
       }
+      if (resetColor) Console.ResetColor();
+      if (breakline) Console.WriteLine("");
+    }
+
+
+
+    /// <summary>
+    /// Console substitue function for displaying text in one line, with extra parans
+    /// </summary>
+    /// <param name="text">string you want to display</param>
+    /// <param name="breakline">should add the breakline at the end, default: true</param>
+    /// <param name="bgColor">what should be the background color</param>
+    /// <param name="fgColor">what is the color of the letters</param>
+    /// <param name="resetColor">should reset the color to the default one after dispalying the text, default: true</param>
+    /// <param name="paddingLeft">how big is the padding on the left of the string, default: 0</param>
+    /// <param name="font">font style(foreground color) of value of enum FontTheme</param>
+    public static void Write(
+      string text,
+      bool breakline = ConsoleConstants.WriteBreakline,
+      ConsoleColor bgColor = ConsoleConstants.BackgroundColor,
+      ConsoleColor fgColor = ConsoleConstants.ForegroundColor,
+      bool resetColor = ConsoleConstants.ResetColor,
+      int paddingLeft = ConsoleConstants.paddingLeft,
+      FontTheme? font = null
+    )
+    {
+      if (font != null && Enum.IsDefined(typeof(FontTheme), font))
+      {
+        Console.ForegroundColor = ConsoleConstants.Colors[(FontTheme)font];
+      }
+      else
+      {
+        Console.ForegroundColor = fgColor;
+      }
+      Console.BackgroundColor = bgColor;
+
+      Console.Write("".PadLeft(paddingLeft));
+      Console.Write(text);
       if (resetColor) Console.ResetColor();
       if (breakline) Console.WriteLine("");
     }
@@ -152,6 +191,58 @@ namespace WorldOfZuul
     public static ConsoleKeyInfo ReadKey()
     {
       return Console.ReadKey();
+    }
+
+    public static void MoveCursorUp(int val = 1)
+    {
+      try
+      {
+
+        Console.CursorTop -= val;
+      }
+      catch
+      {
+        GameConsole.WriteLine("Can't move cursor up!", font: FontTheme.Danger);
+      }
+    }
+
+    public static void MoveCursorDown(int val = 1)
+    {
+      try
+      {
+
+        Console.CursorTop += val;
+      }
+      catch
+      {
+        GameConsole.WriteLine("Can't move cursor down!", font: FontTheme.Danger);
+      }
+    }
+
+    public static void MoveCursorLeft(int val)
+    {
+      try
+      {
+
+        Console.CursorLeft -= val;
+      }
+      catch
+      {
+        GameConsole.WriteLine("Can't move cursor left!", font: FontTheme.Danger);
+      }
+    }
+
+    public static void MoveCursorRight(int val)
+    {
+      try
+      {
+
+        Console.CursorLeft += val;
+      }
+      catch
+      {
+        GameConsole.WriteLine("Can't move cursor right!", font: FontTheme.Danger);
+      }
     }
 
   }

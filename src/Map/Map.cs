@@ -30,6 +30,7 @@ namespace WorldOfZuul
 
     public static void MoveOnMap(string direction)
     {
+      //TODO: maybe in future add moving on the map using arrows, changing cursor position?
       int newPositionX = position_x;
       int newPositionY = position_y;
 
