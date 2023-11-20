@@ -10,21 +10,28 @@ Download node.js - https://nodejs.org/en/download
 ## BODY
 
 ### **description**
-What this game is about
+Game tickling one of the topics in SDG.
+Here we shine light on poaching, illegal animal trafficking and more.
 
 ### **rooms**
-What rooms are added
+There are four main spaces:
+- Asia
+- Africa
+- Europe
+- Pacific Ocean
+
+Inside of each there are different rooms with unique tasks
 
 ### **goal**
-lorem ipsum
+Make people more aware of the problems moved in the game
 
 ### **methodology** 
 lorem ipsum
 
 
 ### Made by group 14: 
-- name 1 
-- name 2
-- name 3
-- name 4
-- name 5
+- Jan Musiol,
+- Filip Fekete,
+- Joaquim Silva,
+- Bogdan Bucea,
+- Amin Rahali Achli
