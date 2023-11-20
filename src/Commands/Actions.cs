@@ -44,6 +44,8 @@ namespace WorldOfZuul
     /// <returns></returns>
     public static bool DecideAction(ref Command? command, ref Room? currentRoom, ref Room? previousRoom, bool? isMissionStarted = false, string? missionName = "")
     {
+      if (currentRoom == null) return false;
+
       switch (command?.Name)
       {
         case "look":
@@ -58,47 +60,53 @@ namespace WorldOfZuul
           return true;
 
         case "map on":
-          Map.ChangeMapVisibility(true); //set map visible
+          currentRoom?.roomMap.ChangeMapVisibility(true); //set map visible
 
           GameConsole.WriteLine("Map is now visible", font: FontTheme.Success);
 
           GameConsole.WriteLine("Game tip: For better orientation look at the compass on the righthand side of the map.");
 
-          Map.ShowMap(Map.PositionX, Map.PositionY);
+          currentRoom?.roomMap.ShowMap();
           return true;
 
         case "map off":
-          Map.ChangeMapVisibility(false); //hide map
+          currentRoom.roomMap.ChangeMapVisibility(false); //hide map
 
           GameConsole.WriteLine("Map is no longer visible", font: FontTheme.Danger);
 
           return true;
 
+        //there has to be cleaner way to write this
         case "north" when isMissionStarted == true:
         case "south" when isMissionStarted == true:
         case "east" when isMissionStarted == true:
         case "west" when isMissionStarted == true:
-          Map.MoveOnMap(command.Name);
+        case "n" when isMissionStarted == true:
+        case "s" when isMissionStarted == true:
+        case "w" when isMissionStarted == true:
+        case "e" when isMissionStarted == true:
+          currentRoom?.roomMap.MoveOnMap(command.Name);
           return true;
 
         case "chose mission" when isMissionStarted == false:
-          switch(Hub.SelectMission())
+          switch (Hub.SelectMission())
           {
-              case 0:
-                GameConsole.WriteLine("Move to Europe"); //for future europe room, doesnt do anything yet
-                break;
-              case 1:
-                Move("asia", ref currentRoom, ref previousRoom);
-                break;
-              case 2:
-                Move("africa", ref currentRoom, ref previousRoom);
-                break;
-              case 3:
-                GameConsole.WriteLine("Move to Pacific"); //for future pacific room, doesnt do anything yet
-                break;
-              default:
-                GameConsole.WriteLine("Invalid choice");
-                break;
+            case 0:
+              GameConsole.WriteLine("Move to Europe"); //for future europe room, doesnt do anything yet
+              break;
+            case 1:
+              Move("asia", ref currentRoom, ref previousRoom);
+              break;
+            case 2:
+              Move("africa", ref currentRoom, ref previousRoom);
+              break;
+            case 3:
+              GameConsole.WriteLine("Move to Pacific");
+              Move("pacific", ref currentRoom, ref previousRoom);
+              break;
+            default:
+              GameConsole.WriteLine("Invalid choice");
+              break;
 
           }
           return true;
@@ -146,7 +154,7 @@ namespace WorldOfZuul
         LoadingAnimation.Loading("Quiting");
         return false;
       }
-      else if(inputConfirmation1 != "no" && inputConfirmation1 != "n")
+      else if (inputConfirmation1 != "no" && inputConfirmation1 != "n")
       {
         return GetQuitConfirmation();
       }

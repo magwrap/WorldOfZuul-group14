@@ -193,6 +193,9 @@ namespace WorldOfZuul
       return Console.ReadKey();
     }
 
+    //More cursor movement info:
+    //https://learn.microsoft.com/en-us/windows/console/console-virtual-terminal-sequences
+
     public static void MoveCursorUp(int val = 1)
     {
       try
