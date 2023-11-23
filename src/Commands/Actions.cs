@@ -64,7 +64,7 @@ namespace WorldOfZuul
 
           GameConsole.WriteLine("Map is now visible", font: FontTheme.Success);
 
-          GameConsole.WriteLine("Game tip: For better orientation look at the compass on the righthand side of the map.");
+          GameConsole.WriteLine("Game tip: For better orientation look at the compass on the righthand side of the map, to move faster you can also type 'n', 'e', 's', 'w'.", font: FontTheme.GameTip);
 
           currentRoom?.roomMap.ShowMap();
           return true;
@@ -89,6 +89,7 @@ namespace WorldOfZuul
           return true;
 
         case "chose mission" when isMissionStarted == false:
+          GameConsole.Clear();
           switch (Hub.SelectMission())
           {
             case 0:

@@ -13,7 +13,9 @@ namespace WorldOfZuul
 
 
     public void CurrentlyInAsiaRoom(ref Room? currentRoom, ref Room? previousRoom)
-    { 
+    {  
+      LoadingAnimation.Loading("Mission Loading");
+      GameConsole.Clear();
       PrintIntroductionToTheRoom();
       previousRoom = null;
       while (continuePlaying)

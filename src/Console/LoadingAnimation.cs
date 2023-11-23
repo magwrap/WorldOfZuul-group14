@@ -12,11 +12,11 @@ class LoadingAnimation
       for (int j = 0; j < 3; j++)
       {
         Console.Write(".");
-        Thread.Sleep(100); // Adjust the delay as needed (500 milliseconds = half a second)
+        Thread.Sleep(400); // Adjust the delay as needed (500 milliseconds = half a second)
       }
 
       Console.Write("\b\b\b   \b\b\b"); // Clear the three dots
-      Thread.Sleep(500); // Wait before the next iterationc
+      Thread.Sleep(400); // Wait before the next iterationc
 
     }
     Console.Clear();

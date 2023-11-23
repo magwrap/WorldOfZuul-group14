@@ -10,7 +10,7 @@ namespace WorldOfZuul
     private readonly int heightOfMap;
     private readonly int widthOfMap;
 
-    public Map(int height = 11, int width = 42)
+    public Map(int height = 10, int width = 42)
     {
       heightOfMap = height;
       widthOfMap = width;
@@ -93,7 +93,7 @@ namespace WorldOfZuul
 
       //from 1 to 39 //movement of the player W/E
       //from 1 to 9 // movement of the plyer N/S
-      int rows = heightOfMap; //size of the map rows N/S
+      int rows = heightOfMap + 1; //size of the map rows N/S, added +1 to avoid the bug of going out of the map :)
       int columns = widthOfMap; //size of the map columns W/E
       Console.WriteLine($"x: {rows}, y: {columns}");
       for (int i = 0; i <= rows; i++)
