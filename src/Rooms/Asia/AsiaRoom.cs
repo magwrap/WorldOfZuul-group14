@@ -8,6 +8,17 @@ namespace WorldOfZuul
 
     static NPC parkRanger = new("Park Ranger");
 
+    private static bool AsiaMission { get; set; }
+
+    public void InProccess(bool isInProcess)
+    {
+      AsiaMission = isInProcess;
+    }
+    public static bool OngoingMission()
+    {
+      return AsiaMission;
+    }
+
     public AsiaRoom(string shortDesc, string longDesc) : base(shortDesc, longDesc)
     {
 
@@ -18,8 +29,11 @@ namespace WorldOfZuul
       LoadingAnimation.Loading("Mission Loading");
       GameConsole.Clear();
 
+      InProccess(true);
+
       PrintIntroductionToTheRoom();
       previousRoom = null;
+
       while (continuePlaying)
       {
         Command? command = Game.AskForCommand();

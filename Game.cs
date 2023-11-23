@@ -93,7 +93,6 @@ namespace WorldOfZuul
         {
           case var room when currentRoom.Equals(Asia):
 
-            // LoadingAnimation.Loading("Loading");
             Asia.CurrentlyInAsiaRoom(ref currentRoom, ref previousRoom);
             GameConsole.WriteLine("Welcome back to the hub", font: FontTheme.Success);
             break;

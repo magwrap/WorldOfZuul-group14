@@ -10,7 +10,7 @@ namespace WorldOfZuul
     private readonly int heightOfMap;
     private readonly int widthOfMap;
 
-    public Map(int height = 10, int width = 42)
+    public Map(int height = 10, int width = 32)
     {
       heightOfMap = height;
       widthOfMap = width;
@@ -61,15 +61,22 @@ namespace WorldOfZuul
           break;
       }
 
+      bool isOccupied = IsCoordinateOccupied(newPositionX, newPositionY, out MapObject? occupyingObject);
+
       if (BoundsOfTheMap(newPositionX, newPositionY))
-      {
+      { 
         position_x = newPositionX;
         position_y = newPositionY;
         if (MapVisibility) // Check if the map is visible before showing it
         {
           ShowMap();
         }
-
+        if (isOccupied)
+        {
+          occupyingObject?.DisplayOccupiedMessage(); // Display the occupied message if any
+          Console.WriteLine("DisplayOccupiedMessage called");
+        }
+       
       }
       else
       {
@@ -90,8 +97,18 @@ namespace WorldOfZuul
 
     public void ShowMap()
     {
+      if (AsiaRoom.OngoingMission())
+      { //from 2 to 29 for the first coordinate 
+        //from 2 to 9 for the second coordinate
+        // Create MapObjects
+        MapObject council = new(5, 4, "^", "You have entered the building"); //When creating an map object, j has to be always uneven because horizontaly the player always moves two places
+        // Add MapObjects to the map
+        AddMapObject(5, 4, council); //First coordinate always uneven!
 
-      //from 1 to 39 //movement of the player W/E
+        MapObject poachers = new(11, 6, "X", "You intercepted poachers");
+        AddMapObject(11, 6, poachers);
+      }
+      //from 1 to 29 //movement of the player W/E
       //from 1 to 9 // movement of the plyer N/S
       int rows = heightOfMap + 1; //size of the map rows N/S, added +1 to avoid the bug of going out of the map :)
       int columns = widthOfMap; //size of the map columns W/E
@@ -119,11 +136,12 @@ namespace WorldOfZuul
             };
             Console.Write(mapLabel);
           }
-          else if(j == 5 && i == 4)
-          { 
-            Console.Write("^"); //when creating an map object, j has to be always uneven because horizontaly the player always moves two places
 
+          else if (IsCoordinateOccupied(j, i, out MapObject? occupyingObject))
+          {
+            occupyingObject?.DisplayMapObject();//check for the objects and display them 
           }
+
           else if (position_x == j && position_y == i)
           {
             Console.Write(Game.Initials);
@@ -137,8 +155,33 @@ namespace WorldOfZuul
         }
         Console.WriteLine();
       }
-      if (position_x == 5 && position_y == 4)
-        Console.WriteLine("You have entered a house");
+
+    }
+
+    private readonly Dictionary<(int, int), MapObject> mapObjects = new Dictionary<(int, int), MapObject>();
+
+    public void AddMapObject(int x, int y, MapObject mapObject)
+    {
+      mapObjects[(x, y)] = mapObject;
+    }
+
+    public void RemoveMapObject(int x, int y)
+    {
+      if (mapObjects.ContainsKey((x, y)))
+      {
+        mapObjects.Remove((x, y));
+      }
+    }
+
+    public bool IsCoordinateOccupied(int x, int y, out MapObject? occupyingObject)
+    {
+      if (mapObjects.TryGetValue((x, y), out occupyingObject))
+      {
+        return true;
+      }
+
+      occupyingObject = null;
+      return false;
     }
   }
 }
