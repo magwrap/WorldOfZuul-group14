@@ -10,15 +10,6 @@ namespace WorldOfZuul
       string initialText = "Select a mission:";
       bool loop = true;
       GameConsole.Clear();
-      
-      // for (int i = 0; i < options.Length; i++)
-      // {
-      //   GameConsole.WriteLine(
-      //     $"{(i == selectedOption ? ">" : " ")} {options[i]}",
-      //     fgColor: i == 0 ? ConsoleColor.White : ConsoleColor.Gray
-      //   );
-      // }
-      //GameConsole.MoveCursorUp(options.Length);
 
       while (loop)
       {
@@ -30,8 +21,8 @@ namespace WorldOfZuul
         {
             if (i == selectedOption)
             {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.BackgroundColor = ConsoleColor.White;
             }
             else
             {
@@ -49,22 +40,6 @@ namespace WorldOfZuul
 
         switch (key)
         {
-          // case ConsoleKey.UpArrow when selectedOption > 0:
-          //   GameConsole.Write($"\r {options[selectedOption]}                  ", fgColor: ConsoleColor.Gray);
-          //   GameConsole.MoveCursorUp();
-          //   selectedOption = Math.Max(0, selectedOption - 1);
-          //   GameConsole.Write($"\r>  {options[selectedOption]}", fgColor: ConsoleColor.Blue);
-
-          //   break;
-
-          // case ConsoleKey.DownArrow when selectedOption < options.Length - 1:
-          //   GameConsole.Write($"\r {options[selectedOption]}                  ", fgColor: ConsoleColor.Gray);
-          //   GameConsole.MoveCursorDown();
-          //   selectedOption = Math.Min(options.Length - 1, selectedOption + 1);
-          //   GameConsole.Write($"\r>  {options[selectedOption]}", fgColor: ConsoleColor.Blue);
-
-          //   break;
-
           case ConsoleKey.UpArrow:
             selectedOption = (selectedOption - 1 + options.Length) % options.Length;
             break;

@@ -19,7 +19,8 @@ namespace WorldOfZuul
       [FontTheme.NewItem] = ConsoleColor.DarkYellow,
       [FontTheme.HighligtedText] = ConsoleColor.Blue,
       [FontTheme.Info] = ConsoleColor.DarkMagenta,
-      [FontTheme.GameTip] = ConsoleColor.Yellow
+      [FontTheme.GameTip] = ConsoleColor.Yellow,
+      [FontTheme.NPC] = ConsoleColor.Magenta
 
     };
 

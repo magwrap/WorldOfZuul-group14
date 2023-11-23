@@ -96,9 +96,9 @@ namespace WorldOfZuul
       int rows = heightOfMap + 1; //size of the map rows N/S, added +1 to avoid the bug of going out of the map :)
       int columns = widthOfMap; //size of the map columns W/E
       Console.WriteLine($"x: {rows}, y: {columns}");
-      for (int i = 0; i <= rows; i++)
+      for (int i = 0; i <= rows; i++) //int i are for x coordinates  
       {
-        for (int j = 0; j <= columns; j++)
+        for (int j = 0; j <= columns; j++) //int j are for y coordinates 
         {
           if (i == 0 || i == rows)
           {
@@ -119,6 +119,11 @@ namespace WorldOfZuul
             };
             Console.Write(mapLabel);
           }
+          else if(j == 5 && i == 4)
+          { 
+            Console.Write("^"); //when creating an map object, j has to be always uneven because horizontaly the player always moves two places
+
+          }
           else if (position_x == j && position_y == i)
           {
             Console.Write(Game.Initials);
@@ -132,6 +137,8 @@ namespace WorldOfZuul
         }
         Console.WriteLine();
       }
+      if (position_x == 5 && position_y == 4)
+        Console.WriteLine("You have entered a house");
     }
   }
 }

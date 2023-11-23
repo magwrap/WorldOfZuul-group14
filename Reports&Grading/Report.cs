@@ -1,0 +1,8 @@
+namespace WorldOfZuul
+{
+    class Report
+    {
+
+        
+    }
+}

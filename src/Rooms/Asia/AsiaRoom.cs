@@ -6,16 +6,18 @@ namespace WorldOfZuul
 
     public static string? Inicials { get; set; }
 
+    static NPC parkRanger = new("Park Ranger");
+
     public AsiaRoom(string shortDesc, string longDesc) : base(shortDesc, longDesc)
     {
 
     }
 
-
     public void CurrentlyInAsiaRoom(ref Room? currentRoom, ref Room? previousRoom)
-    {  
+    {
       LoadingAnimation.Loading("Mission Loading");
       GameConsole.Clear();
+
       PrintIntroductionToTheRoom();
       previousRoom = null;
       while (continuePlaying)
@@ -26,11 +28,8 @@ namespace WorldOfZuul
     }
     public static void PrintIntroductionToTheRoom()
     {
-      GameConsole.WriteLine("Park Ranger: Poaching across Asia is reaching critical levels, driven by an unrelenting demand for illegal wildlife products.");
-      GameConsole.WriteLine("I am be here to guide you through the brief introduction into the quest, the rest falls upon your individual choices.");
-      GameConsole.WriteLine("Hope you are up for the task, the poachers around here are relentless!");
+      parkRanger.Speak("Poaching across Asia is reaching critical levels, driven by an unrelenting demand for illegal wildlife products.\nI am be here to guide you through the brief introduction into the quest, the rest falls upon your individual choices. \nHope you are up for the task, the poachers around here are relentless!");
     }
-
 
   }
 }
