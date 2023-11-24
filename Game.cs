@@ -1,4 +1,5 @@
 ﻿using WorldOfZuul.Africa;
+using WorldOfZuul.src;
 
 namespace WorldOfZuul
 {
@@ -58,6 +59,9 @@ namespace WorldOfZuul
     /// <exception cref="Exception">returns error if currentRoom is empty</exception>
     public void Play()
     {
+      //initialize the reputation system
+      Reputation.Initialize();
+
 
       //Print Welcome
       Console.ForegroundColor = ConsoleColor.Black;
