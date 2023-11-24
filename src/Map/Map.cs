@@ -9,11 +9,14 @@ namespace WorldOfZuul
     private bool mapVisible = false;
     private readonly int heightOfMap;
     private readonly int widthOfMap;
+    private Dictionary<(int, int), MapObject> mapObjects = new Dictionary<(int, int), MapObject>();
 
     public Map(int height = 10, int width = 32)
     {
       heightOfMap = height;
       widthOfMap = width;
+
+      InitializeObjects();
     }
 
     public bool MapVisibility
@@ -64,19 +67,31 @@ namespace WorldOfZuul
       bool isOccupied = IsCoordinateOccupied(newPositionX, newPositionY, out MapObject? occupyingObject);
 
       if (BoundsOfTheMap(newPositionX, newPositionY))
-      { 
+      {
         position_x = newPositionX;
         position_y = newPositionY;
+
         if (MapVisibility) // Check if the map is visible before showing it
         {
           ShowMap();
         }
+
         if (isOccupied)
         {
           occupyingObject?.DisplayOccupiedMessage(); // Display the occupied message if any
-          Console.WriteLine("DisplayOccupiedMessage called");
+          //Console.WriteLine("DisplayOccupiedMessage called");
+          if (occupyingObject?.Quest != null)
+          {
+            occupyingObject.Quest.CompleteCurrentQuest();
+
+            // Remove the map object associated with the completed quest
+            // if(occupyingObject.RemoveAfterCompletition())
+            //   RemoveMapObject(newPositionX, newPositionY);
+            //   System.Console.WriteLine("I got here");
+          }
+
         }
-       
+
       }
       else
       {
@@ -95,19 +110,39 @@ namespace WorldOfZuul
       return true;
     }
 
+    private void InitializeObjects()
+    {
+      if (AsiaRoom.AsiaMission)
+      {
+        Console.WriteLine("Initializing objects...");
+
+        Quest interceptPoachers = new Quest("Intercept Poachers", "Stop the poachers from brutally murdering your mama");
+        Quest enterBuilding = new Quest("Enter the Building", "Enter the council building");
+
+        interceptPoachers.AddQuest();
+        enterBuilding.AddQuest();
+
+        interceptPoachers.AddPrerequisite(enterBuilding);
+
+        // Create MapObjects
+        MapObject council = new(5, 4, "^", false, "You have entered the building", enterBuilding);
+        // Add MapObjects to the map
+        AddMapObject(5, 4, council); // First coordinate always uneven!
+
+        MapObject poachers = new(11, 6, "X", true, "You intercepted poachers", interceptPoachers);
+        AddMapObject(11, 6, poachers);
+
+        foreach (var item in mapObjects)
+        {
+          Console.WriteLine($"Object at ({item.Key.Item1}, {item.Key.Item2}): {item.Value}");
+        }
+      }
+    }
+
+
+
     public void ShowMap()
     {
-      if (AsiaRoom.OngoingMission())
-      { //from 2 to 29 for the first coordinate 
-        //from 2 to 9 for the second coordinate
-        // Create MapObjects
-        MapObject council = new(5, 4, "^", "You have entered the building"); //When creating an map object, j has to be always uneven because horizontaly the player always moves two places
-        // Add MapObjects to the map
-        AddMapObject(5, 4, council); //First coordinate always uneven!
-
-        MapObject poachers = new(11, 6, "X", "You intercepted poachers");
-        AddMapObject(11, 6, poachers);
-      }
       //from 1 to 29 //movement of the player W/E
       //from 1 to 9 // movement of the plyer N/S
       int rows = heightOfMap + 1; //size of the map rows N/S, added +1 to avoid the bug of going out of the map :)
@@ -157,8 +192,6 @@ namespace WorldOfZuul
       }
 
     }
-
-    private readonly Dictionary<(int, int), MapObject> mapObjects = new Dictionary<(int, int), MapObject>();
 
     public void AddMapObject(int x, int y, MapObject mapObject)
     {

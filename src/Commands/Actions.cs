@@ -96,6 +96,7 @@ namespace WorldOfZuul
               GameConsole.WriteLine("Move to Europe"); //for future europe room, doesnt do anything yet
               break;
             case 1:
+              AsiaRoom.AsiaMission = true;
               Move("asia", ref currentRoom, ref previousRoom);
               break;
             case 2:
