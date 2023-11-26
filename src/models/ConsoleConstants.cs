@@ -20,7 +20,8 @@ namespace WorldOfZuul
       [FontTheme.HighligtedText] = ConsoleColor.Blue,
       [FontTheme.Info] = ConsoleColor.DarkMagenta,
       [FontTheme.GameTip] = ConsoleColor.Yellow,
-      [FontTheme.NPC] = ConsoleColor.Magenta
+      [FontTheme.NPC] = ConsoleColor.Magenta,
+      [FontTheme.Player] = ConsoleColor.Green,
 
     };
 
@@ -39,7 +40,8 @@ namespace WorldOfZuul
     HighligtedText,
     NPC,
     Info,
-    GameTip
+    GameTip,
+    Player
 
   }
 }

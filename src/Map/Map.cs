@@ -1,6 +1,4 @@
-using System.Text;
 using WorldOfZuul;
-using WorldOfZuul.src.Map;
 
 namespace WorldOfZuul
 {
@@ -11,11 +9,8 @@ namespace WorldOfZuul
     private bool mapVisible = true;
     private readonly int heightOfMap;
     private readonly int widthOfMap;
-    private Dictionary<(int, int), MapObject> mapObjects = new Dictionary<(int, int), MapObject>();
-    private readonly List<List<string>> map = new();
-    public delegate void MapObjectAction();
-    private static readonly (string npc, string item, string enemy) mapMarkers = ("?", "$", "!");
-    private (int row, int col, MapObjectsEnum typeOfObject, MapObjectAction? action)[]? mapObjects = null;
+    private Dictionary<(int X, int Y), MapObject> mapObjects = new Dictionary<(int, int), MapObject>();
+
     public Map(
       int height = 10,
       int width = 32
@@ -23,50 +18,6 @@ namespace WorldOfZuul
     {
       heightOfMap = height;
       widthOfMap = width;
-
-      InitializeObjects();
-      BuildMap();
-    }
-
-    public void BuildMap()
-    {
-      int rows = heightOfMap; //size of the map rows N/S
-      int columns = widthOfMap; //size of the map columns W/E
-
-      for (int i = 0; i <= rows; i++)
-      {
-        map.Add(new List<string> { });
-
-        for (int j = 0; j <= columns; j++)
-        {
-          if (i == 0 || i == rows)
-          {
-            map[i].Add("-");
-          }
-          else if (j == columns)
-          {
-            string mapLabel = i switch
-            {
-              1 => "]    {N}",
-              2 => "] <{W}:{E}>",
-              3 => "]    {S}",
-              _ => "]"
-            };
-            map[i].Add(mapLabel);
-          }
-          else if (j == 0)
-          {
-
-            map[i].Add("[");
-          }
-          else
-          {
-            map[i].Add(" ");
-          }
-        }
-      }
-
-      map[position_y][position_x] = Game.Initials ?? "X";
     }
 
     public bool MapVisibility
@@ -91,6 +42,8 @@ namespace WorldOfZuul
 
     public void MoveOnMap(string direction)
     {
+      //TODO: add moving a few fields at once for example: south 5, moves you 5 fields down
+
       int newPositionX = position_x;
       int newPositionY = position_y;
 
@@ -114,19 +67,15 @@ namespace WorldOfZuul
           break;
       }
 
+      GameConsole.WriteLine($"Player pos: {newPositionX} {newPositionY}");
+
       bool isOccupied = IsCoordinateOccupied(newPositionX, newPositionY, out MapObject? occupyingObject);
 
       if (BoundsOfTheMap(newPositionX, newPositionY))
       {
-        //remove player from the map
-        map[position_y][position_x] = " ";
-
         //move player
         position_x = newPositionX;
         position_y = newPositionY;
-
-        //put the player on the map
-        map[position_y][position_x] = Game.Initials ?? "X";
 
         if (MapVisibility) // Check if the map is visible before showing it
         {
@@ -136,7 +85,8 @@ namespace WorldOfZuul
         if (isOccupied)
         {
           occupyingObject?.DisplayOccupiedMessage(); // Display the occupied message if any
-          //Console.WriteLine("DisplayOccupiedMessage called");
+                                                     //GameConsole.WriteLine("DisplayOccupiedMessage called");
+
           if (occupyingObject?.Quest != null)
           {
             occupyingObject.Quest.CompleteCurrentQuest();
@@ -144,11 +94,9 @@ namespace WorldOfZuul
             // Remove the map object associated with the completed quest
             // if(occupyingObject.RemoveAfterCompletition())
             //   RemoveMapObject(newPositionX, newPositionY);
-            //   System.Console.WriteLine("I got here");
+            //   System.GameConsole.WriteLine("I got here");
           }
-
         }
-
       }
       else
       {
@@ -164,101 +112,109 @@ namespace WorldOfZuul
         return false;
       }
 
-      //checks if the field you want to move to is not a mapObject
-      string field = map[y][x];
-      if (field == mapMarkers.npc || field == mapMarkers.item || field == mapMarkers.enemy)
-      {
-        //if player tries to walk 'into' the object he automatically dispatches this objects action
-
-        for (int i = 0; i < mapObjects?.Length; i++)
-        {
-          //if the field indeed is a mapObject then it invokes it's action and doesn't let player to move there
-          if (mapObjects[i].row == y && mapObjects[i].col == x)
-          {
-            mapObjects[i].action?.Invoke();
-          }
-        }
-
-        return false;
-      }
-
       return true;
     }
 
-    private void InitializeObjects()
+    /// <summary>
+    /// Function displaying room map
+    /// </summary>
+    public void ShowMap()
     {
-      if (AsiaRoom.AsiaMission)
+      int rows = heightOfMap + 1; //size of the map rows N/S, added +1 to avoid the bug of going out of the map :)
+      int columns = widthOfMap; //size of the map columns W/E
+      GameConsole.WriteLine($"x: {rows}, y: {columns}");
+
+      for (int i = 0; i <= rows; i++) //int i are for x coordinates  
       {
-        Console.WriteLine("Initializing objects...");
-
-        Quest interceptPoachers = new Quest("Intercept Poachers", "Stop the poachers from brutally murdering your mama");
-        Quest enterBuilding = new Quest("Enter the Building", "Enter the council building");
-
-        interceptPoachers.AddQuest();
-        enterBuilding.AddQuest();
-
-        interceptPoachers.AddPrerequisite(enterBuilding);
-
-        // Create MapObjects
-        MapObject council = new(5, 4, "^", false, "You have entered the building", enterBuilding);
-        // Add MapObjects to the map
-        AddMapObject(5, 4, council); // First coordinate always uneven!
-
-        MapObject poachers = new(11, 6, "X", true, "You intercepted poachers", interceptPoachers);
-        AddMapObject(11, 6, poachers);
-
-        foreach (var item in mapObjects)
+        for (int j = 0; j <= columns; j++) //int j are for y coordinates 
         {
-          Console.WriteLine($"Object at ({item.Key.Item1}, {item.Key.Item2}): {item.Value}");
+          DecideWhatCharacterToWrite(i, j);
         }
+        GameConsole.WriteLine();
       }
     }
 
+    /// <summary>
+    /// Function that decides which character it has to write onto the map
+    /// </summary>
+    /// <param name="i">y coordinate of map</param>
+    /// <param name="j">x coordinate of map</param>
+    private void DecideWhatCharacterToWrite(int i, int j)
+    {
+      bool isCoordinateOccupiedByPlayer = position_x == j && position_y == i;
+
+      if (i == 0 || i == heightOfMap + 1)
+      {
+        GameConsole.Write("-");
+      }
+      else if (j == 0)
+      {
+        GameConsole.Write("[");
+      }
+      else if (j == widthOfMap)
+      {
+        string mapLabel = i switch
+        {
+          1 => "]    {N}",
+          2 => "] <{W}:{E}>",
+          3 => "]    {S}",
+          _ => "]"
+        };
+        GameConsole.Write(mapLabel);
+      }
+
+      else if (IsCoordinateOccupied(j, i, out MapObject? occupyingObject))
+      {
+        occupyingObject?.DisplayMapObject(isCoordinateOccupiedByPlayer);
+      }
+
+      else if (isCoordinateOccupiedByPlayer)
+      {
+        GameConsole.Write(Game.Initials, font: FontTheme.Player);
+        //inicials taken from the playes name at the beggining of the game, 
+        //players initials are shown on the map
+      }
+      else
+      {
+        GameConsole.Write(" ");
+      }
+    }
 
 
     /// <summary>
     /// This function takes an array of mapObjects and adds them onto the map
     /// </summary>
     /// <param name="objects">
-    /// array of values: row, columnt, typeOfObject(NPC, ITEM), and optional action you want to be dispatched when player interacts with the object
+    /// array of MapObjects you want to add onto the map
     /// </param>
-    public void PopulateMap((int row, int col, MapObjectsEnum typeOfObject, MapObjectAction? action)[] objects)
+    /// 
+    public void PopulateMap(MapObject[] objects)
     {
-      mapObjects = objects;
-
-      foreach (var (row, col, typeOfObject, action) in mapObjects)
+      foreach (var mapObject in objects)
       {
-        map[row][col] = typeOfObject switch
-        {
-          MapObjectsEnum.NPC => mapMarkers.npc,
-          MapObjectsEnum.ITEM => mapMarkers.item,
-          MapObjectsEnum.ENEMY => mapMarkers.enemy,
-          _ => "",
-        };
+        AddMapObject(mapObject);
+      }
+
+      foreach (var item in mapObjects)
+      {
+        GameConsole.WriteLine($"Object at ({item.Key.X}, {item.Key.Y}): {item.Value}");
       }
     }
 
-    public void ShowMap()
+    /// <summary>
+    /// Function for adding one map object onto the map
+    /// </summary>
+    /// <param name="mapObject">Pass MapObject with set x and y coordinates</param>
+    public void AddMapObject(MapObject mapObject)
     {
-      int rows = heightOfMap; //size of the map rows N/S
-      int columns = widthOfMap; //size of the map columns W/E
-      for (int i = 0; i <= rows; i++)
-      {
-        for (int j = 0; j <= columns; j++) //int j are for y coordinates 
-        {
-          Console.Write(map[i][j]);
-        }
-
-        Console.WriteLine();
-      }
-
+      mapObjects[(mapObject.MapCordX, mapObject.MapCordY)] = mapObject;
     }
 
-    public void AddMapObject(int x, int y, MapObject mapObject)
-    {
-      mapObjects[(x, y)] = mapObject;
-    }
-
+    /// <summary>
+    /// Function for removing object at coordinates x and y
+    /// </summary>
+    /// <param name="x"> x coordinate of a map object</param>
+    /// <param name="y">y coordinate of a map object</param>
     public void RemoveMapObject(int x, int y)
     {
       if (mapObjects.ContainsKey((x, y)))
@@ -267,6 +223,13 @@ namespace WorldOfZuul
       }
     }
 
+    /// <summary>
+    /// Function checking if on current coordinate exists an object
+    /// </summary>
+    /// <param name="x">x coordinate to check</param>
+    /// <param name="y">y coordinate to chck</param>
+    /// <param name="occupyingObject">function writes passed object if coordinate is occupied</param>
+    /// <returns>return bool wheter map object exists on passed coordinate or not</returns>
     public bool IsCoordinateOccupied(int x, int y, out MapObject? occupyingObject)
     {
       if (mapObjects.TryGetValue((x, y), out occupyingObject))

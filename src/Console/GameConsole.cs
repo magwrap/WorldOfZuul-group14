@@ -77,7 +77,7 @@ namespace WorldOfZuul
     /// <param name="paddingLeft">how big is the padding on the left of the string, default: 0</param>
     /// <param name="font">font style(foreground color) of value of enum FontTheme</param>
     public static void Write(
-      string text,
+      string? text,
       bool breakline = ConsoleConstants.WriteBreakline,
       ConsoleColor bgColor = ConsoleConstants.BackgroundColor,
       ConsoleColor fgColor = ConsoleConstants.ForegroundColor,

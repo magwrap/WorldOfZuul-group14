@@ -1,53 +1,80 @@
+using System.Diagnostics.Contracts;
+using WorldOfZuul;
+
 namespace WorldOfZuul
 {
-    public class MapObject
+  public class MapObject
+  {
+    public int MapCordX { get; set; }
+    public int MapCordY { get; set; }
+    private MapObjectsEnum? MapObjectType { get; set; }
+    private string? OccupiedMessage { get; set; }
+    public Quest? Quest { get; set; }
+    private bool IsRemovable { get; set; }
+
+    private static readonly Dictionary<MapObjectsEnum, string> MapMarkers = new()
     {
-        private int MapCordX { get; set; }
-        private int MapCordY { get; set; }
-        private string? MapCharacter { get; set; }
-        private string? OccupiedMessage { get; set; }
-        public Quest? Quest { get; set; }
-        private bool IsRemovable { get; set; }
+      [MapObjectsEnum.NPC] = "#",
+      [MapObjectsEnum.ENEMY] = "X",
+      [MapObjectsEnum.PLACE] = "^",
+      [MapObjectsEnum.ITEM] = "!",
+    };
 
-        public MapObject(int mapCordX, int mapCordY, string? mapCharacter, bool isRemovable, string? occupiedMessage = null, Quest? quest = null)
-        {
-            this.MapCordX = mapCordX;
-            this.MapCordY = mapCordY;
-            this.MapCharacter = mapCharacter;
-            this.OccupiedMessage = occupiedMessage;
-            this.Quest = quest;
-            this.IsRemovable = isRemovable;
+    private static readonly Dictionary<MapObjectsEnum, FontTheme> MapObjectFonts = new()
+    {
+      [MapObjectsEnum.NPC] = FontTheme.NPC,
+      [MapObjectsEnum.ENEMY] = FontTheme.Danger,
+      [MapObjectsEnum.PLACE] = FontTheme.HighligtedText,
+      [MapObjectsEnum.ITEM] = FontTheme.NewItem,
+    };
 
-        }
+    public MapObject(int mapCordX, int mapCordY, MapObjectsEnum? mapObjectType, bool isRemovable, string? occupiedMessage = null, Quest? quest = null)
+    {
 
-        public void DisplayMapObject()
-        {
-            Console.Write(MapCharacter);
-        }
+      // X has to be odd number bcs. user moves 2 fields at the time
+      if (mapCordX % 2 == 0) throw new ArgumentException("mapCordX has to be an odd number!");
 
-        public void DisplayOccupiedMessage()
-        {
-            if (!string.IsNullOrEmpty(OccupiedMessage))
-            {
-                Console.WriteLine(OccupiedMessage);
-            }
-            // if (Quest != null)
-            // {
-            //     if (Quest.ArePrerequisitesMet())
-            //     {
-            //         Quest.MarkCompleted();
-            //         Console.WriteLine("Quest Information: " + Quest.Title);
-            //     }
-            //     else
-            //     {
-            //         Console.WriteLine("Cannot complete the quest. Prerequisites not met.");
-            //     }
-            // }
-        }
-        
-        public bool RemoveAfterCompletition()
-        {
-            return IsRemovable;
-        }
+      this.MapCordX = mapCordX;
+      this.MapCordY = mapCordY;
+      this.MapObjectType = mapObjectType;
+      this.OccupiedMessage = occupiedMessage;
+      this.Quest = quest;
+      this.IsRemovable = isRemovable;
+
     }
+
+    public void DisplayMapObject(bool isPlayerOcuppyingField = false)
+    {
+      if (MapObjectType != null)
+        GameConsole.Write(
+          MapMarkers[(MapObjectsEnum)MapObjectType],
+          font: isPlayerOcuppyingField ? FontTheme.Player : MapObjectFonts[(MapObjectsEnum)MapObjectType]
+        );
+    }
+
+    public void DisplayOccupiedMessage()
+    {
+      if (!string.IsNullOrEmpty(OccupiedMessage))
+      {
+        Console.WriteLine(OccupiedMessage);
+      }
+      if (Quest != null)
+      {
+        if (Quest.ArePrerequisitesMet())
+        {
+          Quest.MarkCompleted();
+          Console.WriteLine("Quest Information: " + Quest.Title);
+        }
+        else
+        {
+          Console.WriteLine("Cannot complete the quest. Prerequisites not met.");
+        }
+      }
+    }
+
+    public bool RemoveAfterCompletition()
+    {
+      return IsRemovable;
+    }
+  }
 }
