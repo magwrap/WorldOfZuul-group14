@@ -1,22 +1,72 @@
 using System.Text;
 using WorldOfZuul;
+using WorldOfZuul.src.Map;
+
 namespace WorldOfZuul
 {
   public class Map
   {
     private int position_x = 1;
     private int position_y = 1;
-    private bool mapVisible = false;
+    private bool mapVisible = true;
     private readonly int heightOfMap;
     private readonly int widthOfMap;
     private Dictionary<(int, int), MapObject> mapObjects = new Dictionary<(int, int), MapObject>();
-
-    public Map(int height = 10, int width = 32)
+    private readonly List<List<string>> map = new();
+    public delegate void MapObjectAction();
+    private static readonly (string npc, string item, string enemy) mapMarkers = ("?", "$", "!");
+    private (int row, int col, MapObjectsEnum typeOfObject, MapObjectAction? action)[]? mapObjects = null;
+    public Map(
+      int height = 10,
+      int width = 32
+    )
     {
       heightOfMap = height;
       widthOfMap = width;
 
       InitializeObjects();
+      BuildMap();
+    }
+
+    public void BuildMap()
+    {
+      int rows = heightOfMap; //size of the map rows N/S
+      int columns = widthOfMap; //size of the map columns W/E
+
+      for (int i = 0; i <= rows; i++)
+      {
+        map.Add(new List<string> { });
+
+        for (int j = 0; j <= columns; j++)
+        {
+          if (i == 0 || i == rows)
+          {
+            map[i].Add("-");
+          }
+          else if (j == columns)
+          {
+            string mapLabel = i switch
+            {
+              1 => "]    {N}",
+              2 => "] <{W}:{E}>",
+              3 => "]    {S}",
+              _ => "]"
+            };
+            map[i].Add(mapLabel);
+          }
+          else if (j == 0)
+          {
+
+            map[i].Add("[");
+          }
+          else
+          {
+            map[i].Add(" ");
+          }
+        }
+      }
+
+      map[position_y][position_x] = Game.Initials ?? "X";
     }
 
     public bool MapVisibility
@@ -68,8 +118,15 @@ namespace WorldOfZuul
 
       if (BoundsOfTheMap(newPositionX, newPositionY))
       {
+        //remove player from the map
+        map[position_y][position_x] = " ";
+
+        //move player
         position_x = newPositionX;
         position_y = newPositionY;
+
+        //put the player on the map
+        map[position_y][position_x] = Game.Initials ?? "X";
 
         if (MapVisibility) // Check if the map is visible before showing it
         {
@@ -107,6 +164,24 @@ namespace WorldOfZuul
         return false;
       }
 
+      //checks if the field you want to move to is not a mapObject
+      string field = map[y][x];
+      if (field == mapMarkers.npc || field == mapMarkers.item || field == mapMarkers.enemy)
+      {
+        //if player tries to walk 'into' the object he automatically dispatches this objects action
+
+        for (int i = 0; i < mapObjects?.Length; i++)
+        {
+          //if the field indeed is a mapObject then it invokes it's action and doesn't let player to move there
+          if (mapObjects[i].row == y && mapObjects[i].col == x)
+          {
+            mapObjects[i].action?.Invoke();
+          }
+        }
+
+        return false;
+      }
+
       return true;
     }
 
@@ -141,53 +216,39 @@ namespace WorldOfZuul
 
 
 
+    /// <summary>
+    /// This function takes an array of mapObjects and adds them onto the map
+    /// </summary>
+    /// <param name="objects">
+    /// array of values: row, columnt, typeOfObject(NPC, ITEM), and optional action you want to be dispatched when player interacts with the object
+    /// </param>
+    public void PopulateMap((int row, int col, MapObjectsEnum typeOfObject, MapObjectAction? action)[] objects)
+    {
+      mapObjects = objects;
+
+      foreach (var (row, col, typeOfObject, action) in mapObjects)
+      {
+        map[row][col] = typeOfObject switch
+        {
+          MapObjectsEnum.NPC => mapMarkers.npc,
+          MapObjectsEnum.ITEM => mapMarkers.item,
+          MapObjectsEnum.ENEMY => mapMarkers.enemy,
+          _ => "",
+        };
+      }
+    }
+
     public void ShowMap()
     {
-      //from 1 to 29 //movement of the player W/E
-      //from 1 to 9 // movement of the plyer N/S
-      int rows = heightOfMap + 1; //size of the map rows N/S, added +1 to avoid the bug of going out of the map :)
+      int rows = heightOfMap; //size of the map rows N/S
       int columns = widthOfMap; //size of the map columns W/E
-      Console.WriteLine($"x: {rows}, y: {columns}");
-      for (int i = 0; i <= rows; i++) //int i are for x coordinates  
+      for (int i = 0; i <= rows; i++)
       {
         for (int j = 0; j <= columns; j++) //int j are for y coordinates 
         {
-          if (i == 0 || i == rows)
-          {
-            Console.Write("-");
-          }
-          else if (j == 0)
-          {
-            Console.Write("[");
-          }
-          else if (j == columns)
-          {
-            string mapLabel = i switch
-            {
-              1 => "]    {N}",
-              2 => "] <{W}:{E}>",
-              3 => "]    {S}",
-              _ => "]"
-            };
-            Console.Write(mapLabel);
-          }
-
-          else if (IsCoordinateOccupied(j, i, out MapObject? occupyingObject))
-          {
-            occupyingObject?.DisplayMapObject();//check for the objects and display them 
-          }
-
-          else if (position_x == j && position_y == i)
-          {
-            Console.Write(Game.Initials);
-            //inicials taken from the playes name at the beggining of the game, 
-            //players initials are shown on the map
-          }
-          else
-          {
-            Console.Write(" ");
-          }
+          Console.Write(map[i][j]);
         }
+
         Console.WriteLine();
       }
 
