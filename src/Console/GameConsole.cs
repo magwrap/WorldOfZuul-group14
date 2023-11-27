@@ -239,7 +239,6 @@ namespace WorldOfZuul
     {
       try
       {
-
         Console.CursorLeft += val;
       }
       catch
@@ -248,5 +247,58 @@ namespace WorldOfZuul
       }
     }
 
+
+    /// <summary>
+    /// Function for asking user to chose one of many options
+    /// </summary>
+    /// <param name="options">array of options user has to chose from</param>
+    /// <param name="text">optional text with message asking user to chose an option</param>
+    /// <returns>returns a integer from[0 to n-1] depending which option user picks</returns>
+    public static int GetUserOption(string[] options, string text = "Choose an option:")
+    {
+      int selectedOption = 0;
+
+      GameConsole.Clear();
+      GameConsole.WriteLine(text);
+
+
+      for (int i = 0; i < options.Length; i++)
+      {
+        GameConsole.WriteLine(
+          $"{(i == selectedOption ? ">" : " ")} {options[i]}",
+          fgColor: i == 0 ? ConsoleColor.Blue : ConsoleColor.Gray
+        );
+      }
+
+      GameConsole.MoveCursorUp(options.Length);
+
+      while (true)
+      {
+        var key = GameConsole.ReadKey().Key;
+
+        switch (key)
+        {
+          case ConsoleKey.UpArrow when selectedOption > 0:
+            GameConsole.Write($"\r {options[selectedOption]}                  ", fgColor: ConsoleColor.Gray);
+            GameConsole.MoveCursorUp();
+            selectedOption = Math.Max(0, selectedOption - 1);
+            GameConsole.Write($"\r>  {options[selectedOption]}", fgColor: ConsoleColor.Blue);
+
+            break;
+
+          case ConsoleKey.DownArrow when selectedOption < options.Length - 1:
+            GameConsole.Write($"\r {options[selectedOption]}                  ", fgColor: ConsoleColor.Gray);
+            GameConsole.MoveCursorDown();
+            selectedOption = Math.Min(options.Length - 1, selectedOption + 1);
+            GameConsole.Write($"\r>  {options[selectedOption]}", fgColor: ConsoleColor.Blue);
+
+            break;
+          case ConsoleKey.Enter:
+            GameConsole.Clear();
+            GameConsole.WriteLine($"You chose: {options[selectedOption]}");
+            return selectedOption;
+        }
+      }
+    }
   }
 }
