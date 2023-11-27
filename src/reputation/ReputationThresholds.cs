@@ -4,7 +4,6 @@ namespace WorldOfZuul.src.reputation
   {
     PERFECT = 100,
     GOOD = 50,
-    BAD = 30,
-    HORRIBLE = 0
+    BAD = 30
   }
 }

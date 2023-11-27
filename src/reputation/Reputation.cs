@@ -10,11 +10,14 @@ namespace WorldOfZuul.src
   {
     public static int ReputationScore { get; set; }
 
+    public static int MissionsFinished { get; set; }
+
     //TODO: adjust the values of thresholds and rewards/punishments so it's optimal
 
     public static void Initialize()
     {
       ReputationScore = 50;
+      MissionsFinished = 0;
     }
     public static void MadeGoodDecision()
     {
@@ -26,45 +29,37 @@ namespace WorldOfZuul.src
       ReputationScore -= 5;
     }
 
+    /// <summary>
+    /// Function envoked when player does something - deceeases reputation
+    /// </summary>
     public static void AnnoyedSomeone()
     {
       ReputationScore -= 1;
     }
 
+    /// <summary>
+    /// Function envoked when player does a good deed - addes reputation
+    /// </summary>
     public static void MadeSomeoneSmile()
     {
       ReputationScore += 2;
     }
 
-    public static void FailedMission()
+    /// <summary>
+    /// function envoked when mission is completed - adds reputation and increases missions completed counter
+    /// </summary>
+    public static void MissionFailed()
     {
       ReputationScore -= 10;
     }
 
-    public static void FinishedMission()
+    /// <summary>
+    /// function envoked when mission is completed - adds reputation and increases missions completed counter
+    /// </summary>
+    public static void MissionCompleted()
     {
       ReputationScore += 11;
-    }
-
-    public static void GetReputationState()
-    {
-      //TODO: make responses more witty
-      switch (ReputationScore)
-      {
-        case var _ when ReputationScore >= (int)ReputationThresholds.PERFECT:
-          GameConsole.WriteLine("You have a perfect reputation!", font: FontTheme.Success);
-          return;
-        case var _ when ReputationScore >= (int)ReputationThresholds.GOOD:
-          GameConsole.WriteLine("You have a good reputation!", font: FontTheme.Success);
-          return;
-        case var _ when ReputationScore >= (int)ReputationThresholds.BAD:
-          GameConsole.WriteLine("Sorry, your reputations is bad...", font: FontTheme.Danger);
-          return;
-        case var _ when ReputationScore >= (int)ReputationThresholds.HORRIBLE:
-          GameConsole.WriteLine("Your reputation is HORRIBLE!!", font: FontTheme.Danger);
-          return;
-
-      }
+      MissionsFinished++;
     }
   }
 }

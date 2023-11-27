@@ -13,6 +13,7 @@ namespace WorldOfZuul.Africa
 
     private MissionRoom? submarine;
     private MissionRoom? camp;
+    private ChoiceTree choiceTree = new();
     // private MissionRoom? jungle;
     bool continuePlaying = true;
 
@@ -47,7 +48,19 @@ namespace WorldOfZuul.Africa
         africaRooms.Rooms[(int)AfricaRoomsEnum.CAMP].MissionDescription,
         africaRooms.Rooms[(int)AfricaRoomsEnum.CAMP].MessageOnArrival
       );
+      //TODO: add river to thh ma
 
+
+      choiceTree.AddMultipleBranches(new ChoiceBranch[] {
+          new("1", "option 1"),
+          new("2", "option 2"),
+          new("3", "option 3")
+      });
+
+      string dialogOption1 = GameConsole.Input("What dialog option do you choose?");
+
+      Console.WriteLine($"{choiceTree.Branches[dialogOption1]}");
+      // choiceTree.Branches["1"].Branches["1"]
 
       submarine.SetExit("camp", camp);
       submarine.DisplayMissionDesc();
