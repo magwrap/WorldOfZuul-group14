@@ -30,10 +30,11 @@ namespace WorldOfZuul
                 Console.BackgroundColor = ConsoleColor.Black;
             }
 
-            Console.WriteLine($"{(i == selectedOption ? ">" : " ")} {options[i]}");
+            Console.Write($"{(i == selectedOption ? ">" : " ")} {options[i]}");
 
             // Reset background color after printing each line
             Console.ResetColor();
+            Console.WriteLine();
         }
 
         var key = GameConsole.ReadKey().Key;
