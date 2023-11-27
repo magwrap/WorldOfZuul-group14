@@ -12,6 +12,7 @@ namespace WorldOfZuul
     /// </summary>
     private protected Command? command;
 
+    //TODO: fix all misspelled words
 
     public static void PrintWelcome()
     {
@@ -19,7 +20,7 @@ namespace WorldOfZuul
         "Welcome to the World of Zuul!\nWorld of Zuul is a new, incredibly boring adventure game.",
         fgColor: ConsoleColor.Green
       );
-      
+
     }
     public static void PrintHelp()
     {
@@ -30,9 +31,8 @@ namespace WorldOfZuul
     }
     public static void PrintMissionHelp()
     {
-
       GameConsole.WriteLine(
-        "\nNavigate by typing ['north', 'east', 'west', 'south'] to move around the map.\nType 'look' for more details.\nType 'back' to go to the previous room.\nType 'map on' to turn on the map\nType 'map off' to turn off the map\nType 'help' to print this message again.\nType 'clear' to clear out the console\nType 'quit' to exit the game.",
+        "\nNavigate by typing ['north', 'east', 'west', 'south'] to move around the map.\nType 'look' for more details.\nType 'back' to go to the previous room.\nType 'map on' to turn on the map\nType 'map off' to turn off the map\nType 'help' to print this message again.\nType 'clear' to clear out the console\nType 'quit' to exit the game.\n\nMAP OBJECTS:\n# - NPC\nX - Enemy\n^ - Place\n! - item",
          font: FontTheme.Info
         );
     }
@@ -76,16 +76,16 @@ namespace WorldOfZuul
 
     public static void PrintShowcaseOfMissions()
     {
-      string asciiArt = 
-                  "    ,-----------------------------------,\n" +
+      string asciiArt =
+                  "\n    ,-----------------------------------,\n" +
                   "    |  /-----------------------------\\  |\n" +
                   "    | |                               | |\n" +
                   "    | |                               | |\n" +
                   "    | |    ,--',   _._.--._____       | |\n" +
-                  "    | | .--.--';_'-.', \";_      _.,-' | |\n" +
-                  "    | |.'--'.  _.'    {`'-;_ .-.>.'   | |\n" +
-                  "    | |      '-:_      )  / `' '=.    | |\n" +
-                  "    | |        ) >     {_/,     /~)   | |\n" +
+                  "    | | .--.--';_'-.',  \";_     _.,-' | |\n" +
+                  "    | |.'--'.  _.'    {`'-;_ x.-.>.'  | |\n" +
+                  "    | |      '-:_      )x / `' '=.    | |\n" +
+                  "    | |   x    ) >     {_/,     /~)   | |\n" +
                   "    | |        |/               `^ .' | |\n" +
                   "    |  \\_____________________________/  |\n" +
                   "    |___________________________________|\n" +
@@ -99,11 +99,18 @@ namespace WorldOfZuul
                   "  /-------------------------------------/|    ( )/\n" +
                   " /-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /\n" +
                   "/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /\n" +
-                  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+                  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 
       for (int i = 0; i < asciiArt.Length; i++)
       {
-        Console.Write(asciiArt[i]);
+        if (asciiArt[i] == 'x')
+        {
+          GameConsole.Write("x", font: FontTheme.Danger);
+        }
+        else
+        {
+          GameConsole.Write(asciiArt[i]);
+        }
       }
     }
   }

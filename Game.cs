@@ -30,7 +30,7 @@ namespace WorldOfZuul
 
     private void CreateRooms()
     {
-      Hub = new("Hub", "You stand in the Ranger Headquarter’s Council Room.\nAs you look around you feel amazed yet again at how this building constructed underwater has such an amazing view into the ocean and its diverse wildlife from the council. \nAdditionally, you see three screens, each with its mission objective and details. On the left screen you see the details for the Pacific (pacific) deployment. On the right screen you see the Asian (asia) mission. On the middle screen you see the information for the Africa (africa) deployment.");
+      Hub = new("Ranger Headquarters", "You stand in the Ranger Headquarter's Council Room, surrounded by the breathtaking view of the ocean's depths through the expansive windows.\nDominating the central area is a large, illuminated map on marked with indications highlighting the Pacific, Asia, and Africa.\nThese areas stand out on the map, representing the regions most severely impacted by poaching activities across the globe.");
 
       Asia = new("Somewhere in Asia", "Asia");
 
@@ -97,7 +97,6 @@ namespace WorldOfZuul
         {
           case var room when currentRoom.Equals(Asia):
 
-            // LoadingAnimation.Loading("Loading");
             Asia.CurrentlyInAsiaRoom(ref currentRoom, ref previousRoom);
             GameConsole.WriteLine("Welcome back to the hub", font: FontTheme.Success);
             break;

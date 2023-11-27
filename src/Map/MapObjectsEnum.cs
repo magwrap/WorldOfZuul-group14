@@ -1,10 +1,10 @@
-namespace WorldOfZuul.src.Map
+namespace WorldOfZuul
 {
   public enum MapObjectsEnum
   {
-    NPC = 1,
-    ITEM = 2,
-    ENEMY = 3,
-
+    NPC,
+    ITEM,
+    ENEMY,
+    PLACE,
   }
 }
