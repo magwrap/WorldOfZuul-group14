@@ -4,7 +4,7 @@ namespace WorldOfZuul
   {
     public static int SelectMission()
     {
-      string[] options = { "Europe", "Asia", "Africa", "Pacific" };
+      string[] options = { "Asia", "Africa", "Pacific" };
       int selectedOption = 0;
 
       string initialText = "Select a mission:";
@@ -70,11 +70,11 @@ namespace WorldOfZuul
                   ">.{     \" \" `-==,',._\\\\{  \\  /\\)       / _ \">_,-' `                |\\\\_\n" +
                   "  \\_.:--.       `._ \\)`^-\"'       , [_/\\(                       __,/-' \n" +
                   "\"'     \\         \"    _L        //_,--'                       /. \\(|\n" +
-                  "          |           ,'          _\\)_.\\\\X._<>                _,' /  '\n" + //Europe 1
+                  "          |           ,'          _\\)_.\\\\ ._<>                _,' /  '\n" + //Europe 1
                   "          `.         /           [_/_'` `\"\\(                <'\\}  \\)\n" +
                   "           \\\\    .-. \\)           /   `-'" + "\"..' `:.           _\\)  '\n" +
-                  "    `        \\  \\(  `\\(           /         `:\\  >X\\  ,-^.  /' '\n" +    //Asia 2
-                  "              `._,   \"\"         |      X    \\`'   \\|   ?_\\)  \\{\\\n" +  //Africa 3
+                  "    `        \\  \\(  `\\(           /         `:\\  > \\  ,-^.X /' '\n" +    //Asia 2
+                  "              `._,   \"\"         |      X    \\`'   \\|   _\\)  \\{\\\n" +  //Africa 3
                   "                 `=.---.        `._._       ,'     \"`  |' ,- '.\n" +
                   "                   |    `-._         |     /          `:`<_| --._\n" +
                   "                   \\(        >        .     |            `=.__.`-'  \n" +
