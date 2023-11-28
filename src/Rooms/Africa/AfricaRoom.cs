@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using WorldOfZuul;
 namespace WorldOfZuul.Africa
 {
   public class AfricaRoom : Room
@@ -13,7 +13,9 @@ namespace WorldOfZuul.Africa
 
     private MissionRoom? submarine;
     private MissionRoom? camp;
-    private ChoiceTree choiceTree = new();
+    readonly NPC josh = new("josh");
+
+
     // private MissionRoom? jungle;
     bool continuePlaying = true;
 
@@ -48,19 +50,9 @@ namespace WorldOfZuul.Africa
         africaRooms.Rooms[(int)AfricaRoomsEnum.CAMP].MissionDescription,
         africaRooms.Rooms[(int)AfricaRoomsEnum.CAMP].MessageOnArrival
       );
-      //TODO: add river to thh ma
+      //TODO: add river to thh map
 
-
-      choiceTree.AddMultipleBranches(new ChoiceBranch[] {
-          new("1", "option 1"),
-          new("2", "option 2"),
-          new("3", "option 3")
-      });
-
-      string dialogOption1 = GameConsole.Input("What dialog option do you choose?");
-
-      Console.WriteLine($"{choiceTree.Branches[dialogOption1]}");
-      // choiceTree.Branches["1"].Branches["1"]
+      BuildChoiceTree();
 
       submarine.SetExit("camp", camp);
       submarine.DisplayMissionDesc();
@@ -71,7 +63,41 @@ namespace WorldOfZuul.Africa
       {
         Command? command = Game.AskForCommand();
         continuePlaying = Actions.DecideAction(ref command, ref currentRoom, ref previousRoom, true, "africa");
+        josh.TreeOfChoices?.StartDialog();
       }
+    }
+
+    private void BuildChoiceTree()
+    {
+
+      //choices for josh
+
+      //option 1
+      var fightOption = ("Kick him", new ChoiceBranch(1, "Auch that wasn't nice"));
+
+
+      //option 2
+      var talkOption = (
+        "Talk with him", new ChoiceBranch(2, "What do you want to talk about?",
+            new DialogOption[] {
+              ("Weather", new ChoiceBranch(1, "the weather is very pretty today")),
+              ("Africa", new ChoiceBranch(2, "hmm I think that it is very empty at the moment",
+                  new DialogOption[] {
+                    ("Argue", new ChoiceBranch(1, "alright alright it's beautiful")),
+                    ("Agree", new ChoiceBranch(2, "But don't worry you still have plenty of time left : )"))
+                  }
+                )
+              )
+            }
+        )
+      );
+
+      var choices = new DialogOption[] {
+        fightOption, // first option so nr 1
+        talkOption, // second option so nr 2
+      };
+
+      josh.TreeOfChoices = new ChoiceBranch(1, "Hello My name is Josh", choices);
     }
   }
 }

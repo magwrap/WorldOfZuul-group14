@@ -258,7 +258,7 @@ namespace WorldOfZuul
     {
       int selectedOption = 0;
 
-      GameConsole.Clear();
+      // GameConsole.Clear();
       GameConsole.WriteLine(text);
 
 

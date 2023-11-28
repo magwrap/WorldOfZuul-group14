@@ -137,9 +137,6 @@ namespace WorldOfZuul
       switch (Hub.SelectMission())
       {
         case 0:
-          GameConsole.WriteLine("Move to Europe"); //for future europe room, doesnt do anything yet
-          break;
-        case 1:
           if (GetEnterConfirmation())
           {
             AsiaRoom.AsiaMission = true;
@@ -150,7 +147,7 @@ namespace WorldOfZuul
             DecideAction(ref command, ref currentRoom, ref previousRoom, isMissionStarted, missionName);
           }
           break;
-        case 2:
+        case 1:
 
           if (GetEnterConfirmation())
           {
@@ -161,7 +158,7 @@ namespace WorldOfZuul
             DecideAction(ref command, ref currentRoom, ref previousRoom, isMissionStarted, missionName);
           }
           break;
-        case 3:
+        case 2:
           if (GetEnterConfirmation())
           {
             GameConsole.WriteLine("Move to Pacific");

@@ -10,7 +10,7 @@ namespace WorldOfZuul
     /// This class reads contents of *.json files
     /// returns a readable text objects
     /// </summary>
-    private const string BASE_PATH = "src\\assets\\";
+    private const string BASE_PATH = "src/assets/";
 
 
     public static GameMessages GetMessages()
