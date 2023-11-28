@@ -32,7 +32,7 @@ namespace WorldOfZuul
     {
       Hub = new("Ranger Headquarters", "You stand in the Ranger Headquarter's Council Room, surrounded by the breathtaking view of the ocean's depths through the expansive windows.\nDominating the central area is a large, illuminated map on marked with indications highlighting the Pacific, Asia, and Africa.\nThese areas stand out on the map, representing the regions most severely impacted by poaching activities across the globe.");
 
-      Asia = new("Somewhere in Asia", "Asia");
+      Asia = new("Asia Mission", "Asia");
 
       Africa = new("Africa Mission", "Africa", "As you approach the middle screen, the mission description says ”SAFE ENDANGERED KORDOFAN GIRAFFE FROM A WILDFIRE” You scream the keyword ”Africa!”. The floor below you opens, and you fall into the pipe. As you go down, it takes a sharp twist left, and you suddenly find yourself on the comfortable leather chair of a small submarine");
 

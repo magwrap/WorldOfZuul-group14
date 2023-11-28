@@ -57,12 +57,20 @@ namespace WorldOfZuul
         interceptPoachers.AddPrerequisite(enterBuilding);
 
         // Create MapObjects
-        MapObject council = new(5, 4, MapObjectsEnum.PLACE, false, "You have entered the building", enterBuilding);
+        MapObject council = new(5, 4, MapObjectsEnum.PLACE, false, false, "You have entered the building", enterBuilding);
         // Add MapObjects to the map
         roomMap.AddMapObject(council); // First coordinate always uneven!
 
-        MapObject poachers = new(11, 6, MapObjectsEnum.ENEMY, true, "You intercepted poachers", interceptPoachers);
+        MapObject poachers = new(11, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers);
         roomMap.AddMapObject(poachers);
+
+        MapObject wall1 = new(3, 2, MapObjectsEnum.VERTICALWALL, false, true);
+        roomMap.AddMapObject(wall1);
+        MapObject wall2 = new(3, 3, MapObjectsEnum.VERTICALWALL, false, true);
+        roomMap.AddMapObject(wall2);
+        MapObject wall3 = new(1, 3, MapObjectsEnum.HORIZONTALWALL, false, true);
+        roomMap.AddMapObject(wall3);
+
 
       }
     }
