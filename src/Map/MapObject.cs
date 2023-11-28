@@ -11,6 +11,7 @@ namespace WorldOfZuul
     private string? OccupiedMessage { get; set; }
     public Quest? Quest { get; set; }
     private bool IsRemovable { get; set; }
+    private bool IsImpassable { get; set; }
 
     private static readonly Dictionary<MapObjectsEnum, string> MapMarkers = new()
     {
@@ -18,6 +19,9 @@ namespace WorldOfZuul
       [MapObjectsEnum.ENEMY] = "X",
       [MapObjectsEnum.PLACE] = "^",
       [MapObjectsEnum.ITEM] = "!",
+      [MapObjectsEnum.VERTICALWALL] = "|",
+      [MapObjectsEnum.HORIZONTALWALL] = "_",
+
     };
 
     private static readonly Dictionary<MapObjectsEnum, FontTheme> MapObjectFonts = new()
@@ -26,9 +30,12 @@ namespace WorldOfZuul
       [MapObjectsEnum.ENEMY] = FontTheme.Danger,
       [MapObjectsEnum.PLACE] = FontTheme.HighligtedText,
       [MapObjectsEnum.ITEM] = FontTheme.NewItem,
+      [MapObjectsEnum.VERTICALWALL] = FontTheme.Wall,
+      [MapObjectsEnum.HORIZONTALWALL] = FontTheme.Wall,
+
     };
 
-    public MapObject(int mapCordX, int mapCordY, MapObjectsEnum? mapObjectType, bool isRemovable, string? occupiedMessage = null, Quest? quest = null)
+    public MapObject(int mapCordX, int mapCordY, MapObjectsEnum? mapObjectType, bool isRemovable, bool isImpassable, string? occupiedMessage = null, Quest? quest = null)
     {
 
       // X has to be odd number bcs. user moves 2 fields at the time
@@ -40,6 +47,7 @@ namespace WorldOfZuul
       this.OccupiedMessage = occupiedMessage;
       this.Quest = quest;
       this.IsRemovable = isRemovable;
+      this.IsImpassable = isImpassable;
 
     }
 
@@ -75,6 +83,10 @@ namespace WorldOfZuul
     public bool RemoveAfterCompletition()
     {
       return IsRemovable;
+    }
+    public bool CannotPassTheObject()
+    {
+      return IsImpassable;
     }
   }
 }

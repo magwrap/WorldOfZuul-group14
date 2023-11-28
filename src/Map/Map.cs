@@ -69,32 +69,47 @@ namespace WorldOfZuul
 
       GameConsole.WriteLine($"Player pos: {newPositionX} {newPositionY}");
 
-      bool isOccupied = IsCoordinateOccupied(newPositionX, newPositionY, out MapObject? occupyingObject);
-
       if (BoundsOfTheMap(newPositionX, newPositionY))
       {
-        //move player
-        position_x = newPositionX;
-        position_y = newPositionY;
+        bool isOccupied = IsCoordinateOccupied(newPositionX, newPositionY, out MapObject? occupyingObject);
 
-        if (MapVisibility) // Check if the map is visible before showing it
+        if (occupyingObject != null && occupyingObject.CannotPassTheObject())
         {
-          ShowMap();
+          // Move the player back to the previous position
+          if (MapVisibility)
+          {
+            ShowMap();
+          }
+          System.Console.WriteLine(position_x);
+          System.Console.WriteLine(position_y);
+
+          GameConsole.WriteLine("You can't pass through here!", font: FontTheme.Danger);
         }
+        else
+        { 
+          position_x = newPositionX;
+          position_y = newPositionY;
+          if (MapVisibility)
+          {
+            ShowMap();
+          }
+        }
+
 
         if (isOccupied)
         {
-          occupyingObject?.DisplayOccupiedMessage(); // Display the occupied message if any
-                                                     //GameConsole.WriteLine("DisplayOccupiedMessage called");
+          occupyingObject?.DisplayOccupiedMessage();
 
           if (occupyingObject?.Quest != null)
           {
             occupyingObject.Quest.CompleteCurrentQuest();
 
             // Remove the map object associated with the completed quest
-            // if(occupyingObject.RemoveAfterCompletition())
-            //   RemoveMapObject(newPositionX, newPositionY);
-            //   System.GameConsole.WriteLine("I got here");
+            if (occupyingObject.RemoveAfterCompletition())
+            {
+              RemoveMapObject(newPositionX, newPositionY);
+              GameConsole.WriteLine("I got here");
+            }
           }
         }
       }
@@ -103,6 +118,7 @@ namespace WorldOfZuul
         GameConsole.WriteLine("Out of the bounds of the map! Try another direction.", font: FontTheme.Danger);
       }
     }
+
 
     public bool BoundsOfTheMap(int x, int y)
     {

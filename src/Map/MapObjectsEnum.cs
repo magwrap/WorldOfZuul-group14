@@ -6,5 +6,7 @@ namespace WorldOfZuul
     ITEM,
     ENEMY,
     PLACE,
+    VERTICALWALL,
+    HORIZONTALWALL,
   }
 }

@@ -22,6 +22,7 @@ namespace WorldOfZuul
       [FontTheme.GameTip] = ConsoleColor.Yellow,
       [FontTheme.NPC] = ConsoleColor.Magenta,
       [FontTheme.Player] = ConsoleColor.Green,
+      [FontTheme.Wall] = ConsoleColor.White,
 
     };
 
@@ -41,7 +42,8 @@ namespace WorldOfZuul
     NPC,
     Info,
     GameTip,
-    Player
+    Player, 
+    Wall
 
   }
 }
