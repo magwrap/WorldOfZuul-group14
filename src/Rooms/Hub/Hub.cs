@@ -21,16 +21,14 @@ namespace WorldOfZuul
         {
             if (i == selectedOption)
             {
-                Console.ForegroundColor = ConsoleColor.Gray;
-                Console.BackgroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Gray;
-                Console.BackgroundColor = ConsoleColor.Black;
             }
 
-            Console.Write($"{(i == selectedOption ? ">" : " ")} {options[i]}");
+            Console.Write($"{(i == selectedOption ? "\U000027A4 " : " ")} {options[i]}");
 
             // Reset background color after printing each line
             Console.ResetColor();
