@@ -17,8 +17,8 @@ namespace WorldOfZuul
 
     public static readonly Dictionary<MapObjectsEnum, string> MapMarkers = new()
     {
-      [MapObjectsEnum.NPC] = "#",
-      [MapObjectsEnum.ENEMY] = "X",
+      [MapObjectsEnum.NPC] = "\U0001F464", //'#'
+      [MapObjectsEnum.ENEMY] = "X", //\U0001F5F4
       [MapObjectsEnum.PLACE] = "\U00002302", //'^'
       [MapObjectsEnum.ITEM] = "!",
       [MapObjectsEnum.VERTICALWALL] = "\U0000258F", //U0000275A //\U0000258F //'|'
@@ -40,7 +40,7 @@ namespace WorldOfZuul
     {
 
       // X has to be odd number bcs. user moves 2 fields at the time
-      if (mapCordX % 2 == 0) throw new ArgumentException("mapCordX has to be an odd number!");
+      //if (mapCordX % 2 == 0) throw new ArgumentException("mapCordX has to be an odd number!");//cant be used with walls
 
       this.MapCordX = mapCordX;
       this.MapCordY = mapCordY;

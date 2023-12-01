@@ -174,7 +174,7 @@ namespace WorldOfZuul
         {
           WriteLine(text, delay, breakline, bgColor, fgColor, resetColor, 0, font);
         }
-        WriteLine(">> ", breakline: false);
+        WriteLine("\U000027A4  ", breakline: false);
       }
       while (string.IsNullOrEmpty(input = Console.ReadLine()));
 
@@ -271,7 +271,7 @@ namespace WorldOfZuul
       for (int i = 0; i < options.Length; i++)
       {
         GameConsole.WriteLine(
-          $"{(i == selectedOption ? ">" : " ")} {options[i]}",
+          $"{(i == selectedOption ? "\U000027A4 " : " ")} {options[i]}",
           fgColor: i == 0 ? ConsoleColor.Blue : ConsoleColor.Gray
         );
       }
@@ -288,7 +288,7 @@ namespace WorldOfZuul
             GameConsole.Write($"\r {options[selectedOption]}                  ", fgColor: ConsoleColor.Gray);
             GameConsole.MoveCursorUp();
             selectedOption = Math.Max(0, selectedOption - 1);
-            GameConsole.Write($"\r>  {options[selectedOption]}", fgColor: ConsoleColor.Blue);
+            GameConsole.Write($"\r\U000027A4 {options[selectedOption]}", fgColor: ConsoleColor.Blue);
 
             break;
 
@@ -296,7 +296,7 @@ namespace WorldOfZuul
             GameConsole.Write($"\r {options[selectedOption]}                  ", fgColor: ConsoleColor.Gray);
             GameConsole.MoveCursorDown();
             selectedOption = Math.Min(options.Length - 1, selectedOption + 1);
-            GameConsole.Write($"\r>  {options[selectedOption]}", fgColor: ConsoleColor.Blue);
+            GameConsole.Write($"\r\U000027A4 {options[selectedOption]}", fgColor: ConsoleColor.Blue);
 
             break;
           case ConsoleKey.Enter:
