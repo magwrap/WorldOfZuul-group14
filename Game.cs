@@ -63,8 +63,11 @@ namespace WorldOfZuul
       Reputation.Initialize();
 
 
+
       //Print Welcome
       Console.ForegroundColor = ConsoleColor.Black;
+      GameConsole.Clear();
+
       Messages.PrintWelcome();
 
       //Get username and inicials

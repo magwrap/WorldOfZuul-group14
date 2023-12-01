@@ -13,7 +13,7 @@ namespace WorldOfZuul
     private bool IsRemovable { get; set; }
     private bool IsImpassable { get; set; }
 
-    private static readonly Dictionary<MapObjectsEnum, string> MapMarkers = new()
+    public static readonly Dictionary<MapObjectsEnum, string> MapMarkers = new()
     {
       [MapObjectsEnum.NPC] = "#",
       [MapObjectsEnum.ENEMY] = "X",
@@ -66,18 +66,7 @@ namespace WorldOfZuul
       {
         Console.WriteLine(OccupiedMessage);
       }
-      if (Quest != null)
-      {
-        if (Quest.ArePrerequisitesMet())
-        {
-          Quest.MarkCompleted();
-          Console.WriteLine("Quest Information: " + Quest.Title);
-        }
-        else
-        {
-          Console.WriteLine("Cannot complete the quest. Prerequisites not met.");
-        }
-      }
+
     }
 
     public bool RemoveAfterCompletition()

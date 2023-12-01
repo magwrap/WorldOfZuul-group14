@@ -60,17 +60,19 @@ namespace WorldOfZuul
           return true;
 
         case "map on" when isMissionStarted == true:
-          currentRoom?.roomMap.ChangeMapVisibility(true); //set map visible
+          currentRoom?.RoomMap.ChangeMapVisibility(true); //set map visible
 
           GameConsole.WriteLine("Map is now visible", font: FontTheme.Success);
 
           GameConsole.WriteLine("Game tip: For better orientation look at the compass on the righthand side of the map, to move faster you can also type 'n', 'e', 's', 'w'.", font: FontTheme.GameTip);
 
-          currentRoom?.roomMap.ShowMap();
+          GameConsole.GetEnterConfirmation();
+
+          currentRoom?.RoomMap.ShowMap();
           return true;
 
         case "map off" when isMissionStarted == true:
-          currentRoom.roomMap.ChangeMapVisibility(false); //hide map
+          currentRoom.RoomMap.ChangeMapVisibility(false); //hide map
 
           GameConsole.WriteLine("Map is no longer visible", font: FontTheme.Danger);
 
@@ -85,7 +87,7 @@ namespace WorldOfZuul
         case "s" when isMissionStarted == true:
         case "w" when isMissionStarted == true:
         case "e" when isMissionStarted == true:
-          currentRoom?.roomMap.MoveOnMap(command.Name);
+          currentRoom?.RoomMap.MoveOnMap(command.Name);
           return true;
 
         case "chose mission" when isMissionStarted == false:
