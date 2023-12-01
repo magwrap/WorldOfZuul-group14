@@ -42,7 +42,7 @@ namespace WorldOfZuul
     NPC,
     Info,
     GameTip,
-    Player, 
+    Player,
     Wall
 
   }

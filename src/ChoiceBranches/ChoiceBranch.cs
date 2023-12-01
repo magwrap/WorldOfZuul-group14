@@ -81,6 +81,7 @@ namespace WorldOfZuul
 
     public void StartDialog()
     {
+      //TODO: return a value so that you can know which branch did player choose
       GameConsole.WriteLine(this.GetDialogMessage(), font: FontTheme.NPC);
 
       if (Dialogs.Count == 0) return;

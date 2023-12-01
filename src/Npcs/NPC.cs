@@ -1,6 +1,6 @@
 namespace WorldOfZuul
 {
-  class NPC
+  public class NPC
   {
     public string? Name { get; protected set; }
 
