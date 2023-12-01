@@ -101,6 +101,7 @@ namespace WorldOfZuul.src.Map
 
         currentQuest?.MarkCompleted();
         GameConsole.WriteLine("\nCompleted Task: " + currentQuest?.Title + "\n", font: FontTheme.Success);
+        Reputation.MissionCompleted();
 
         if (mapObjects[mapObjectKey].RemoveAfterCompletition())
         {
