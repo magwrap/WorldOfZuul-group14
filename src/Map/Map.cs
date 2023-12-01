@@ -100,6 +100,8 @@ namespace WorldOfZuul
           {
             if (quest.ArePrerequisitesMet())
             {
+              //here you can add body of a quest for example talk to a npc, some mini game?
+              mapEntities.StartCurrentQuest();
               mapEntities.CompleteCurrentQuest();
             }
             else

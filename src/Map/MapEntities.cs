@@ -74,6 +74,23 @@ namespace WorldOfZuul.src.Map
       return mapObjects[mapObjectKey].Quest;
     }
 
+    public void StartCurrentQuest()
+    {
+      // GameConsole.WriteLine("Starting mission...");
+      LoadingAnimation.Loading("Starting mission");
+
+
+      var mapObjectKey = MapObjectsQuestsKeysQueue.First();
+      MapObject? mapObject = mapObjects[mapObjectKey];
+
+      GameConsole.WriteLine($"{mapObject.Quest?.Description}\n", font: FontTheme.HighligtedText);
+
+      if (mapObject.MapObjectType is MapObjectsEnum.NPC || mapObject.MapObjectType is MapObjectsEnum.ENEMY)
+      {
+        mapObject?.Npc?.TreeOfChoices?.StartDialog();
+      }
+
+    }
     public void CompleteCurrentQuest()
     {
       if (MapObjectsQuestsKeysQueue.Count > 0)
@@ -81,10 +98,9 @@ namespace WorldOfZuul.src.Map
         var mapObjectKey = MapObjectsQuestsKeysQueue.Dequeue();
         Quest? currentQuest = mapObjects[mapObjectKey].Quest;
 
-        GameConsole.WriteLine($"{currentQuest?.Description}\n", font: FontTheme.HighligtedText);
 
         currentQuest?.MarkCompleted();
-        GameConsole.WriteLine("Completed Task: " + currentQuest?.Title + "\n", font: FontTheme.Success);
+        GameConsole.WriteLine("\nCompleted Task: " + currentQuest?.Title + "\n", font: FontTheme.Success);
 
         if (mapObjects[mapObjectKey].RemoveAfterCompletition())
         {

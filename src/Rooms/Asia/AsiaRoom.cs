@@ -58,7 +58,11 @@ namespace WorldOfZuul
         // Add MapObjects to the map
         RoomMap.mapEntities.AddMapObject(council); // First coordinate always uneven!
 
-        MapObject poachers = new(11, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers);
+        Enemy GregoryPoacher = new("Gregory");
+        GregoryPoacher.TreeOfChoices = new ChoiceBranch(0, "I'm gregory the poacher and I will kill all the animalls!");
+
+
+        MapObject poachers = new(11, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers, GregoryPoacher);
         RoomMap.mapEntities.AddMapObject(poachers);
 
         MapObject wall1 = new(3, 2, MapObjectsEnum.VERTICALWALL, false, true);

@@ -44,7 +44,6 @@ namespace WorldOfZuul
         {MapObject.MapMarkers[MapObjectsEnum.NPC]} - NPC
         {MapObject.MapMarkers[MapObjectsEnum.ENEMY]} - Enemy
         {MapObject.MapMarkers[MapObjectsEnum.PLACE]} - Place
-        {MapObject.MapMarkers[MapObjectsEnum.ITEM]} - item
         ", font: FontTheme.GameTip);
       // {MapObject.MapMarkers[MapObjectsEnum.VERTICALWALL]} and {MapObject.MapMarkers[MapObjectsEnum.HORIZONTALWALL]} - walls
     }
