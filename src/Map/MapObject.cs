@@ -7,13 +7,15 @@ namespace WorldOfZuul
   {
     public int MapCordX { get; set; }
     public int MapCordY { get; set; }
-    private MapObjectsEnum? MapObjectType { get; set; }
+    public MapObjectsEnum? MapObjectType { get; set; }
     private string? OccupiedMessage { get; set; }
     public Quest? Quest { get; set; }
     private bool IsRemovable { get; set; }
     private bool IsImpassable { get; set; }
 
-    private static readonly Dictionary<MapObjectsEnum, string> MapMarkers = new()
+    public NPC? Npc { get; set; }
+
+    public static readonly Dictionary<MapObjectsEnum, string> MapMarkers = new()
     {
       [MapObjectsEnum.NPC] = "\U0001F464", //'#'
       [MapObjectsEnum.ENEMY] = "X", //\U0001F5F4
@@ -29,13 +31,12 @@ namespace WorldOfZuul
       [MapObjectsEnum.NPC] = FontTheme.NPC,
       [MapObjectsEnum.ENEMY] = FontTheme.Danger,
       [MapObjectsEnum.PLACE] = FontTheme.HighligtedText,
-      [MapObjectsEnum.ITEM] = FontTheme.NewItem,
       [MapObjectsEnum.VERTICALWALL] = FontTheme.Wall,
       [MapObjectsEnum.HORIZONTALWALL] = FontTheme.Wall,
 
     };
 
-    public MapObject(int mapCordX, int mapCordY, MapObjectsEnum? mapObjectType, bool isRemovable, bool isImpassable, string? occupiedMessage = null, Quest? quest = null)
+    public MapObject(int mapCordX, int mapCordY, MapObjectsEnum? mapObjectType, bool isRemovable, bool isImpassable, string? occupiedMessage = null, Quest? quest = null, NPC? npc = null)
     {
 
       // X has to be odd number bcs. user moves 2 fields at the time
@@ -48,7 +49,12 @@ namespace WorldOfZuul
       this.Quest = quest;
       this.IsRemovable = isRemovable;
       this.IsImpassable = isImpassable;
+      this.Npc = npc;
 
+      if (MapObjectType is MapObjectsEnum.NPC || MapObjectType is MapObjectsEnum.ENEMY && Npc == null)
+      {
+        throw new ArgumentException("If you're creating person map object you have to pass NPC/Enemy object");
+      }
     }
 
     public void DisplayMapObject(bool isPlayerOcuppyingField = false)
@@ -66,18 +72,7 @@ namespace WorldOfZuul
       {
         Console.WriteLine(OccupiedMessage);
       }
-      if (Quest != null)
-      {
-        if (Quest.ArePrerequisitesMet())
-        {
-          Quest.MarkCompleted();
-          Console.WriteLine("Quest Information: " + Quest.Title);
-        }
-        else
-        {
-          Console.WriteLine("Cannot complete the quest. Prerequisites not met.");
-        }
-      }
+
     }
 
     public bool RemoveAfterCompletition()

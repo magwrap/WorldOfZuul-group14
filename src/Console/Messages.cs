@@ -32,9 +32,20 @@ namespace WorldOfZuul
     public static void PrintMissionHelp()
     {
       GameConsole.WriteLine(
-        "\nNavigate by typing ['north', 'east', 'west', 'south'] to move around the map.\nType 'look' for more details.\nType 'back' to go to the previous room.\nType 'map on' to turn on the map\nType 'map off' to turn off the map\nType 'help' to print this message again.\nType 'clear' to clear out the console\nType 'quit' to exit the game.\n\nMAP OBJECTS:\n# - NPC\nX - Enemy\n^ - Place\n! - item",
+        "\nNavigate by typing ['north', 'east', 'west', 'south'] to move around the map.\nType 'look' for more details.\nType 'back' to go to the previous room.\nType 'map on' to turn on the map\nType 'map off' to turn off the map\nType 'help' to print this message again.\nType 'clear' to clear out the console\nType 'quit' to exit the game.\n\n",
          font: FontTheme.Info
         );
+    }
+    public static void PrintMapObjectsHelp()
+    {
+      GameConsole.WriteLine("\n");
+      GameConsole.WriteLine(
+        @$"MAP OBJECTS:
+        {MapObject.MapMarkers[MapObjectsEnum.NPC]} - NPC
+        {MapObject.MapMarkers[MapObjectsEnum.ENEMY]} - Enemy
+        {MapObject.MapMarkers[MapObjectsEnum.PLACE]} - Place
+        ", font: FontTheme.GameTip);
+      // {MapObject.MapMarkers[MapObjectsEnum.VERTICALWALL]} and {MapObject.MapMarkers[MapObjectsEnum.HORIZONTALWALL]} - walls
     }
 
     public static void PrintUnknownCommandMessage()

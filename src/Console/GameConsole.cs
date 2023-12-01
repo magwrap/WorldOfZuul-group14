@@ -21,7 +21,7 @@ namespace WorldOfZuul
       string? text = ConsoleConstants.Text,
       int delay = ConsoleConstants.Delay,
       bool breakline = ConsoleConstants.WriteLineBreakline,
-      ConsoleColor bgColor = ConsoleConstants.BackgroundColor,
+      ConsoleColor? bgColor = null,
       ConsoleColor fgColor = ConsoleConstants.ForegroundColor,
       bool resetColor = ConsoleConstants.ResetColor,
       int paddingLeft = ConsoleConstants.paddingLeft,
@@ -45,7 +45,9 @@ namespace WorldOfZuul
       {
         Console.ForegroundColor = fgColor;
       }
-      Console.BackgroundColor = bgColor;
+
+      if (bgColor != null)
+        Console.BackgroundColor = (ConsoleColor)bgColor;
 
       Console.Write("".PadLeft(paddingLeft));
 
@@ -79,7 +81,7 @@ namespace WorldOfZuul
     public static void Write(
       string? text,
       bool breakline = ConsoleConstants.WriteBreakline,
-      ConsoleColor bgColor = ConsoleConstants.BackgroundColor,
+      ConsoleColor? bgColor = null,
       ConsoleColor fgColor = ConsoleConstants.ForegroundColor,
       bool resetColor = ConsoleConstants.ResetColor,
       int paddingLeft = ConsoleConstants.paddingLeft,
@@ -94,7 +96,9 @@ namespace WorldOfZuul
       {
         Console.ForegroundColor = fgColor;
       }
-      Console.BackgroundColor = bgColor;
+
+      if (bgColor != null)
+        Console.BackgroundColor = (ConsoleColor)bgColor;
 
       Console.Write("".PadLeft(paddingLeft));
       Console.Write(text);
@@ -115,7 +119,7 @@ namespace WorldOfZuul
     public static void Write(
       char character,
       bool breakline = ConsoleConstants.WriteBreakline,
-      ConsoleColor bgColor = ConsoleConstants.BackgroundColor,
+      ConsoleColor? bgColor = null,
       ConsoleColor fgColor = ConsoleConstants.ForegroundColor,
       bool resetColor = ConsoleConstants.ResetColor,
       int paddingLeft = ConsoleConstants.paddingLeft,
@@ -130,7 +134,9 @@ namespace WorldOfZuul
       {
         Console.ForegroundColor = fgColor;
       }
-      Console.BackgroundColor = bgColor;
+
+      if (bgColor != null)
+        Console.BackgroundColor = (ConsoleColor)bgColor;
 
       Console.Write("".PadLeft(paddingLeft));
       Console.Write(character);
@@ -154,7 +160,7 @@ namespace WorldOfZuul
       string? text = ConsoleConstants.Text,
       int delay = ConsoleConstants.Delay,
       bool breakline = ConsoleConstants.WriteLineBreakline,
-      ConsoleColor bgColor = ConsoleConstants.BackgroundColor,
+      ConsoleColor? bgColor = null,
       ConsoleColor fgColor = ConsoleConstants.ForegroundColor,
       bool resetColor = ConsoleConstants.ResetColor,
       FontTheme? font = null
@@ -299,6 +305,18 @@ namespace WorldOfZuul
             return selectedOption;
         }
       }
+    }
+
+    public static void GetEnterConfirmation()
+    {
+      while (true)
+      {
+        GameConsole.WriteLine("Press ENTER to continue:", breakline: false);
+        var key = GameConsole.ReadKey().Key;
+
+        if (key == ConsoleKey.Enter) return;
+      }
+
     }
   }
 }

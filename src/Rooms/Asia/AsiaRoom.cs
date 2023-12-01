@@ -22,7 +22,7 @@ namespace WorldOfZuul
 
     public void CurrentlyInAsiaRoom(ref Room? currentRoom, ref Room? previousRoom)
     {
-      LoadingAnimation.Loading("Mission Loading");
+      // LoadingAnimation.Loading("Mission Loading");
       GameConsole.Clear();
 
       InProccess(true);
@@ -61,53 +61,53 @@ namespace WorldOfZuul
         //add quests 
         Quest interceptPoachers = new Quest("Intercept Poachers", "Stop the poachers from brutally murdering your mama");
         Quest enterBuilding = new Quest("Enter the Building", "Enter the council building");
-
-        interceptPoachers.AddQuest();
-        enterBuilding.AddQuest();
-        //add prerequisities to the quests 
         interceptPoachers.AddPrerequisite(enterBuilding);
 
         // Create MapObjects
         MapObject council = new(5, 4, MapObjectsEnum.PLACE, false, false, "You have entered the building", enterBuilding);
         // Add MapObjects to the map
-        roomMap.AddMapObject(council); // First coordinate always uneven!
+        RoomMap.mapEntities.AddMapObject(council); // First coordinate always uneven!
 
-        MapObject poachers = new(13, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers);
-        roomMap.AddMapObject(poachers);
+        Enemy GregoryPoacher = new("Gregory");
+        GregoryPoacher.TreeOfChoices = new ChoiceBranch(0, "I'm gregory the poacher and I will kill all the animalls!");
+
+
+        MapObject poachers = new(13, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers, GreogoryPoacher);
+        RoomMap.mapEntites.AddMapObject(poachers);
         //left right 1 3 5 7 9 11 13 15 17 19 21  //up down 1 2 3 4 5 6 7 8 9
         //add walls
         MapObject wallBase111 = new(11, 1, MapObjectsEnum.VERTICALWALL, false, true);
-        roomMap.AddMapObject(wallBase111);
+        RoomMap.mapEntities.AddMapObject(wallBase111);
         MapObject wallBase112 = new(11, 2, MapObjectsEnum.VERTICALWALL, false, true);
-        roomMap.AddMapObject(wallBase112);
+        RoomMap.mapEntities.AddMapObject(wallBase112);
         MapObject wallBase113 = new(11, 3, MapObjectsEnum.VERTICALWALL, false, true);
-        roomMap.AddMapObject(wallBase113);
+        RoomMap.mapEntities.AddMapObject(wallBase113);
         MapObject wallBase114 = new(11, 4, MapObjectsEnum.VERTICALWALL, false, true);
-        roomMap.AddMapObject(wallBase114);
+        RoomMap.AddMapObject(wallBase114);
         MapObject wallBase115 = new(11, 5, MapObjectsEnum.VERTICALWALL, false, true);
-        roomMap.AddMapObject(wallBase115);
+        RoomMap.mapEntities.AddMapObject(wallBase115);
         MapObject wallBase116 = new(11, 6, MapObjectsEnum.VERTICALWALL, false, true);
-        roomMap.AddMapObject(wallBase116);
+        RoomMap.mapEntities.AddMapObject(wallBase116);
         MapObject wallBase106 = new(10, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        roomMap.AddMapObject(wallBase106);
+        RoomMap.mapEntities.AddMapObject(wallBase106);
         MapObject wallBase96 = new(9, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        roomMap.AddMapObject(wallBase96);
+        RoomMap.mapEntities.AddMapObject(wallBase96);
         MapObject wallBase86 = new(8, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        roomMap.AddMapObject(wallBase86);
+        RoomMap.mapEntities.AddMapObject(wallBase86);
         MapObject wallBase76 = new(7, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        roomMap.AddMapObject(wallBase76);
+        RoomMap.mapEntities.AddMapObject(wallBase76);
         MapObject wallBase66 = new(6, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        roomMap.AddMapObject(wallBase66);
+        RoomMap.mapEntities.AddMapObject(wallBase66);
         MapObject wallBase56 = new(5, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        roomMap.AddMapObject(wallBase56);
+        RoomMap.AddMapObject(wallBase56);
         MapObject wallBase46 = new(4, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        roomMap.AddMapObject(wallBase46);
+        RoomMap.mapEntities.AddMapObject(wallBase46);
         MapObject wallBase36 = new(3, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        roomMap.AddMapObject(wallBase36);
+        RoomMap.mapEntities.AddMapObject(wallBase36);
         MapObject wallBase26 = new(2, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        roomMap.AddMapObject(wallBase26);
+        RoomMap.mapEntities.AddMapObject(wallBase26);
         MapObject wallBase16 = new(1, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        roomMap.AddMapObject(wallBase16);
+        RoomMap.mapEntities.AddMapObject(wallBase16);
 
       }
     }

@@ -1,4 +1,5 @@
 using WorldOfZuul;
+using WorldOfZuul.src.Map;
 
 namespace WorldOfZuul
 {
@@ -9,7 +10,7 @@ namespace WorldOfZuul
     private bool mapVisible = true;
     private readonly int heightOfMap;
     private readonly int widthOfMap;
-    private Dictionary<(int X, int Y), MapObject> mapObjects = new Dictionary<(int, int), MapObject>();
+    public readonly MapEntities mapEntities = new();
 
     public Map(
       int height = 10,
@@ -67,7 +68,7 @@ namespace WorldOfZuul
           break;
       }
 
-      GameConsole.WriteLine($"Player pos: {newPositionX} {newPositionY}");
+
 
       if (BoundsOfTheMap(newPositionX, newPositionY))
       {
@@ -75,41 +76,42 @@ namespace WorldOfZuul
 
         if (occupyingObject != null && occupyingObject.CannotPassTheObject())
         {
-          // Move the player back to the previous position
-          if (MapVisibility)
-          {
-            ShowMap();
-          }
-          System.Console.WriteLine(position_x);
-          System.Console.WriteLine(position_y);
-
           GameConsole.WriteLine("You can't pass through here!", font: FontTheme.Danger);
         }
         else
-        { 
+        {
+          // Player moves to the new position
           position_x = newPositionX;
           position_y = newPositionY;
-          if (MapVisibility)
-          {
-            ShowMap();
-          }
         }
 
+        if (MapVisibility)
+        {
+          ShowMap();
+        }
 
         if (isOccupied)
         {
           occupyingObject?.DisplayOccupiedMessage();
+          var quest = occupyingObject?.Quest;
 
-          if (occupyingObject?.Quest != null)
+          //check if occupyingObjects quest is a current quest, then checks if prerequsites are met
+          if (quest != null && quest.Title == mapEntities.GetCurrentQuest()?.Title)
           {
-            occupyingObject.Quest.CompleteCurrentQuest();
-
-            // Remove the map object associated with the completed quest
-            if (occupyingObject.RemoveAfterCompletition())
+            if (quest.ArePrerequisitesMet())
             {
-              RemoveMapObject(newPositionX, newPositionY);
-              GameConsole.WriteLine("I got here");
+              //here you can add body of a quest for example talk to a npc, some mini game?
+              mapEntities.StartCurrentQuest();
+              mapEntities.CompleteCurrentQuest();
             }
+            else
+            {
+              GameConsole.WriteLine("Prerequisites are not met!", font: FontTheme.Danger);
+            }
+          }
+          else
+          {
+            GameConsole.WriteLine("You need to finish you current quest first!", font: FontTheme.Danger);
           }
         }
       }
@@ -138,7 +140,9 @@ namespace WorldOfZuul
     {
       int rows = heightOfMap + 1; //size of the map rows N/S, added +1 to avoid the bug of going out of the map :)
       int columns = widthOfMap; //size of the map columns W/E
-      GameConsole.WriteLine($"x: {rows}, y: {columns}");
+      GameConsole.Clear();
+      GameConsole.WriteLine($"Player pos: {PositionX - 2} {PositionY}"); //subtracting 2 from x so it's easier for the player to read
+      mapEntities.DisplayCurrentQuest();
 
       for (int i = 0; i <= rows; i++) //int i are for x coordinates  
       {
@@ -148,6 +152,8 @@ namespace WorldOfZuul
         }
         GameConsole.WriteLine();
       }
+
+      Messages.PrintMapObjectsHelp();
     }
 
     /// <summary>
@@ -197,47 +203,6 @@ namespace WorldOfZuul
     }
 
 
-    /// <summary>
-    /// This function takes an array of mapObjects and adds them onto the map
-    /// </summary>
-    /// <param name="objects">
-    /// array of MapObjects you want to add onto the map
-    /// </param>
-    /// 
-    public void PopulateMap(MapObject[] objects)
-    {
-      foreach (var mapObject in objects)
-      {
-        AddMapObject(mapObject);
-      }
-
-      foreach (var item in mapObjects)
-      {
-        GameConsole.WriteLine($"Object at ({item.Key.X}, {item.Key.Y}): {item.Value}");
-      }
-    }
-
-    /// <summary>
-    /// Function for adding one map object onto the map
-    /// </summary>
-    /// <param name="mapObject">Pass MapObject with set x and y coordinates</param>
-    public void AddMapObject(MapObject mapObject)
-    {
-      mapObjects[(mapObject.MapCordX, mapObject.MapCordY)] = mapObject;
-    }
-
-    /// <summary>
-    /// Function for removing object at coordinates x and y
-    /// </summary>
-    /// <param name="x"> x coordinate of a map object</param>
-    /// <param name="y">y coordinate of a map object</param>
-    public void RemoveMapObject(int x, int y)
-    {
-      if (mapObjects.ContainsKey((x, y)))
-      {
-        mapObjects.Remove((x, y));
-      }
-    }
 
     /// <summary>
     /// Function checking if on current coordinate exists an object
@@ -248,7 +213,7 @@ namespace WorldOfZuul
     /// <returns>return bool wheter map object exists on passed coordinate or not</returns>
     public bool IsCoordinateOccupied(int x, int y, out MapObject? occupyingObject)
     {
-      if (mapObjects.TryGetValue((x, y), out occupyingObject))
+      if (mapEntities.mapObjects.TryGetValue((x, y), out occupyingObject))
       {
         return true;
       }

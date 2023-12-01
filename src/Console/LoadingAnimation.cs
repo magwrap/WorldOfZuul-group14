@@ -19,6 +19,6 @@ class LoadingAnimation
       Thread.Sleep(400); // Wait before the next iterationc
 
     }
-    Console.Clear();
+    // Console.Clear();
   }
 }
