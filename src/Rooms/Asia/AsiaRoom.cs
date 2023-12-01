@@ -22,7 +22,7 @@ namespace WorldOfZuul
 
     public void CurrentlyInAsiaRoom(ref Room? currentRoom, ref Room? previousRoom)
     {
-      LoadingAnimation.Loading("Mission Loading");
+      // LoadingAnimation.Loading("Mission Loading");
       GameConsole.Clear();
 
       InProccess(true);
@@ -51,27 +51,22 @@ namespace WorldOfZuul
         Quest interceptPoachers = new Quest("Intercept Poachers", "Stop the poachers from brutally murdering your mama");
         Quest enterBuilding = new Quest("Enter the Building", "Enter the council building");
 
-        interceptPoachers.AddQuest();
-        enterBuilding.AddQuest();
-
         interceptPoachers.AddPrerequisite(enterBuilding);
 
         // Create MapObjects
         MapObject council = new(5, 4, MapObjectsEnum.PLACE, false, false, "You have entered the building", enterBuilding);
         // Add MapObjects to the map
-        roomMap.AddMapObject(council); // First coordinate always uneven!
+        RoomMap.mapEntities.AddMapObject(council); // First coordinate always uneven!
 
         MapObject poachers = new(11, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers);
-        roomMap.AddMapObject(poachers);
+        RoomMap.mapEntities.AddMapObject(poachers);
 
         MapObject wall1 = new(3, 2, MapObjectsEnum.VERTICALWALL, false, true);
-        roomMap.AddMapObject(wall1);
+        RoomMap.mapEntities.AddMapObject(wall1);
         MapObject wall2 = new(3, 3, MapObjectsEnum.VERTICALWALL, false, true);
-        roomMap.AddMapObject(wall2);
+        RoomMap.mapEntities.AddMapObject(wall2);
         MapObject wall3 = new(1, 3, MapObjectsEnum.HORIZONTALWALL, false, true);
-        roomMap.AddMapObject(wall3);
-
-
+        RoomMap.mapEntities.AddMapObject(wall3);
       }
     }
   }
