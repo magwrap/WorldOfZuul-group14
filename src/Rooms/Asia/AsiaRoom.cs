@@ -72,8 +72,8 @@ namespace WorldOfZuul
         GregoryPoacher.TreeOfChoices = new ChoiceBranch(0, "I'm gregory the poacher and I will kill all the animalls!");
 
 
-        MapObject poachers = new(13, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers, GreogoryPoacher);
-        RoomMap.mapEntites.AddMapObject(poachers);
+        MapObject poachers = new(13, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers, GregoryPoacher);
+        RoomMap.mapEntities.AddMapObject(poachers);
         //left right 1 3 5 7 9 11 13 15 17 19 21  //up down 1 2 3 4 5 6 7 8 9
         //add walls
         MapObject wallBase111 = new(11, 1, MapObjectsEnum.VERTICALWALL, false, true);
@@ -83,7 +83,7 @@ namespace WorldOfZuul
         MapObject wallBase113 = new(11, 3, MapObjectsEnum.VERTICALWALL, false, true);
         RoomMap.mapEntities.AddMapObject(wallBase113);
         MapObject wallBase114 = new(11, 4, MapObjectsEnum.VERTICALWALL, false, true);
-        RoomMap.AddMapObject(wallBase114);
+        RoomMap.mapEntities.AddMapObject(wallBase114);
         MapObject wallBase115 = new(11, 5, MapObjectsEnum.VERTICALWALL, false, true);
         RoomMap.mapEntities.AddMapObject(wallBase115);
         MapObject wallBase116 = new(11, 6, MapObjectsEnum.VERTICALWALL, false, true);
@@ -99,7 +99,7 @@ namespace WorldOfZuul
         MapObject wallBase66 = new(6, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
         RoomMap.mapEntities.AddMapObject(wallBase66);
         MapObject wallBase56 = new(5, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        RoomMap.AddMapObject(wallBase56);
+        RoomMap.mapEntities.AddMapObject(wallBase56);
         MapObject wallBase46 = new(4, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
         RoomMap.mapEntities.AddMapObject(wallBase46);
         MapObject wallBase36 = new(3, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
