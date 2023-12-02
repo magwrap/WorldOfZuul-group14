@@ -63,7 +63,12 @@ namespace WorldOfZuul.Africa
       {
         Command? command = Game.AskForCommand();
         continuePlaying = Actions.DecideAction(ref command, ref currentRoom, ref previousRoom, true, "africa");
-        josh.TreeOfChoices?.StartDialog();
+        bool? joshGoodEnding = josh.TreeOfChoices?.StartDialog();
+
+        if (joshGoodEnding != null && joshGoodEnding == true)
+        {
+          GameConsole.WriteLine("Good ending!!");
+        }
       }
     }
 
@@ -84,13 +89,14 @@ namespace WorldOfZuul.Africa
               ("Africa", new ChoiceBranch(2, "hmm I think that it is very empty at the moment",
                   new DialogOption[] {
                     ("Argue", new ChoiceBranch(1, "alright alright it's beautiful")),
-                    ("Agree", new ChoiceBranch(2, "But don't worry you still have plenty of time left : )"))
+                    ("Agree", new ChoiceBranch(2, "But don't worry you still have plenty of time left : )", isItGoodEnding: true))
                   }
                 )
               )
             }
         )
       );
+
 
       var choices = new DialogOption[] {
         fightOption, // first option so nr 1

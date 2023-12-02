@@ -13,6 +13,8 @@ namespace WorldOfZuul
     public string Content { get; set; }
     private readonly List<string> Dialogs = new();
 
+    private bool? isGoodEnding = null;
+
     private string Prompt = "";
 
     public override string ToString()
@@ -44,13 +46,14 @@ namespace WorldOfZuul
     public ChoiceBranch(
         int branchNr, // value bigger than 0
         string branchConent,
-        DialogOption[]? choices = null
-      // ChoiceBranch[]? choiceBranchChildren = null,
-      // string[]? dialogs = null
+        DialogOption[]? choices = null,
+        bool? isItGoodEnding = null
       )
     {
       Content = branchConent ?? "";
       Key = --branchNr;
+
+      isGoodEnding = isItGoodEnding;
 
       if (choices != null)
       {
@@ -79,16 +82,17 @@ namespace WorldOfZuul
       }
     }
 
-    public void StartDialog()
+    public bool StartDialog()
     {
       //TODO: return a value so that you can know which branch did player choose
       GameConsole.WriteLine(this.GetDialogMessage(), font: FontTheme.NPC);
 
-      if (Dialogs.Count == 0) return;
+      if (IsEndOfTree()) return isGoodEnding != null && (bool)isGoodEnding;
+
       int userOption = GameConsole.GetUserOption(Dialogs.ToArray<string>(), Prompt);
       //TODO: somehow pass the font type from the parent object
 
-      Branches[userOption].StartDialog();
+      return Branches[userOption].StartDialog();
     }
 
     public bool IsEndOfTree()
