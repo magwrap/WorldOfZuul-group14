@@ -69,7 +69,7 @@ namespace WorldOfZuul
         RoomMap.mapEntities.AddMapObject(council); // First coordinate always uneven!
 
         Enemy GregoryPoacher = new("Gregory");
-        GregoryPoacher.TreeOfChoices = new ChoiceBranch(0, "I'm gregory the poacher and I will kill all the animalls!");
+        GregoryPoacher.TreeOfChoices = new ChoiceBranch(1, "I'm gregory the poacher and I will kill all the animalls!");
 
 
         MapObject poachers = new(13, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers, GregoryPoacher);
