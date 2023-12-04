@@ -82,9 +82,10 @@ namespace WorldOfZuul
       }
     }
 
-    public bool StartDialog()
+    public bool StartDialog(string responsePrompt = "Response: ")
     {
       //TODO: return a value so that you can know which branch did player choose
+      GameConsole.Write(responsePrompt);
       GameConsole.WriteLine(this.GetDialogMessage(), font: FontTheme.NPC);
 
       if (IsEndOfTree()) return isGoodEnding != null && (bool)isGoodEnding;
@@ -92,7 +93,7 @@ namespace WorldOfZuul
       int userOption = GameConsole.GetUserOption(Dialogs.ToArray<string>(), Prompt);
       //TODO: somehow pass the font type from the parent object
 
-      return Branches[userOption].StartDialog();
+      return Branches[userOption].StartDialog(responsePrompt);
     }
 
     public bool IsEndOfTree()
