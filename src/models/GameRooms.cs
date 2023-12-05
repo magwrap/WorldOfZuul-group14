@@ -24,6 +24,7 @@ namespace WorldOfZuul
     public string? ShortDesc { get; set; }
     public string? LongDesc { get; set; }
     public string? MessageOnArrival { get; set; }
+    public string? ExtendedDescription { get; set; }
 
   }
 }
