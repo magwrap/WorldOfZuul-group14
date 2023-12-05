@@ -54,6 +54,10 @@ namespace WorldOfZuul.src.Map
         mapObjects.Remove((x, y));
       }
     }
+    public bool IsAnyQuestAvailable()
+    {
+      return MapObjectsQuestsKeysQueue.Count > 0;
+    }
     public void CheckQuestCompletion()
     {
       foreach (var mapObjectKey in MapObjectsQuestsKeysQueue)
@@ -68,16 +72,17 @@ namespace WorldOfZuul.src.Map
 
     public Quest? GetCurrentQuest()
     {
-      if (MapObjectsQuestsKeysQueue.Count == 0) return null;
 
+      if (MapObjectsQuestsKeysQueue.Count == 0) return null;
       var mapObjectKey = MapObjectsQuestsKeysQueue.First();
       return mapObjects[mapObjectKey].Quest;
     }
 
-    public void StartCurrentQuest()
+    public bool? StartCurrentQuest()
     {
       // GameConsole.WriteLine("Starting mission...");
       LoadingAnimation.Loading("Starting mission");
+      GameConsole.Write("\n");
 
 
       var mapObjectKey = MapObjectsQuestsKeysQueue.First();
@@ -87,9 +92,9 @@ namespace WorldOfZuul.src.Map
 
       if (mapObject.MapObjectType is MapObjectsEnum.NPC || mapObject.MapObjectType is MapObjectsEnum.ENEMY)
       {
-        mapObject?.Npc?.TreeOfChoices?.StartDialog();
+        return mapObject?.Npc?.TreeOfChoices?.StartDialog();
       }
-
+      return true;
     }
     public void CompleteCurrentQuest()
     {
@@ -115,6 +120,7 @@ namespace WorldOfZuul.src.Map
       {
 
         GameConsole.WriteLine($"Current Quest: {GetCurrentQuest()?.Title}", font: FontTheme.Info);
+        GameConsole.WriteLine($"{GetCurrentQuest()?.Description}\n");
       }
       else
       {

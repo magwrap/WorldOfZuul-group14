@@ -13,8 +13,8 @@ namespace WorldOfZuul.Africa
 
     private MissionRoom? submarine;
     private MissionRoom? camp;
-    readonly NPC josh = new("josh");
-
+    readonly NPC hal = new("HAL");
+    MissionGameRooms? JsonAfricaRooms = null;
 
     // private MissionRoom? jungle;
     bool continuePlaying = true;
@@ -29,81 +29,100 @@ namespace WorldOfZuul.Africa
 
     public void StartAfricaMission(ref Room? currentRoom, ref Room? previousRoom)
     {
-      MissionGameRooms africaRooms = JsonFileReader.GetAfricaRooms();
+      JsonAfricaRooms = JsonFileReader.GetAfricaRooms();
+
       GameConsole.WriteLine(LongDescription, font: FontTheme.HighligtedText);
 
-      if (africaRooms == null || africaRooms.Rooms == null)
+      if (JsonAfricaRooms == null || JsonAfricaRooms.Rooms == null)
       {
         throw new Exception("No africa rooms");
       };
 
       submarine = new(
-        africaRooms.Rooms[(int)AfricaRoomsEnum.SUBMARINE].ShortDesc,
-        africaRooms.Rooms[(int)AfricaRoomsEnum.SUBMARINE].LongDesc,
-        africaRooms.Rooms[(int)AfricaRoomsEnum.SUBMARINE].MissionDescription,
-        africaRooms.Rooms[(int)AfricaRoomsEnum.SUBMARINE].MessageOnArrival
+        JsonAfricaRooms.Rooms[(int)AfricaRoomsEnum.SUBMARINE].ShortDesc,
+        JsonAfricaRooms.Rooms[(int)AfricaRoomsEnum.SUBMARINE].LongDesc,
+        JsonAfricaRooms.Rooms[(int)AfricaRoomsEnum.SUBMARINE].MissionDescription,
+        JsonAfricaRooms.Rooms[(int)AfricaRoomsEnum.SUBMARINE].MessageOnArrival,
+        new Map(height: 6, width: 8)
         );
 
       camp = new(
-        africaRooms.Rooms[(int)AfricaRoomsEnum.CAMP].ShortDesc,
-        africaRooms.Rooms[(int)AfricaRoomsEnum.CAMP].LongDesc,
-        africaRooms.Rooms[(int)AfricaRoomsEnum.CAMP].MissionDescription,
-        africaRooms.Rooms[(int)AfricaRoomsEnum.CAMP].MessageOnArrival
+        JsonAfricaRooms.Rooms[(int)AfricaRoomsEnum.CAMP].ShortDesc,
+        JsonAfricaRooms.Rooms[(int)AfricaRoomsEnum.CAMP].LongDesc,
+        JsonAfricaRooms.Rooms[(int)AfricaRoomsEnum.CAMP].MissionDescription,
+        JsonAfricaRooms.Rooms[(int)AfricaRoomsEnum.CAMP].MessageOnArrival
       );
       //TODO: add river to thh map
 
       BuildChoiceTree();
-
+      InitializeObjects();
+      //TODO: fix map objects are not initialized
       submarine.SetExit("camp", camp);
-      submarine.DisplayMissionDesc();
+      submarine.DisplayMessageOnArrival();
+
       previousRoom = null;
       currentRoom = submarine;
 
+      Command? cmnd = new Command("map on");
+      Actions.DecideAction(ref cmnd, ref currentRoom, ref previousRoom, true);
+
       while (continuePlaying)
       {
+
+
         Command? command = Game.AskForCommand();
         continuePlaying = Actions.DecideAction(ref command, ref currentRoom, ref previousRoom, true, "africa");
-        bool? joshGoodEnding = josh.TreeOfChoices?.StartDialog();
-
-        if (joshGoodEnding != null && joshGoodEnding == true)
-        {
-          GameConsole.WriteLine("Good ending!!");
-        }
       }
+    }
+
+    private void SubmarineLoop()
+    {
+
+    }
+
+    private void InitializeObjects()
+    {
+
+
+      Quest startMission = new("Enbark on a mission!", "Talk to hal in order to start the mission");
+
+      MapObject halMpOb = new(3, 1, MapObjectsEnum.NPC, false, false, "sdffd", startMission, npc: hal);
+      submarine?.RoomMap.mapEntities.AddMapObject(halMpOb);
     }
 
     private void BuildChoiceTree()
     {
+      BuildHal();
+    }
 
+    private void BuildHal()
+    {
       //choices for josh
 
+      if (submarine?.MissionDescription == null) throw new Exception("Submarine Mission Description empty");
+
       //option 1
-      var fightOption = ("Kick him", new ChoiceBranch(1, "Auch that wasn't nice"));
-
-
       //option 2
       var talkOption = (
-        "Talk with him", new ChoiceBranch(2, "What do you want to talk about?",
+        "Give me a deeper insight of the mission", new ChoiceBranch(1,
+        submarine.MissionDescription,
             new DialogOption[] {
-              ("Weather", new ChoiceBranch(1, "the weather is very pretty today")),
-              ("Africa", new ChoiceBranch(2, "hmm I think that it is very empty at the moment",
-                  new DialogOption[] {
-                    ("Argue", new ChoiceBranch(1, "alright alright it's beautiful")),
-                    ("Agree", new ChoiceBranch(2, "But don't worry you still have plenty of time left : )", isItGoodEnding: true))
-                  }
-                )
-              )
+              ("Pick up the earphone", new ChoiceBranch(1, "Great! Now we can start the mission",
+                   new DialogOption[] {
+                      ("Let's go!", new ChoiceBranch(1, "You feel sudden jerk and submarine starts getting closer to the surffice faster than you'd expect. Hal tells you to move to the other ship and your journey begins...", isItGoodEnding: true)),
+                   }
+              )),
+              ("Hit the steering panel", new ChoiceBranch(2, "Auuch! What are you doing??"))
             }
         )
       );
 
 
       var choices = new DialogOption[] {
-        fightOption, // first option so nr 1
-        talkOption, // second option so nr 2
+        talkOption, // second option so nr 1 
       };
 
-      josh.TreeOfChoices = new ChoiceBranch(1, "Hello My name is Josh", choices);
+      hal.TreeOfChoices = new ChoiceBranch(1, "Hi I'm hal", choices);
     }
   }
 }

@@ -5,8 +5,9 @@ namespace WorldOfZuul
 {
   public class Map
   {
-    private int position_x = 1;
-    private int position_y = 1;
+    private static int position_x = 1;
+    private static int position_y = 1;
+    private int displayedPositionX = position_x;
     private bool mapVisible = true;
     private readonly int heightOfMap;
     private readonly int widthOfMap;
@@ -83,6 +84,8 @@ namespace WorldOfZuul
           // Player moves to the new position
           position_x = newPositionX;
           position_y = newPositionY;
+
+          displayedPositionX++;
         }
 
         if (MapVisibility)
@@ -101,8 +104,18 @@ namespace WorldOfZuul
             if (quest.ArePrerequisitesMet())
             {
               //here you can add body of a quest for example talk to a npc, some mini game?
-              mapEntities.StartCurrentQuest();
-              mapEntities.CompleteCurrentQuest();
+              bool? questResult = mapEntities.StartCurrentQuest();
+
+
+              //if result is positive(true) then we can finish the quest
+              if (questResult == null || questResult == true)
+              {
+                mapEntities.CompleteCurrentQuest();
+              }
+              else
+              {
+                GameConsole.WriteLine("Failed to finish the quest try again!");
+              }
             }
             else
             {
@@ -111,7 +124,17 @@ namespace WorldOfZuul
           }
           else
           {
-            GameConsole.WriteLine("You need to finish you current quest first!", font: FontTheme.Danger);
+            //TODO: fix walll message bug
+            //Maybe decrease players reputation a bit?
+            if (mapEntities.IsAnyQuestAvailable())
+            {
+
+              GameConsole.WriteLine("You need to finish you current quest first!", font: FontTheme.Danger);
+            }
+            else
+            {
+              GameConsole.WriteLine("You've no current quests left!", font: FontTheme.HighligtedText);
+            }
           }
         }
       }
@@ -141,7 +164,7 @@ namespace WorldOfZuul
       int rows = heightOfMap + 1; //size of the map rows N/S, added +1 to avoid the bug of going out of the map :)
       int columns = widthOfMap; //size of the map columns W/E
       GameConsole.Clear();
-      GameConsole.WriteLine($"Player pos: {PositionX - 2} {PositionY}"); //subtracting 2 from x so it's easier for the player to read
+      GameConsole.WriteLine($"Player pos x: {displayedPositionX} y: {PositionY}"); //subtracting 2 from x so it's easier for the player to read
       mapEntities.DisplayCurrentQuest();
 
       for (int i = 0; i <= rows; i++) //int i are for x coordinates  
@@ -201,8 +224,6 @@ namespace WorldOfZuul
         GameConsole.Write(" ");
       }
     }
-
-
 
     /// <summary>
     /// Function checking if on current coordinate exists an object

@@ -15,10 +15,12 @@ namespace WorldOfZuul
 
     public NPC? Npc { get; set; }
 
+
+    //https://symbl.cc/en/unicode/table/#avestan
     public static readonly Dictionary<MapObjectsEnum, string> MapMarkers = new()
     {
       [MapObjectsEnum.NPC] = "\U0001F464", //'#'
-      [MapObjectsEnum.ENEMY] = "X", //\U0001F5F4
+      [MapObjectsEnum.ENEMY] = "\U000026A0", //"\U00003020",  //\U0001F5F4 // \U00003020
       [MapObjectsEnum.PLACE] = "\U00002302", //'^'
       [MapObjectsEnum.ITEM] = "!",
       [MapObjectsEnum.VERTICALWALL] = "\U0000258F", //U0000275A //\U0000258F //'|'
@@ -26,7 +28,7 @@ namespace WorldOfZuul
 
     };
 
-    private static readonly Dictionary<MapObjectsEnum, FontTheme> MapObjectFonts = new()
+    public static readonly Dictionary<MapObjectsEnum, FontTheme> MapObjectFonts = new()
     {
       [MapObjectsEnum.NPC] = FontTheme.NPC,
       [MapObjectsEnum.ENEMY] = FontTheme.Danger,
@@ -36,7 +38,15 @@ namespace WorldOfZuul
 
     };
 
-    public MapObject(int mapCordX, int mapCordY, MapObjectsEnum? mapObjectType, bool isRemovable, bool isImpassable, string? occupiedMessage = null, Quest? quest = null, NPC? npc = null)
+    public MapObject(
+      int mapCordX,
+      int mapCordY,
+      MapObjectsEnum? mapObjectType,
+       bool isRemovable = false,
+       bool isImpassable = true, // on default items will be Impassable and Unremovable
+       string? occupiedMessage = null,
+       Quest? quest = null,
+       NPC? npc = null)
     {
 
       // X has to be odd number bcs. user moves 2 fields at the time
@@ -51,7 +61,7 @@ namespace WorldOfZuul
       this.IsImpassable = isImpassable;
       this.Npc = npc;
 
-      if (MapObjectType is MapObjectsEnum.NPC || MapObjectType is MapObjectsEnum.ENEMY && Npc == null)
+      if ((MapObjectType is MapObjectsEnum.NPC || MapObjectType is MapObjectsEnum.ENEMY) && Npc == null)
       {
         throw new ArgumentException("If you're creating person map object you have to pass NPC/Enemy object");
       }

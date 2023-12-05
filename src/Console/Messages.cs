@@ -16,6 +16,18 @@ namespace WorldOfZuul
 
     public static void PrintWelcome()
     {
+
+      //https://texteditor.com
+
+      GameConsole.WriteLine(@" 
+ (     ( .          (        .     )        :  (    (     
+ )\    )\  (  (  (  \)         (   ()      (   )\   )\ (  
+((_)  ((() )\ )\ )\ )\)_       )\ (())     )\ ((_) ((_))\ 
+\ \    / /((_)( )| |)\| |     ((_)/ _|    ((_)(_))((_))| |
+ \ \/\/ // _ \ '_| | _` |    / _ \  _|    |_ / || | || | |
+  \_/\_/ \___/_| |_|__/_|    \___/_|      /__|\_._|\_._|_|
+
+", delay: 1);
       GameConsole.WriteLine(
         "Welcome to the World of Zuul!\nWorld of Zuul is a new, incredibly boring adventure game.",
         fgColor: ConsoleColor.Green
@@ -38,14 +50,13 @@ namespace WorldOfZuul
     }
     public static void PrintMapObjectsHelp()
     {
-      GameConsole.WriteLine("\n");
-      GameConsole.WriteLine(
-        @$"MAP OBJECTS:
-        {MapObject.MapMarkers[MapObjectsEnum.NPC]} - NPC
-        {MapObject.MapMarkers[MapObjectsEnum.ENEMY]} - Enemy
-        {MapObject.MapMarkers[MapObjectsEnum.PLACE]} - Place
-        ", font: FontTheme.GameTip);
-      // {MapObject.MapMarkers[MapObjectsEnum.VERTICALWALL]} and {MapObject.MapMarkers[MapObjectsEnum.HORIZONTALWALL]} - walls
+      GameConsole.WriteLine("\n\n\tMAP OBJECTS:", font: FontTheme.Info);
+      GameConsole.Write($"{MapObject.MapMarkers[MapObjectsEnum.NPC]}", font: MapObject.MapObjectFonts[MapObjectsEnum.NPC]);
+      GameConsole.Write("- Npc\n", font: FontTheme.GameTip);
+      GameConsole.Write($"{MapObject.MapMarkers[MapObjectsEnum.ENEMY]}", font: MapObject.MapObjectFonts[MapObjectsEnum.ENEMY]);
+      GameConsole.Write(" - Enemy\n", font: FontTheme.GameTip);
+      GameConsole.Write($"{MapObject.MapMarkers[MapObjectsEnum.PLACE]}", font: MapObject.MapObjectFonts[MapObjectsEnum.PLACE]);
+      GameConsole.Write(" - Place\n", font: FontTheme.GameTip);
     }
 
     public static void PrintUnknownCommandMessage()
