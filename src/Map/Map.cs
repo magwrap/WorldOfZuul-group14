@@ -135,14 +135,22 @@ namespace WorldOfZuul
           {
             //TODO: fix walll message bug
             //Maybe decrease players reputation a bit?
-            if (mapEntities.IsAnyQuestAvailable())
+            if (occupyingObject?.MapObjectType is MapObjectsEnum.NPC)
             {
 
-              GameConsole.WriteLine("You need to finish you current quest first!", font: FontTheme.Danger);
+              if (mapEntities.IsAnyQuestAvailable())
+              {
+
+                GameConsole.WriteLine("You need to finish you current quest first!", font: FontTheme.Danger);
+              }
+              else
+              {
+                GameConsole.WriteLine("You've no current quests left!", font: FontTheme.HighligtedText);
+              }
             }
             else
             {
-              GameConsole.WriteLine("You've no current quests left!", font: FontTheme.HighligtedText);
+              GameConsole.WriteLine("You can't go futher in this direction.", font: FontTheme.Danger);
             }
           }
         }
@@ -192,7 +200,6 @@ namespace WorldOfZuul
         GameConsole.WriteLine();
       }
 
-      Messages.PrintMapObjectsHelp();
     }
 
     /// <summary>

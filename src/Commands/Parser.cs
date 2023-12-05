@@ -25,7 +25,6 @@ namespace WorldOfZuul
         string argument = words[1];
         if (commandWords.IsValidCommand(command))
         {
-          GameConsole.WriteLine(command);
           return new Command(command, argument);
         }
         else
