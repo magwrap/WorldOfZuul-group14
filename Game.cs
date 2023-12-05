@@ -51,6 +51,8 @@ namespace WorldOfZuul
 
 
       currentRoom = Hub;
+      // currentRoom = Africa;
+      // currentRoom = Asia;
     }
 
     /// <summary>
@@ -61,8 +63,6 @@ namespace WorldOfZuul
     {
       //initialize the reputation system
       Reputation.Initialize();
-
-
 
       //Print Welcome
       Console.ForegroundColor = ConsoleColor.Black;

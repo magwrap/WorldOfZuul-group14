@@ -5,9 +5,9 @@ namespace WorldOfZuul
 {
   public class Map
   {
-    private static int position_x = 1;
-    private static int position_y = 1;
-    private int displayedPositionX = position_x;
+    private int position_x = 1;
+    private int position_y = 1;
+    private int displayedPositionX = 1;
     private bool mapVisible = true;
     private readonly int heightOfMap;
     private readonly int widthOfMap;
@@ -42,12 +42,15 @@ namespace WorldOfZuul
       return mapVisible = changeVisibility;
     }
 
-    public void MoveOnMap(string direction)
+    public void MoveOnMap(string direction, string range = "1")
     {
       //TODO: add moving a few fields at once for example: south 5, moves you 5 fields down
 
       int newPositionX = position_x;
       int newPositionY = position_y;
+
+
+      _ = int.TryParse(range, out int rangeToMove);
 
       switch (direction)
       {
@@ -77,7 +80,13 @@ namespace WorldOfZuul
 
         if (occupyingObject != null && occupyingObject.CannotPassTheObject())
         {
-          GameConsole.WriteLine("You can't pass through here!", font: FontTheme.Danger);
+
+          //I've made it that player can't walk into npc too bcs that wouldn't make sense
+          if (!(occupyingObject.Npc is NPC))
+          {
+            GameConsole.WriteLine("You can't pass through here!", font: FontTheme.Danger);
+            rangeToMove = 0;
+          }
         }
         else
         {
@@ -126,14 +135,22 @@ namespace WorldOfZuul
           {
             //TODO: fix walll message bug
             //Maybe decrease players reputation a bit?
-            if (mapEntities.IsAnyQuestAvailable())
+            if (occupyingObject?.MapObjectType is MapObjectsEnum.NPC)
             {
 
-              GameConsole.WriteLine("You need to finish you current quest first!", font: FontTheme.Danger);
+              if (mapEntities.IsAnyQuestAvailable())
+              {
+
+                GameConsole.WriteLine("You need to finish you current quest first!", font: FontTheme.Danger);
+              }
+              else
+              {
+                GameConsole.WriteLine("You've no current quests left!", font: FontTheme.HighligtedText);
+              }
             }
             else
             {
-              GameConsole.WriteLine("You've no current quests left!", font: FontTheme.HighligtedText);
+              GameConsole.WriteLine("You can't go futher in this direction.", font: FontTheme.Danger);
             }
           }
         }
@@ -141,6 +158,13 @@ namespace WorldOfZuul
       else
       {
         GameConsole.WriteLine("Out of the bounds of the map! Try another direction.", font: FontTheme.Danger);
+      }
+
+      rangeToMove--;
+      if (rangeToMove > 0)
+      {
+        Thread.Sleep(500);
+        MoveOnMap(direction, rangeToMove.ToString());
       }
     }
 
@@ -176,7 +200,6 @@ namespace WorldOfZuul
         GameConsole.WriteLine();
       }
 
-      Messages.PrintMapObjectsHelp();
     }
 
     /// <summary>
