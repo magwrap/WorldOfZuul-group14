@@ -15,7 +15,7 @@ namespace WorldOfZuul
 
     public Map(
       int height = 10,
-      int width = 32
+      int width = 30
     )
     {
       heightOfMap = height;
