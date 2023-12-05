@@ -39,14 +39,21 @@ namespace WorldOfZuul
     }
     public static void PrintIntroductionToTheRoom()
     {
-      parkRanger.Speak("Poaching across Asia is reaching critical levels, driven by an unrelenting demand for illegal wildlife products.\nI am be here to guide you through the brief introduction into the quest, the rest falls upon your individual choices. \nHope you are up for the task, the poachers around here are relentless!");
+      parkRanger.Speak("Come in...Over");
+      Thread.Sleep(2000);
+      GameConsole.Clear();
+      parkRanger.Speak("Come in Ranger...Over");
+      Thread.Sleep(3000);
+      GameConsole.Clear();
+      parkRanger.Speak("Welcom to Asia ranger! By using command 'map on', you will always be able to see the protected area, your task will be always displayed on the top of the screen. You got this!");
+      Messages.PrintMissionHelp();
     }
 
     private void InitializeObjects()
     {
       if (AsiaRoom.AsiaMission)
       {
-        Console.WriteLine("Initializing objects...");
+        //Console.WriteLine("Initializing objects...");
         //intended asia mission, first all of the base walls are closed - you ahve to enter the operational center for anti-poaching crisis in asia, where you talk to an npc who briefs you 
         //then after you are finished talking with him, the walls open and you are supposed to capture the poachers
         //once you capture the poachers you have to bring them back to OCAPCA 
@@ -60,20 +67,24 @@ namespace WorldOfZuul
 
         //add quests 
         Quest interceptPoachers = new Quest("Intercept Poachers", "Stop the poachers from brutally murdering your mama");
-        Quest enterBuilding = new Quest("Enter the Building", "Enter the council building");
+        Quest enterBuilding = new Quest("Enter the headquarters building", "Enter the headquarters building for a mission briefing"); //first string is shown as a current quest, second string is shown as a quest description
         interceptPoachers.AddPrerequisite(enterBuilding);
 
-        // Create MapObjects
-        MapObject council = new(5, 4, MapObjectsEnum.PLACE, false, false, "You have entered the building", enterBuilding);
-        // Add MapObjects to the map
+        //Add HeadRanger to the building, headquarters
+        NPC HeadRanger = new("Head Ranger");
+        InitializeDialogHeadRanger(HeadRanger);
+
+        // Add coucil to the map with HeadRanger inside of it
+        MapObject council = new(5, 4, MapObjectsEnum.PLACE, false, false, "You have entered the operations centre", enterBuilding, HeadRanger);
         RoomMap.mapEntities.AddMapObject(council); // First coordinate always uneven!
 
-        Enemy GregoryPoacher = new("Gregory");
-        GregoryPoacher.TreeOfChoices = new ChoiceBranch(1, "I'm gregory the poacher and I will kill all the animalls!");
+        Enemy Poacher = new("Poacher");
+        InitializeDialogPoacher(Poacher);
 
-
-        MapObject poachers = new(13, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers, GregoryPoacher);
+        MapObject poachers = new(13, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers, Poacher);
         RoomMap.mapEntities.AddMapObject(poachers);
+
+
         //left right 1 3 5 7 9 11 13 15 17 19 21  //up down 1 2 3 4 5 6 7 8 9
         //add walls
         MapObject wallBase111 = new(11, 1, MapObjectsEnum.VERTICALWALL, false, true);
@@ -82,8 +93,10 @@ namespace WorldOfZuul
         RoomMap.mapEntities.AddMapObject(wallBase112);
         MapObject wallBase113 = new(11, 3, MapObjectsEnum.VERTICALWALL, false, true);
         RoomMap.mapEntities.AddMapObject(wallBase113);
-        MapObject wallBase114 = new(11, 4, MapObjectsEnum.VERTICALWALL, false, true);
-        RoomMap.mapEntities.AddMapObject(wallBase114);
+
+        //MapObject wallBase114 = new(11, 4, MapObjectsEnum.VERTICALWALL, false, true);
+        //RoomMap.mapEntities.AddMapObject(wallBase114);
+
         MapObject wallBase115 = new(11, 5, MapObjectsEnum.VERTICALWALL, false, true);
         RoomMap.mapEntities.AddMapObject(wallBase115);
         MapObject wallBase116 = new(11, 6, MapObjectsEnum.VERTICALWALL, false, true);
@@ -109,7 +122,65 @@ namespace WorldOfZuul
         MapObject wallBase16 = new(1, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
         RoomMap.mapEntities.AddMapObject(wallBase16);
 
+
       }
+    }
+    private void InitializeDialogHeadRanger(NPC npc)
+    {
+
+      var talkOption = (
+         "Yes", new ChoiceBranch(1, "Love to hear that! Are you familiar with the issues we are currently fighting?",
+             new DialogOption[] {
+              ("Yeah of course, I have been briefed before the mission", new ChoiceBranch(1, "Great, you will get more information throughout the course of the mission. \nYour first task should be now displayed on your screen shortly. \nGood luck!", isItGoodEnding: true)),
+              ("Unofrtunatelly, I am not quite sure", new ChoiceBranch(2, "Currently we are facing", //display some of the statistics in asia
+                  new DialogOption[] {
+                    ("Thank you, now I am ready!", new ChoiceBranch(1, "Good luck! You will need it.", isItGoodEnding: true)),
+                  }
+                )
+              )
+             }
+         )
+       );
+
+      var doNotTalkOption = ("No", new ChoiceBranch(2, "I am sorry, to hear that, we really needed you."));
+
+      var choices = new DialogOption[] {
+        talkOption, // first option so nr 1
+        doNotTalkOption, // second option so nr 2
+        };
+
+      npc.TreeOfChoices = new ChoiceBranch(0, "Poaching across Asia is reaching critical levels, driven by an unrelenting demand for illegal wildlife products.\nI am be here to guide you through the brief introduction into the quest, the rest falls upon your individual choices. \nAre you are up for the task? Don't be mistaken, poachers around here are relentless!", choices);
+    }
+
+    private void InitializeDialogPoacher(Enemy enemy)
+    {
+      var talkOption = (
+      "Yes", new ChoiceBranch(1, "Good, let's talk. I'm here to understand your perspective. Why did you choose to engage in illegal poaching?",
+          new DialogOption[] {
+                ("Survival, I have no other option.", new ChoiceBranch(1, "I see. Poverty is a significant issue. Did you know there are alternative livelihood programs that can provide sustainable income without harming wildlife?")),
+                ("I enjoy the thrill of hunting.", new ChoiceBranch(2, "Interesting. Hunting for sport can be harmful to ecosystems. Let me share some insights about the ecological impact of illegal poaching.",
+                    new DialogOption[] {
+                        ("Go ahead, enlighten me.", new ChoiceBranch(1, "Illegal poaching disrupts ecosystems and threatens biodiversity. Your actions contribute to the imbalance in nature. Have you considered the consequences?")),
+                        ("I don't care about the environment.", new ChoiceBranch(2, "Your perspective is concerning. The health of our planet affects us all. Let me share some facts about the importance of wildlife conservation.",
+                            new DialogOption[] {
+                                ("Fine, tell me more.", new ChoiceBranch(1, "Biodiversity is essential for a stable environment. Poaching jeopardizes this delicate balance. Your role in conservation can make a difference.")),
+                                ("I'm not interested.", new ChoiceBranch(2, "It's unfortunate that you're not interested. However, your cooperation is crucial for resolving this issue. Let's focus on the mission at hand.")),
+                            }
+                        )),
+                    }
+                )),
+          }
+        )
+      );
+
+      var doNotTalkOption = ("No", new ChoiceBranch(2, "Your silence won't help you or the environment. I hope you reconsider."));
+
+      var choices = new DialogOption[] {
+        talkOption, // first option so nr 1
+        doNotTalkOption, // second option so nr 2
+      };
+
+      enemy.TreeOfChoices = new ChoiceBranch(0, "Greetings, poacher! I'm here to understand your situation. Willing to share your side of the story?", choices);
     }
   }
 }
