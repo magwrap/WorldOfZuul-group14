@@ -90,7 +90,7 @@ namespace WorldOfZuul
           currentRoom?.RoomMap.MoveOnMap(command.Name);
           return true;
 
-        case "chose mission" when isMissionStarted == false:
+        case "choose mission" when isMissionStarted == false:
           GameConsole.Clear();
           ChoseGameMission(ref command, ref currentRoom, ref previousRoom, isMissionStarted, missionName);
           return true;

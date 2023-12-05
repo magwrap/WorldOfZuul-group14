@@ -90,7 +90,7 @@ namespace WorldOfZuul.src.Map
 
       GameConsole.WriteLine($"{mapObject.Quest?.Description}\n", font: FontTheme.HighligtedText);
 
-      if (mapObject.MapObjectType is MapObjectsEnum.NPC || mapObject.MapObjectType is MapObjectsEnum.ENEMY)
+      if (mapObject.MapObjectType is MapObjectsEnum.NPC || mapObject.MapObjectType is MapObjectsEnum.ENEMY || mapObject.MapObjectType is MapObjectsEnum.PLACE)
       {
         return mapObject?.Npc?.TreeOfChoices?.StartDialog();
       }
