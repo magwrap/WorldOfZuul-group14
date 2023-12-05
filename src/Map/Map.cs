@@ -27,14 +27,10 @@ namespace WorldOfZuul
       get { return mapVisible; }
     }
 
-    public int PositionX
+    public void SetXandY(int x, int y)
     {
-      get { return position_x; }
-    }
-
-    public int PositionY
-    {
-      get { return position_y; }
+      position_x = x;
+      position_y = y;
     }
 
     public bool ChangeMapVisibility(bool changeVisibility)
@@ -80,13 +76,8 @@ namespace WorldOfZuul
 
         if (occupyingObject != null && occupyingObject.CannotPassTheObject())
         {
+          rangeToMove = 0;
 
-          //I've made it that player can't walk into npc too bcs that wouldn't make sense
-          if (!(occupyingObject.Npc is NPC))
-          {
-            GameConsole.WriteLine("You can't pass through here!", font: FontTheme.Danger);
-            rangeToMove = 0;
-          }
         }
         else
         {
@@ -158,6 +149,7 @@ namespace WorldOfZuul
       else
       {
         GameConsole.WriteLine("Out of the bounds of the map! Try another direction.", font: FontTheme.Danger);
+        rangeToMove = 0;
       }
 
       rangeToMove--;
@@ -188,7 +180,7 @@ namespace WorldOfZuul
       int rows = heightOfMap + 1; //size of the map rows N/S, added +1 to avoid the bug of going out of the map :)
       int columns = widthOfMap; //size of the map columns W/E
       GameConsole.Clear();
-      GameConsole.WriteLine($"Player pos x: {displayedPositionX} y: {PositionY}"); //subtracting 2 from x so it's easier for the player to read
+      GameConsole.WriteLine($"Player pos x: {displayedPositionX} y: {position_y}"); //subtracting 2 from x so it's easier for the player to read
       mapEntities.DisplayCurrentQuest();
 
       for (int i = 0; i <= rows; i++) //int i are for x coordinates  

@@ -25,7 +25,8 @@ namespace WorldOfZuul
       [MapObjectsEnum.ITEM] = "!",
       [MapObjectsEnum.VERTICALWALL] = "\U0000258F", //U0000275A //\U0000258F //'|'
       [MapObjectsEnum.HORIZONTALWALL] = "\U00002E0F", //U0000268A //U00002594 //\U00002581 //\U00002015 //\U00002D67 //\U00002E0F//'-' 
-      [MapObjectsEnum.DIAGONALWALL] = "\\"
+      [MapObjectsEnum.DIAGONALWALL_LEFT] = "\\", //TODO: find better ascii signs!
+      [MapObjectsEnum.DIAGONALWALL_RIGHT] = "/"
 
     };
 
@@ -36,7 +37,8 @@ namespace WorldOfZuul
       [MapObjectsEnum.PLACE] = FontTheme.HighligtedText,
       [MapObjectsEnum.VERTICALWALL] = FontTheme.Wall,
       [MapObjectsEnum.HORIZONTALWALL] = FontTheme.Wall,
-      [MapObjectsEnum.DIAGONALWALL] = FontTheme.Wall
+      [MapObjectsEnum.DIAGONALWALL_LEFT] = FontTheme.Wall,
+      [MapObjectsEnum.DIAGONALWALL_RIGHT] = FontTheme.Wall
 
     };
 
@@ -52,7 +54,7 @@ namespace WorldOfZuul
     {
 
       // X has to be odd number bcs. user moves 2 fields at the time
-      //if (mapCordX % 2 == 0) throw new ArgumentException("mapCordX has to be an odd number!");//cant be used with walls
+      if (mapCordX % 2 == 0 && (mapObjectType is MapObjectsEnum.NPC || mapObjectType is MapObjectsEnum.PLACE)) throw new ArgumentException("mapCordX has to be an odd number!");//cant be used with walls
 
       this.MapCordX = mapCordX;
       this.MapCordY = mapCordY;
@@ -63,7 +65,9 @@ namespace WorldOfZuul
       this.IsImpassable = isImpassable;
       this.Npc = npc;
 
-      if ((MapObjectType is MapObjectsEnum.NPC || MapObjectType is MapObjectsEnum.ENEMY || MapObjectType is MapObjectsEnum.PLACE) && Npc == null)
+      if ((MapObjectType is MapObjectsEnum.NPC || MapObjectType is MapObjectsEnum.ENEMY
+      //  || MapObjectType is MapObjectsEnum.PLACE
+       ) && Npc == null)
       {
         throw new ArgumentException("If you're creating person map object you have to pass NPC/Enemy object");
       }
@@ -82,7 +86,7 @@ namespace WorldOfZuul
     {
       if (!string.IsNullOrEmpty(OccupiedMessage))
       {
-        Console.WriteLine(OccupiedMessage);
+        Console.WriteLine(OccupiedMessage + "\n");
       }
 
     }
