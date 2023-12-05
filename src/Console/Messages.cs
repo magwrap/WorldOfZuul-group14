@@ -37,7 +37,7 @@ namespace WorldOfZuul
     public static void PrintHelp()
     {
       GameConsole.WriteLine(
-        "\nNavigate by typing 'chose mission'.\nType 'look' for more details.\nType 'back' to go to the previous room.\nType 'help' to print this message again.\nType 'clear' to clear out the console\nType 'quit' to exit the game.",
+        "\nNavigate by typing 'choose mission'.\nType 'look' for more details.\nType 'back' to go to the previous room.\nType 'help' to print this message again.\nType 'clear' to clear out the console\nType 'quit' to exit the game.",
          font: FontTheme.Info
         );
     }

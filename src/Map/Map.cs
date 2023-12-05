@@ -42,32 +42,33 @@ namespace WorldOfZuul
       return mapVisible = changeVisibility;
     }
 
-    public void MoveOnMap(string direction, string? range = "1")
+    public void MoveOnMap(string direction, string range = "1")
     {
       //TODO: add moving a few fields at once for example: south 5, moves you 5 fields down
 
       int newPositionX = position_x;
       int newPositionY = position_y;
 
-      int.TryParse(range, out int rangeToMove);
+
+      _ = int.TryParse(range, out int rangeToMove);
 
       switch (direction)
       {
         case "north":
         case "n":
-          newPositionY -= rangeToMove;
+          newPositionY--;
           break;
         case "south":
         case "s":
-          newPositionY += rangeToMove;
+          newPositionY++;
           break;
         case "west":
         case "w":
-          newPositionX -= 2 * rangeToMove;
+          newPositionX -= 2;
           break;
         case "east":
         case "e":
-          newPositionX += 2 * rangeToMove;
+          newPositionX += 2;
           break;
       }
 
@@ -84,6 +85,7 @@ namespace WorldOfZuul
           if (!(occupyingObject.Npc is NPC))
           {
             GameConsole.WriteLine("You can't pass through here!", font: FontTheme.Danger);
+            rangeToMove = 0;
           }
         }
         else
@@ -148,6 +150,13 @@ namespace WorldOfZuul
       else
       {
         GameConsole.WriteLine("Out of the bounds of the map! Try another direction.", font: FontTheme.Danger);
+      }
+
+      rangeToMove--;
+      if (rangeToMove > 0)
+      {
+        Thread.Sleep(500);
+        MoveOnMap(direction, rangeToMove.ToString());
       }
     }
 

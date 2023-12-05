@@ -59,7 +59,7 @@ namespace WorldOfZuul
             currentRoom = previousRoom;
           return true;
 
-        case "map on" when isMissionStarted == true:
+        case "map" when isMissionStarted == true && command.SecondWord == "on":
           currentRoom?.RoomMap.ChangeMapVisibility(true); //set map visible
 
           GameConsole.WriteLine("Map is now visible", font: FontTheme.Success);
@@ -71,7 +71,7 @@ namespace WorldOfZuul
           currentRoom?.RoomMap.ShowMap();
           return true;
 
-        case "map off" when isMissionStarted == true:
+        case "map" when isMissionStarted == true && command.SecondWord == "off":
           currentRoom.RoomMap.ChangeMapVisibility(false); //hide map
 
           GameConsole.WriteLine("Map is no longer visible", font: FontTheme.Danger);
@@ -90,7 +90,7 @@ namespace WorldOfZuul
           currentRoom?.RoomMap.MoveOnMap(command.Name, command.SecondWord ?? "1");
           return true;
 
-        case "chose mission" when isMissionStarted == false:
+        case "choose" when isMissionStarted == false && command.SecondWord == "mission":
           GameConsole.Clear();
           ChoseGameMission(ref command, ref currentRoom, ref previousRoom, isMissionStarted, missionName);
           return true;
