@@ -28,5 +28,11 @@
       if (neighbor != null)
         Exits[direction] = neighbor;
     }
+    public void DisplayShortDescription()
+    {
+      GameConsole.WriteLine("---------------------------------------", delay: 0);
+      GameConsole.WriteLine(ShortDescription, font: FontTheme.Info, paddingLeft: 10);
+      GameConsole.WriteLine("---------------------------------------", delay: 0);
+    }
   }
 }

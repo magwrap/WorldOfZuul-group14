@@ -84,6 +84,7 @@ namespace WorldOfZuul
 
     public bool StartDialog(string responsePrompt = "Response: ")
     {
+      Console.WriteLine("Starting dialog");
       //TODO: return a value so that you can know which branch did player choose
       GameConsole.Write(responsePrompt);
       GameConsole.WriteLine(this.GetDialogMessage(), font: FontTheme.NPC);
@@ -98,6 +99,7 @@ namespace WorldOfZuul
 
     public bool IsEndOfTree()
     {
+      Console.WriteLine("End of tree");
       return Branches.Count == 0;
     }
   }

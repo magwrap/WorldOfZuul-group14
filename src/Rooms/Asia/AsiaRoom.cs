@@ -74,6 +74,7 @@ namespace WorldOfZuul
         NPC HeadRanger = new("Head Ranger");
         InitializeDialogHeadRanger(HeadRanger);
 
+        NewAsiaMission
         // Add coucil to the map with HeadRanger inside of it
         MapObject council = new(5, 4, MapObjectsEnum.PLACE, false, false, "You have entered the operations centre", enterBuilding, HeadRanger);
         RoomMap.mapEntities.AddMapObject(council); // First coordinate always uneven!
