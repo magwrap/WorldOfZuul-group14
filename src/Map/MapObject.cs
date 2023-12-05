@@ -63,7 +63,7 @@ namespace WorldOfZuul
       this.IsImpassable = isImpassable;
       this.Npc = npc;
 
-      if ((MapObjectType is MapObjectsEnum.NPC || MapObjectType is MapObjectsEnum.ENEMY) && Npc == null)
+      if ((MapObjectType is MapObjectsEnum.NPC || MapObjectType is MapObjectsEnum.ENEMY || MapObjectType is MapObjectsEnum.PLACE) && Npc == null)
       {
         throw new ArgumentException("If you're creating person map object you have to pass NPC/Enemy object");
       }
@@ -86,7 +86,6 @@ namespace WorldOfZuul
       }
 
     }
-
     public bool RemoveAfterCompletition()
     {
       return IsRemovable;
