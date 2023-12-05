@@ -73,7 +73,7 @@ namespace WorldOfZuul.Africa
       previousRoom = null;
       currentRoom = submarine;
 
-      Command? cmnd = new Command("map on");
+      Command? cmnd = new Command("map", "on");
       Actions.DecideAction(ref cmnd, ref currentRoom, ref previousRoom, true);
 
       while (continuePlaying)
@@ -204,7 +204,7 @@ namespace WorldOfZuul.Africa
       );
 
       DialogOption quitOption = (
-        "End conversation", new ChoiceBranch(1, "...bye then!")
+        "End conversation", new ChoiceBranch(2, "...bye then!")
       );
 
 

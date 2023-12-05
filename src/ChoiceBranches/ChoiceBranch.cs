@@ -99,7 +99,6 @@ namespace WorldOfZuul
 
     public bool IsEndOfTree()
     {
-      Console.WriteLine("End of tree");
       return Branches.Count == 0;
     }
   }
