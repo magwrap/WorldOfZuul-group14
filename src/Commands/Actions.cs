@@ -87,7 +87,7 @@ namespace WorldOfZuul
         case "s" when isMissionStarted == true:
         case "w" when isMissionStarted == true:
         case "e" when isMissionStarted == true:
-          currentRoom?.RoomMap.MoveOnMap(command.Name);
+          currentRoom?.RoomMap.MoveOnMap(command.Name, command.SecondWord ?? "1");
           return true;
 
         case "chose mission" when isMissionStarted == false:

@@ -18,15 +18,15 @@ namespace WorldOfZuul
       {
         return null;
       }
-
       if (words.Length > 1)
       {
         // If there are two or more words, construct the command as a single string
-        string command = string.Join(" ", words, 0, 2);
+        string command = words[0];
+        string argument = words[1];
         if (commandWords.IsValidCommand(command))
         {
           GameConsole.WriteLine(command);
-          return new Command(command);
+          return new Command(command, argument);
         }
         else
         {

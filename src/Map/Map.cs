@@ -5,9 +5,9 @@ namespace WorldOfZuul
 {
   public class Map
   {
-    private static int position_x = 1;
-    private static int position_y = 1;
-    private int displayedPositionX = position_x;
+    private int position_x = 1;
+    private int position_y = 1;
+    private int displayedPositionX = 1;
     private bool mapVisible = true;
     private readonly int heightOfMap;
     private readonly int widthOfMap;
@@ -42,30 +42,32 @@ namespace WorldOfZuul
       return mapVisible = changeVisibility;
     }
 
-    public void MoveOnMap(string direction)
+    public void MoveOnMap(string direction, string? range = "1")
     {
       //TODO: add moving a few fields at once for example: south 5, moves you 5 fields down
 
       int newPositionX = position_x;
       int newPositionY = position_y;
 
+      int.TryParse(range, out int rangeToMove);
+
       switch (direction)
       {
         case "north":
         case "n":
-          newPositionY--;
+          newPositionY -= rangeToMove;
           break;
         case "south":
         case "s":
-          newPositionY++;
+          newPositionY += rangeToMove;
           break;
         case "west":
         case "w":
-          newPositionX -= 2;
+          newPositionX -= 2 * rangeToMove;
           break;
         case "east":
         case "e":
-          newPositionX += 2;
+          newPositionX += 2 * rangeToMove;
           break;
       }
 
@@ -77,7 +79,12 @@ namespace WorldOfZuul
 
         if (occupyingObject != null && occupyingObject.CannotPassTheObject())
         {
-          GameConsole.WriteLine("You can't pass through here!", font: FontTheme.Danger);
+
+          //I've made it that player can't walk into npc too bcs that wouldn't make sense
+          if (!(occupyingObject.Npc is NPC))
+          {
+            GameConsole.WriteLine("You can't pass through here!", font: FontTheme.Danger);
+          }
         }
         else
         {
