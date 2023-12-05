@@ -8,5 +8,6 @@ namespace WorldOfZuul
     PLACE,
     VERTICALWALL,
     HORIZONTALWALL,
+    DIAGONALWALL,
   }
 }
