@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldOfZuul;
+using WorldOfZuul.src;
 namespace WorldOfZuul
 {
   public class ChoiceBranch : ChoiceTree
@@ -12,10 +13,9 @@ namespace WorldOfZuul
     public int Key { get; set; }
     public string Content { get; set; }
     private readonly List<string> Dialogs = new();
-
-    private bool? isGoodEnding = null;
-
-    private string Prompt = "";
+    private readonly bool? isGoodEnding = null;
+    private readonly string Prompt = "";
+    private readonly int reputationGain = 2;
 
     public override string ToString()
     {
@@ -47,11 +47,13 @@ namespace WorldOfZuul
         int branchNr, // value bigger than 0
         string branchConent,
         DialogOption[]? choices = null,
-        bool? isItGoodEnding = null
+        bool? isItGoodEnding = null,
+        int repGain = 11
       )
     {
       Content = branchConent ?? "";
       Key = --branchNr;
+      reputationGain = repGain;
 
       isGoodEnding = isItGoodEnding;
 
@@ -79,7 +81,11 @@ namespace WorldOfZuul
       GameConsole.Write(responsePrompt);
       GameConsole.WriteLine(this.GetDialogMessage(), font: FontTheme.NPC);
 
-      if (IsEndOfTree()) return isGoodEnding != null && (bool)isGoodEnding;
+      if (IsEndOfTree())
+      {
+        Reputation.DialogCompleted(reputationGain);
+        return isGoodEnding != null && (bool)isGoodEnding;
+      }
 
       int userOption = GameConsole.GetUserOption(Dialogs.ToArray<string>(), Prompt);
       //TODO: somehow pass the font type from the parent object

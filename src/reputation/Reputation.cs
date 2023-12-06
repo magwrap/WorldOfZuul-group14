@@ -56,10 +56,15 @@ namespace WorldOfZuul.src
     /// <summary>
     /// function envoked when mission is completed - adds reputation and increases missions completed counter
     /// </summary>
-    public static void MissionCompleted()
+    public static void MissionCompleted(int reputationGain = 11)
     {
-      ReputationScore += 11;
+      // ReputationScore += reputationGain;
       NumberOfMissionsFinished++;
+    }
+
+    public static void DialogCompleted(int reputationGain = 2)
+    {
+      ReputationScore += reputationGain;
     }
   }
 }
