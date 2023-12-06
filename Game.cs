@@ -50,8 +50,8 @@ namespace WorldOfZuul
 
 
 
-      // currentRoom = Hub;
-      currentRoom = Africa;
+      currentRoom = Hub;
+      // currentRoom = Africa;
       // currentRoom = Asia;
     }
 
