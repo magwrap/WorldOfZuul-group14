@@ -94,6 +94,7 @@ namespace WorldOfZuul
 
         // Add council to the map with HeadRanger inside it
         MapObject council = new(5, 3, MapObjectsEnum.PLACE, false, false, "You have entered the operations centre", enterBuilding, headRanger);
+
         RoomMap.mapEntities.AddMapObject(council); // First coordinate always uneven!
 
         // Initialize enemy Poacher and set up dialog
@@ -160,6 +161,7 @@ namespace WorldOfZuul
           new MapObject(22, 10, MapObjectsEnum.TREE, false, true, treeWarning),
           new MapObject(25, 10, MapObjectsEnum.TREE, false, true, treeWarning),
           new MapObject(27, 10, MapObjectsEnum.TREE, false, true, treeWarning),
+
 
         };
         RoomMap.mapEntities.PopulateMap(mapTrees);
