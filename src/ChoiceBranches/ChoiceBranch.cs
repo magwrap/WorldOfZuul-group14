@@ -68,23 +68,13 @@ namespace WorldOfZuul
       }
     }
 
-    public void AddDialog(string choice)
+    private void AddDialog(string choice)
     {
       Dialogs.Add(choice);
     }
 
-    public void AddMultipleDialogs(string[] dialogs, string prompt = "Your dialog option: ")
-    {
-      Prompt = prompt;
-      foreach (string dialog in dialogs)
-      {
-        Dialogs.Add(dialog);
-      }
-    }
-
     public bool StartDialog(string responsePrompt = "Response: ")
     {
-      Console.WriteLine("Starting dialog");
       //TODO: return a value so that you can know which branch did player choose
       GameConsole.Write(responsePrompt);
       GameConsole.WriteLine(this.GetDialogMessage(), font: FontTheme.NPC);
@@ -97,9 +87,8 @@ namespace WorldOfZuul
       return Branches[userOption].StartDialog(responsePrompt);
     }
 
-    public bool IsEndOfTree()
+    private bool IsEndOfTree()
     {
-      Console.WriteLine("End of tree");
       return Branches.Count == 0;
     }
   }
