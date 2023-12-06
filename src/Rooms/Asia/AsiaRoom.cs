@@ -107,7 +107,7 @@ namespace WorldOfZuul
         InitializeDialogPoacher(poacher);
 
         // Add poachers to the map with interceptPoachers quest
-        MapObject poachers = new(17, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers);
+        MapObject poachers = new(17, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers, npc: poacher);
         RoomMap.mapEntities.AddMapObject(poachers);
 
         // Add prison to the map with arrestPoachers quest and Poacher inside it
@@ -199,7 +199,7 @@ namespace WorldOfZuul
         doNotTalkOption, // second option so nr 2
         };
 
-      npc.TreeOfChoices = new ChoiceBranch(0, "Poaching across Asia is reaching critical levels, driven by an unrelenting demand for illegal wildlife products.\nI am be here to guide you through the brief introduction into the quest, the rest falls upon your individual choices. \nAre you are up for the task? Don't be mistaken, poachers around here are relentless!", choices);
+      npc.TreeOfChoices = new ChoiceBranch(1, "Poaching across Asia is reaching critical levels, driven by an unrelenting demand for illegal wildlife products.\nI am be here to guide you through the brief introduction into the quest, the rest falls upon your individual choices. \nAre you are up for the task? Don't be mistaken, poachers around here are relentless!", choices);
     }
 
     private static void InitializeDialogPoacher(Enemy enemy)
@@ -262,7 +262,7 @@ namespace WorldOfZuul
         doNotTalkOption, // second option so nr 2
       };
 
-      enemy.TreeOfChoices = new ChoiceBranch(0, "You think you can lock me up and stop me? I have been doing this for years!", choices);
+      enemy.TreeOfChoices = new ChoiceBranch(1, "You think you can lock me up and stop me? I have been doing this for years!", choices);
     }
   }
 }
