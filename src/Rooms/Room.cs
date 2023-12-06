@@ -30,9 +30,9 @@
     }
     public void DisplayShortDescription()
     {
-      GameConsole.WriteLine("---------------------------------------", delay: 0);
-      GameConsole.WriteLine(ShortDescription, font: FontTheme.Info, paddingLeft: 10);
-      GameConsole.WriteLine("---------------------------------------", delay: 0);
+      GameConsole.WriteLine("\n---------------------------------------------------------", delay: 0);
+      GameConsole.WriteLine(ShortDescription, font: FontTheme.Player, paddingLeft: 6);
+      GameConsole.WriteLine("---------------------------------------------------------\n", delay: 0);
     }
   }
 }

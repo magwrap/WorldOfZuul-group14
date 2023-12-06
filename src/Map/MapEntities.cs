@@ -119,8 +119,10 @@ namespace WorldOfZuul.src.Map
       if (GetCurrentQuest() != null)
       {
 
+        GameConsole.WriteLine("\n---------------------------------------------------------", delay: 0);
         GameConsole.WriteLine($"Current Quest: {GetCurrentQuest()?.Title}", font: FontTheme.Info);
-        GameConsole.WriteLine($"{GetCurrentQuest()?.Description}\n");
+        GameConsole.WriteLine($"{GetCurrentQuest()?.Description}");
+        GameConsole.WriteLine("---------------------------------------------------------\n", delay: 0);
       }
       else
       {

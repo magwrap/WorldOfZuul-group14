@@ -27,8 +27,8 @@
       "MessageOnArrival": "Leaving the ship, you catch a sight of your stationary team waiting for you in the cool shade of the trees. They introduce themselfs as Josh, Nebula and Kenny. Then they lead you to their camp.",
       "ShortDesc": "Camp in a jungle - middle of Africa",
       "LongDesc": "Camp is rather small, one tatched house or more like a barn equipped with modern devices, maps and sleeping bags laying on the floor. You notice a gun and a machete, laying on the joshes desk, a small tree planted in the corner of a room and an exit. Your teammates are scattered around the place each of them engrossed in their own tasks.",
-      "MissionDescription": "First you’ll need to locate the giraffe before the fire spreads, then escort it back to safety, ensuring it will stay secured in the future. Our local watch team calls her Elizabeth. They registered her seldomly responding to that name. She loves acacia leaves, but she also likes to overeat it leaving her in state of exhaustion. She is shy, and scared of people because of widespread of illegal hunting in these parts of the world\n",
-      "Actions": ["search", "talk", "look at", "leave"],
+      "MissionDescription": "First you’ll need to locate the giraffe before the fire spreads, then escort it back to safety, ensuring it will stay secured in the future. Our local watch team calls her Elizabeth. They registered her seldomly responding to that name. For more you'll need to ask Mandarine. I just here to keep an eye on everything.",
+      "ExtendedDescription": "She loves acacia leaves, but she also likes to overeat it leaving her in state of exhaustion. She is shy, and scared of people because of widespread of illegal hunting in these parts of the world\n",
       "ActionsContent": "Actions: - search the sleeping bags- pick up the gun- talk to: [name]- look at the plant (its acacia, next to it is a bottle of water)- peruse the map- leave ( if didnt look at the map, message is: you dont know where to go, you go back",
       "MessageOnDeparture": "As you’re leaving you hear that you should be prepared for everyting and hasty escape, because the fire is getting closer."
     },
