@@ -96,7 +96,7 @@ namespace WorldOfZuul.src.Map
       }
       return true;
     }
-    public void CompleteCurrentQuest()
+    public void CompleteCurrentQuest(int reputationGain = 10)
     {
       if (MapObjectsQuestsKeysQueue.Count > 0)
       {
