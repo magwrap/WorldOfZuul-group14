@@ -1,3 +1,5 @@
+using WorldOfZuul.src.Map;
+
 namespace WorldOfZuul
 {
   class AsiaRoom : Room
@@ -29,13 +31,23 @@ namespace WorldOfZuul
 
       PrintIntroductionToTheRoom();
       previousRoom = null;
-
       while (continuePlaying)
       {
+        CheckForMapChanges();
         Command? command = Game.AskForCommand();
         continuePlaying = Actions.DecideAction(ref command, ref currentRoom, ref previousRoom, true, "asia");
+
+        
       }
 
+    }
+    private void CheckForMapChanges()
+    {
+        if (RoomMap.mapEntities.GetCurrentQuest()?.Title == "Intercept Poachers")
+        {
+          RoomMap.mapEntities.RemoveMapObject(11, 3);
+          RoomMap.mapEntities.RemoveMapObject(11, 4);
+        }
     }
     public static void PrintIntroductionToTheRoom()
     {
@@ -66,66 +78,97 @@ namespace WorldOfZuul
         // Defenders
 
         //add quests 
-        Quest interceptPoachers = new Quest("Intercept Poachers", "Stop the poachers from brutally murdering your mama");
-        Quest enterBuilding = new Quest("Enter the headquarters building", "Enter the headquarters building for a mission briefing"); //first string is shown as a current quest, second string is shown as a quest description
+
+        // Define quests
+        Quest enterBuilding = new("Enter the headquarters building", "Enter the headquarters building for a mission briefing");
+        Quest interceptPoachers = new("Intercept Poachers", "Gates are now open! We got a report of poachers hunting a tiger. \nObjective is clear, stop them!");
         interceptPoachers.AddPrerequisite(enterBuilding);
+        Quest arrestPoachers = new("Take the poachers to prison", "Take the poachers for questioning");
+        arrestPoachers.AddPrerequisite(interceptPoachers);
+        Quest disassembleTrap = new("Find a poachers trap in the forest", "Find and carefully disassemble one of the poachers traps used to hunt tigers");
+        disassembleTrap.AddPrerequisite(arrestPoachers);
 
-        //Add HeadRanger to the building, headquarters
-        NPC HeadRanger = new("Head Ranger");
-        InitializeDialogHeadRanger(HeadRanger);
+        // Initialize NPC HeadRanger and set up dialog
+        NPC headRanger = new("Head Ranger");
+        InitializeDialogHeadRanger(headRanger);
 
-        // Add coucil to the map with HeadRanger inside of it
-        MapObject council = new(5, 4, MapObjectsEnum.PLACE, false, false, "You have entered the operations centre", enterBuilding, HeadRanger);
+        // Add council to the map with HeadRanger inside it
+        MapObject council = new(5, 3, MapObjectsEnum.PLACE, false, false, "You have entered the operations centre", enterBuilding, headRanger);
+
         RoomMap.mapEntities.AddMapObject(council); // First coordinate always uneven!
 
-        Enemy Poacher = new("Poacher");
-        InitializeDialogPoacher(Poacher);
+        // Initialize enemy Poacher and set up dialog
+        Enemy poacher = new("Poacher");
+        InitializeDialogPoacher(poacher);
 
-        MapObject poachers = new(13, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers, Poacher);
+        // Add poachers to the map with interceptPoachers quest
+        MapObject poachers = new(17, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers);
         RoomMap.mapEntities.AddMapObject(poachers);
+
+        // Add prison to the map with arrestPoachers quest and Poacher inside it
+        MapObject prison = new(7, 1, MapObjectsEnum.PRISON, false, false, "You have entered the prison", arrestPoachers, poacher);
+        RoomMap.mapEntities.AddMapObject(prison);
+
+        // Add trap into the forest
+        MapObject trap = new(25, 9, MapObjectsEnum.TRAP, true, false, "That was close! You almost stepped into the trap, great work though, just disassemble the trap.", disassembleTrap);
+        RoomMap.mapEntities.AddMapObject(trap);
 
 
         //left right 1 3 5 7 9 11 13 15 17 19 21  //up down 1 2 3 4 5 6 7 8 9
         //add walls
-        MapObject wallBase111 = new(11, 1, MapObjectsEnum.VERTICALWALL, false, true);
-        RoomMap.mapEntities.AddMapObject(wallBase111);
-        MapObject wallBase112 = new(11, 2, MapObjectsEnum.VERTICALWALL, false, true);
-        RoomMap.mapEntities.AddMapObject(wallBase112);
-        MapObject wallBase113 = new(11, 3, MapObjectsEnum.VERTICALWALL, false, true);
-        RoomMap.mapEntities.AddMapObject(wallBase113);
+        MapObject[] mapWalls = new MapObject[]
+        {
+          new MapObject(11, 1, MapObjectsEnum.VERTICALWALL, false, true),
+          new MapObject(11, 2, MapObjectsEnum.VERTICALWALL, false, true),
+          new MapObject(11, 3, MapObjectsEnum.VERTICALWALL, false, true),
+          new MapObject(11, 4, MapObjectsEnum.VERTICALWALL, false, true),
+          new MapObject(11, 5, MapObjectsEnum.VERTICALWALL, false, true),
+          new MapObject(11, 6, MapObjectsEnum.VERTICALWALL, false, true),
+          new MapObject(10, 6, MapObjectsEnum.HORIZONTALWALL, false, true),
+          new MapObject(9, 6, MapObjectsEnum.HORIZONTALWALL, false, true),
+          new MapObject(8, 6, MapObjectsEnum.HORIZONTALWALL, false, true),
+          new MapObject(7, 6, MapObjectsEnum.HORIZONTALWALL, false, true),
+          new MapObject(6, 6, MapObjectsEnum.HORIZONTALWALL, false, true),
+          new MapObject(5, 6, MapObjectsEnum.HORIZONTALWALL, false, true),
+          new MapObject(4, 6, MapObjectsEnum.HORIZONTALWALL, false, true),
+          new MapObject(3, 6, MapObjectsEnum.HORIZONTALWALL, false, true),
+          new MapObject(2, 6, MapObjectsEnum.HORIZONTALWALL, false, true),
+          new MapObject(1, 6, MapObjectsEnum.HORIZONTALWALL, false, true),
+        };
+        RoomMap.mapEntities.PopulateMap(mapWalls);
 
-        //MapObject wallBase114 = new(11, 4, MapObjectsEnum.VERTICALWALL, false, true);
-        //RoomMap.mapEntities.AddMapObject(wallBase114);
+        string treeWarning = "Be careful to not bump into trees, we are protecting all organisms of the ecosystem";
+        
+        MapObject[] mapTrees = new MapObject[]
+        { 
+          new MapObject(22, 5, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(26, 5, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(20, 6, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(24, 6, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(27, 6, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(19, 7, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(21, 7, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(25, 7, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(20, 8, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(22, 8, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(26, 8, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(28, 8, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(19, 9, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(21, 9, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(23, 9, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(27, 9, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(29, 9, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(22, 10, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(25, 10, MapObjectsEnum.TREE, false, true, treeWarning),
+          new MapObject(27, 10, MapObjectsEnum.TREE, false, true, treeWarning),
 
-        MapObject wallBase115 = new(11, 5, MapObjectsEnum.VERTICALWALL, false, true);
-        RoomMap.mapEntities.AddMapObject(wallBase115);
-        MapObject wallBase116 = new(11, 6, MapObjectsEnum.VERTICALWALL, false, true);
-        RoomMap.mapEntities.AddMapObject(wallBase116);
-        MapObject wallBase106 = new(10, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        RoomMap.mapEntities.AddMapObject(wallBase106);
-        MapObject wallBase96 = new(9, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        RoomMap.mapEntities.AddMapObject(wallBase96);
-        MapObject wallBase86 = new(8, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        RoomMap.mapEntities.AddMapObject(wallBase86);
-        MapObject wallBase76 = new(7, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        RoomMap.mapEntities.AddMapObject(wallBase76);
-        MapObject wallBase66 = new(6, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        RoomMap.mapEntities.AddMapObject(wallBase66);
-        MapObject wallBase56 = new(5, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        RoomMap.mapEntities.AddMapObject(wallBase56);
-        MapObject wallBase46 = new(4, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        RoomMap.mapEntities.AddMapObject(wallBase46);
-        MapObject wallBase36 = new(3, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        RoomMap.mapEntities.AddMapObject(wallBase36);
-        MapObject wallBase26 = new(2, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        RoomMap.mapEntities.AddMapObject(wallBase26);
-        MapObject wallBase16 = new(1, 6, MapObjectsEnum.HORIZONTALWALL, false, true);
-        RoomMap.mapEntities.AddMapObject(wallBase16);
 
+        };
+        RoomMap.mapEntities.PopulateMap(mapTrees);
 
       }
     }
-    private void InitializeDialogHeadRanger(NPC npc)
+    private static void InitializeDialogHeadRanger(NPC npc)
     {
 
       var talkOption = (
@@ -152,7 +195,7 @@ namespace WorldOfZuul
       npc.TreeOfChoices = new ChoiceBranch(0, "Poaching across Asia is reaching critical levels, driven by an unrelenting demand for illegal wildlife products.\nI am be here to guide you through the brief introduction into the quest, the rest falls upon your individual choices. \nAre you are up for the task? Don't be mistaken, poachers around here are relentless!", choices);
     }
 
-    private void InitializeDialogPoacher(Enemy enemy)
+    private static void InitializeDialogPoacher(Enemy enemy)
     {
       var talkOption = (
       "Yes", new ChoiceBranch(1, "Good, let's talk. I'm here to understand your perspective. Why did you choose to engage in illegal poaching?",

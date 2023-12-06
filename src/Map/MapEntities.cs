@@ -47,7 +47,7 @@ namespace WorldOfZuul.src.Map
     /// </summary>
     /// <param name="x"> x coordinate of a map object</param>
     /// <param name="y">y coordinate of a map object</param>
-    private void RemoveMapObject(int x, int y)
+    public void RemoveMapObject(int x, int y)
     {
       if (mapObjects.ContainsKey((x, y)))
       {
@@ -90,7 +90,7 @@ namespace WorldOfZuul.src.Map
 
       GameConsole.WriteLine($"{mapObject.Quest?.Description}\n", font: FontTheme.HighligtedText);
 
-      if (mapObject.MapObjectType is MapObjectsEnum.NPC || mapObject.MapObjectType is MapObjectsEnum.ENEMY || mapObject.MapObjectType is MapObjectsEnum.PLACE)
+      if (mapObject.MapObjectType is MapObjectsEnum.NPC || mapObject.MapObjectType is MapObjectsEnum.ENEMY || mapObject.MapObjectType is MapObjectsEnum.PLACE || mapObject.MapObjectType is MapObjectsEnum.PRISON)
       {
         return mapObject?.Npc?.TreeOfChoices?.StartDialog();
       }

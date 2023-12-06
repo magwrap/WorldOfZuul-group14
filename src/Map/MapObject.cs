@@ -21,8 +21,11 @@ namespace WorldOfZuul
     {
       [MapObjectsEnum.NPC] = "\U0001F464", //'#'
       [MapObjectsEnum.ENEMY] = "\U000026A0", //"\U00003020",  //\U0001F5F4 // \U00003020
-      [MapObjectsEnum.PLACE] = "\U00002302", //'^'
+      [MapObjectsEnum.PLACE] = "\U000023CF", //'^' //⏏
+      [MapObjectsEnum.PRISON] = "\U000026EB", //⛫
       [MapObjectsEnum.ITEM] = "!",
+      [MapObjectsEnum.TREE] = "♧",
+      [MapObjectsEnum.TRAP] = "¤",
       [MapObjectsEnum.VERTICALWALL] = "\U0000258F", //U0000275A //\U0000258F //'|'
       [MapObjectsEnum.HORIZONTALWALL] = "\U00002E0F", //U0000268A //U00002594 //\U00002581 //\U00002015 //\U00002D67 //\U00002E0F//'-' 
       [MapObjectsEnum.DIAGONALWALL_LEFT] = "\\", //TODO: find better ascii signs!
@@ -35,6 +38,9 @@ namespace WorldOfZuul
       [MapObjectsEnum.NPC] = FontTheme.NPC,
       [MapObjectsEnum.ENEMY] = FontTheme.Danger,
       [MapObjectsEnum.PLACE] = FontTheme.HighligtedText,
+      [MapObjectsEnum.PRISON] = FontTheme.Default,
+      [MapObjectsEnum.TREE] = FontTheme.Default,
+      [MapObjectsEnum.TRAP] = FontTheme.Danger,
       [MapObjectsEnum.VERTICALWALL] = FontTheme.Wall,
       [MapObjectsEnum.HORIZONTALWALL] = FontTheme.Wall,
       [MapObjectsEnum.DIAGONALWALL_LEFT] = FontTheme.Wall,
