@@ -5,10 +5,6 @@
     {
       "Id": 0,
       "Name": "Submarine",
-      "North" : 31,
-      "West": 32,
-      "East": 33,
-      "South": 34,
       "ShortDesc": "Submarine",
       "MessageOnArrival": "The first words you can hear through buzzing speakers are of the ship's AI:\nHello I'm Hal! I will take you to the surface ship, which will transport you directly to the shores of West Africa and then down the Congo River.\nBut first, you will need some background on your mission topic.\nDue to the increasing surface temperature, wildfires arouse more and more often in the jungles of Africa. Our newest study has revealed that with a pace of only two deaths of giraffes per year, the spicies would go distinct in just 15 years.\nIts overall population stands at around 2,300 individuals. As you can see, these numbers are rather dreadful. That is why this mission is crucial for preserving our planet's biodiversity.” It says, with its emotionless robotic voice.",
       "LongDesc": "Submarine is small, but quaint in front of you there is a big terminal, earphone",
@@ -20,10 +16,6 @@
     {
       "Id": 1,
       "Name": "Camp",
-      "North" : 31,
-      "West": 32,
-      "East": 33,
-      "South": 34,
       "MessageOnArrival": "Leaving the ship, you catch a sight of your stationary team waiting for you in the cool shade of the trees. They introduce themselfs as Josh, Nebula and Kenny. Then they lead you to their camp.",
       "ShortDesc": "Camp in a jungle - middle of Africa",
       "LongDesc": "Camp is rather small, one tatched house or more like a barn equipped with modern devices, maps and sleeping bags laying on the floor. You notice a gun and a machete, laying on the joshes desk, a small tree planted in the corner of a room and an exit. Your teammates are scattered around the place each of them engrossed in their own tasks.",
@@ -35,10 +27,6 @@
     {
       "Id": 2,
       "Name": "Jungle",
-      "North" : 31,
-      "West": 32,
-      "East": 33,
-      "South": 34,
       "MessageOnArrival": "You follow the directions, you get through the thicket of a jungle with each step you feel the heat getting more and more unberable, after about 15 minutes, you get a glimpse of your goal. There she is covered in spots, struggilng to get her leg free from the roots of a tree she got stuck in. You see the forest getting closer and closer.",
       "LongDesc": "",
       "MissionDescription": "First you’ll need to locate the giraffe before the fire spreads, then escort it back to safety, ensuring it will stay secured in the future. Our local watch team calls her Elizabeth. They registered her seldomly responding to that name. She loves acacia leaves, but she also likes to overeat it leaving her in state of exhaustion. She is shy, and scared of people because of widespread of illegal hunting in these parts of the world\n",

@@ -15,6 +15,7 @@ namespace WorldOfZuul.Africa
 
     private MissionRoom? submarine;
     private MissionRoom? camp;
+    private MissionRoom? jungle;
     // private MissionRoom? jungle;
 
     //SUBMARINE NPC
@@ -67,15 +68,24 @@ namespace WorldOfZuul.Africa
         new Map(width: CAMP_WIDTH, height: 11),
         JsonAfricaRooms.Rooms[(int)AfricaRoomsEnum.CAMP].ExtendedDescription
       );
-      //TODO: add river to thh map
-      InSubmarine();
 
+      jungle = new(
+        JsonAfricaRooms.Rooms[(int)AfricaRoomsEnum.JUNGLE].ShortDesc,
+        JsonAfricaRooms.Rooms[(int)AfricaRoomsEnum.JUNGLE].LongDesc,
+        JsonAfricaRooms.Rooms[(int)AfricaRoomsEnum.JUNGLE].MissionDescription,
+        JsonAfricaRooms.Rooms[(int)AfricaRoomsEnum.JUNGLE].MessageOnArrival
+
+      );
+      //TODO: add river to thh map
       Messages.PrintMissionHelp();
-      submarine.DisplayMessageOnArrival();
+
+      // InSubmarine();
+      // submarine.DisplayMessageOnArrival();
 
       previousRoom = null;
       // currentRoom = submarine;
-      currentRoom = camp;
+      // currentRoom = camp;
+      currentRoom = jungle;
       InCamp();
 
       Command? cmnd = new Command("map", "on");
@@ -91,7 +101,8 @@ namespace WorldOfZuul.Africa
 
         if (currentRoom == camp && !camp.RoomMap.mapEntities.IsAnyQuestAvailable())
         {
-          Console.WriteLine("Move to jungle");
+          currentRoom = jungle;
+          InJungle();
         }
 
         // Messages.PrintMissionHelp();
@@ -147,13 +158,32 @@ namespace WorldOfZuul.Africa
       );
     }
     //TODO: npc
+    private void InJungle()
+    {
+
+    }
+
+    private void BuildJungleTrees()
+    {
+
+    }
+
+    private void BuildPoachers()
+    {
+
+    }
+
+    private void BuildGiraffes()
+    {
+
+    }
+
     private void BuildCampNpcs()
     {
       BuildKenny();
       BuildJosh();
       BuildMandarine();
     }
-
     public void BuildRiver()
     {
       MapObject river22 = new(1, 11, MapObjectsEnum.DIAGONALWALL_RIGHT);
