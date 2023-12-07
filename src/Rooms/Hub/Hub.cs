@@ -1,7 +1,12 @@
 namespace WorldOfZuul
 {
   class Hub
-  {
+  { 
+    public static bool isAsiaCompleted = false;
+    public static bool isAfricaCompleted = false;
+    public static bool isPacificCompleted = true;
+
+    private static bool[] missionStatus = {isAsiaCompleted, isAfricaCompleted, isPacificCompleted};
     public static int SelectMission()
     {
       string[] options = { "Asia", "Africa", "Pacific" };
@@ -28,7 +33,8 @@ namespace WorldOfZuul
                 Console.ForegroundColor = ConsoleColor.Gray;
             }
 
-            Console.Write($"{(i == selectedOption ? "\U000027A4 " : " ")} {options[i]}");
+            string statusSymbol = missionStatus[i] ? "✔" : "🗙";
+            Console.Write($"{(i == selectedOption ? "\U000027A4 " : " ")} {options[i]} {statusSymbol}");
 
             // Reset background color after printing each line
             Console.ResetColor();
@@ -50,9 +56,17 @@ namespace WorldOfZuul
           case ConsoleKey.Enter:
             GameConsole.Clear();
             PrintMap(selectedOption + 1);
-
-            GameConsole.WriteLine($"You chose: {options[selectedOption]}");
-            loop = false;
+            if(missionStatus[selectedOption] == false)
+            {
+              GameConsole.WriteLine($"You chose: {options[selectedOption]}");
+              loop = false;
+            }
+            else 
+            {
+              GameConsole.WriteLine($"You already completed this mission", font: FontTheme.Danger);
+              Thread.Sleep(3000);
+            }
+            
             break;
         }
       }

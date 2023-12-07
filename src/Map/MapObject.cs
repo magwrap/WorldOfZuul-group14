@@ -20,7 +20,7 @@ namespace WorldOfZuul
     public static readonly Dictionary<MapObjectsEnum, string> MapMarkers = new()
     {
       [MapObjectsEnum.NPC] = "\U0001F464", //'#'
-      [MapObjectsEnum.ENEMY] = "\U000026A0", //"\U00003020",  //\U0001F5F4 // \U00003020
+      [MapObjectsEnum.ENEMY] = "\U000026A0", //"\U00003020",  //\U0001F5F4 
       [MapObjectsEnum.PLACE] = "\U000023CF", //'^' //⏏
       [MapObjectsEnum.PRISON] = "\U000026EB", //⛫
       [MapObjectsEnum.ITEM] = "!",
@@ -81,8 +81,8 @@ namespace WorldOfZuul
       this.IsImpassable = isImpassable;
       this.Npc = npc;
 
-      if ((MapObjectType is MapObjectsEnum.NPC || MapObjectType is MapObjectsEnum.ENEMY
-      //  || MapObjectType is MapObjectsEnum.PLACE
+      if ((MapObjectType is MapObjectsEnum.NPC //|| MapObjectType is MapObjectsEnum.ENEMY
+          //|| MapObjectType is MapObjectsEnum.PLACE 
        ) && Npc == null)
       {
         throw new ArgumentException("If you're creating person map object you have to pass NPC/Enemy object");
