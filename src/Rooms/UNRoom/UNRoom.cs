@@ -622,13 +622,13 @@ namespace WorldOfZuul
                 switch (firstOption)
                 {
                         case 1:
-                           reputationScore += 0;
+                           Reputation.ReputationScore += 0;
                             break;
                         case 2:
-                            reputationScore += 3;
+                            Reputation.ReputationScore += 3;
                             break;
                         case 3:
-                            reputationScore += 5;
+                            Reputation.ReputationScore += 5;
                             break;
                         default:
                             Console.WriteLine("Invalid choice.");
@@ -661,13 +661,13 @@ namespace WorldOfZuul
                 switch (secondOption)
                 {
                         case 1:
-                           reputationScore += 0;
+                           Reputation.ReputationScore += 0;
                             break;
                         case 2:
-                            reputationScore += 3;
+                            Reputation.ReputationScore += 3;
                             break;
                         case 3:
-                            reputationScore += 5;
+                            Reputation.ReputationScore += 5;
                             break;
                         default:
                             Console.WriteLine("Invalid choice.");
@@ -700,13 +700,13 @@ namespace WorldOfZuul
                 switch (thirdOption)
                 {
                         case 1:
-                           reputationScore += 0;
+                           Reputation.ReputationScore += 0;
                             break;
                         case 2:
-                            reputationScore += 3;
+                            Reputation.ReputationScore += 3;
                             break;
                         case 3:
-                            reputationScore += 5;
+                            Reputation.ReputationScore += 5;
                             break;
                         default:
                             Console.WriteLine("Invalid choice.");
@@ -739,13 +739,13 @@ namespace WorldOfZuul
                 switch (fourthOption)
                 {
                         case 1:
-                           reputationScore += 0;
+                           Reputation.ReputationScore += 0;
                             break;
                         case 2:
-                            reputationScore += 3;
+                            Reputation.ReputationScore += 3;
                             break;
                         case 3:
-                            reputationScore += 5;
+                            Reputation.ReputationScore += 5;
                             break;
                         default:
                             Console.WriteLine("Invalid choice.");
@@ -778,26 +778,26 @@ namespace WorldOfZuul
                 switch (fifthOption)
                 {
                         case 1:
-                           reputationScore += 0;
+                           Reputation.ReputationScore += 0;
                             break;
                         case 2:
-                            reputationScore += 3;
+                            Reputation.ReputationScore += 3;
                             break;
                         case 3:
-                            reputationScore += 5;
+                            Reputation.ReputationScore += 5;
                             break;
                         default:
                             Console.WriteLine("Invalid choice.");
                             return;
                     }
         }
-        if (reputationScore < 40)
+        if (Reputation.ReputationScore < 40)
         {
             Console.WriteLine("\nAs the assembly concludes, your absence from critical discussions about poaching and the environmental concerns in the ocean is palpable. While your presence was acknowledged, your contributions remained negligible.\n" +
             "The global efforts for Sustainable Development Goals 14 and 15 feel only partially reinforced, lacking the essential vigor needed to make a profound difference. Your role, though acknowledged, did not significantly impact the resolutions made during the assembly.\n" +
             "\nBut only time will tell if it had any impact in the world.");
         }
-        else if (reputationScore >= 40 && reputationScore < 65)
+        else if (Reputation.ReputationScore >= 40 && Reputation.ReputationScore < 65)
         {
             Console.WriteLine("\nYour presence at the assembly was acknowledged, and your contributions to the discussions about poaching and the conservation efforts were recognized. While your efforts were appreciated, their impact remained limited.\n" +
             "The resolutions adopted during the assembly reflect incremental progress rather than substantial change. Your actions contributed, but the global efforts toward SDGs 14 and 15 could have been more profound with more substantial engagement from all stakeholders.\n" +

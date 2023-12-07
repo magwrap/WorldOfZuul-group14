@@ -2,8 +2,8 @@ namespace WorldOfZuul
 {
   class Hub
   { 
-    public static bool isAsiaCompleted = false;
-    public static bool isAfricaCompleted = false;
+    public static bool isAsiaCompleted = true;
+    public static bool isAfricaCompleted = true;
     public static bool isPacificCompleted = true;
 
     private static bool[] missionStatus = {isAsiaCompleted, isAfricaCompleted, isPacificCompleted};
