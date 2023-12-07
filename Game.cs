@@ -11,7 +11,7 @@ namespace WorldOfZuul
     private Room? currentRoom;
     private Room? previousRoom;
     private AsiaRoom? Asia;
-    private Room? Hub;
+    private Room? HeadQuarters;
     private Room? Pacific;
     private AfricaRoom? Africa;
     private Command? command;
@@ -30,7 +30,7 @@ namespace WorldOfZuul
 
     private void CreateRooms()
     {
-      Hub = new("Ranger Headquarters", "You stand in the Ranger Headquarter's Council Room, surrounded by the breathtaking view of the ocean's depths through the expansive windows.\nDominating the central area is a large, illuminated map on marked with indications highlighting the Pacific, Asia, and Africa.\nThese areas stand out on the map, representing the regions most severely impacted by poaching activities across the globe.");
+      HeadQuarters = new("Ranger Headquarters", "You stand in the Ranger Headquarter's Council Room, surrounded by the breathtaking view of the ocean's depths through the expansive windows.\nDominating the central area is a large, illuminated map on marked with indications highlighting the Pacific, Asia, and Africa.\nThese areas stand out on the map, representing the regions most severely impacted by poaching activities across the globe.");
 
       Asia = new("Asia Mission", "Asia");
 
@@ -40,17 +40,17 @@ namespace WorldOfZuul
 
 
 
-      Asia.SetExit("hub", Hub); //among the hub and other rooms we could use just typos like hub, asia, pacific...
-      Africa.SetExit("hub", Hub);
-      Pacific.SetExit("hub", Hub);
+      Asia.SetExit("hub", HeadQuarters); //among the hub and other rooms we could use just typos like hub, asia, pacific...
+      Africa.SetExit("hub", HeadQuarters);
+      Pacific.SetExit("hub", HeadQuarters);
 
-      Hub.SetExit("asia", Asia); //set exit for asia -> to hub
-      Hub.SetExit("africa", Africa);
-      Hub.SetExit("pacific", Pacific);
+      HeadQuarters.SetExit("asia", Asia); //set exit for asia -> to hub
+      HeadQuarters.SetExit("africa", Africa);
+      HeadQuarters.SetExit("pacific", Pacific);
 
 
 
-      currentRoom = Hub;
+      currentRoom = HeadQuarters;
       // currentRoom = Africa;
       // currentRoom = Asia;
     }
@@ -116,7 +116,12 @@ namespace WorldOfZuul
 
         //back to hub
         previousRoom = null;
-        currentRoom = Hub;
+        currentRoom = HeadQuarters;
+
+        if (Hub.isAsiaCompleted && Hub.isAfricaCompleted && Hub.isPacificCompleted)
+        {
+          UNRoom.StartLastMission();
+        } 
 
         //get a command
         command = AskForCommand();
