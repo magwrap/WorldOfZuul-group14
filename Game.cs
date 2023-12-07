@@ -12,8 +12,8 @@ namespace WorldOfZuul
     private Room? previousRoom;
     private AsiaRoom? Asia;
     private Room? HeadQuarters;
-    private Room? Pacific;
     private AfricaRoom? Africa;
+    private PacificRoom? Pacific;
     private Command? command;
 
     private bool continuePlaying = true;
