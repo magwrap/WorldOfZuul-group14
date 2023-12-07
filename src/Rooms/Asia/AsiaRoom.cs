@@ -39,7 +39,7 @@ namespace WorldOfZuul
 
 
       }
-      
+
       Hub.isAsiaCompleted = true;
 
     }
@@ -72,7 +72,7 @@ namespace WorldOfZuul
     {
       if (AsiaRoom.AsiaMission)
       {
-       
+
 
         //add quests 
 
@@ -198,61 +198,81 @@ namespace WorldOfZuul
 
     private static void InitializeDialogPoacher(Enemy enemy)
     {
-      var talkOption = (
+
+      DialogOption heardEnoughOptionIndex2 = ("Thank you, I have heard enough", new ChoiceBranch(2, "Hey! What about my sentence. I thought we had an agreement."));
+      DialogOption heardEnoughOptionIndex3 = ("Thank you, I have heard enough", new ChoiceBranch(3, "Hey! What about my sentence. I thought we had an agreement."));
+
+      //8
+      DialogOption[] endingOptionArr = new DialogOption[]
+      {
+        ("Welcome aboard, you have been very helpful", new ChoiceBranch(1, "Hope you now understand that there's more to be done than just locking people up. \nIf you really want to stop poaching, you need to change the game.", isItGoodEnding: true))
+      };
+
+      //7
+      DialogOption[] soulutionsOptionArr = new DialogOption[]
+      {
+        ("Are you suggesting we should work together on these solutions?", new ChoiceBranch(1, "I'm no saint, but I know the game. If there's a way for me to make a living without looking over my shoulder, maybe I'd consider it.", endingOptionArr)),
+        ("Can you use your experience to help transition poachers to legal, sustainable practices?", new ChoiceBranch(2, "I'm no saint, but I know the game. If there's a way for me to make a living without looking over my shoulder, maybe I'd consider it..", endingOptionArr))
+        ,heardEnoughOptionIndex3
+      };
+
+      //6
+      DialogOption[] tackleIssueOptionArr = new DialogOption[]
+      {
+          ("So, what solution do you propose to tackle these issues?", new ChoiceBranch(1, "Start by investing in sustainable industries. Eco-tourism, for example, can provide jobs without harming the environment. It's about making legal options more appealing.", soulutionsOptionArr)),
+          ("Do you have anything specific in mind?", new ChoiceBranch(2, "Start by investing in sustainable industries. \nEco-tourism, for example, can provide jobs without harming the environment. \nIt's about making legal options more appealing.", soulutionsOptionArr))
+          ,heardEnoughOptionIndex3
+      };
+
+      //5
+      DialogOption[] rootOfTheProblemOptionArr = new DialogOption[]
+      {
+          ("What is the root of the problem, is it lack of education?", new ChoiceBranch(1, "That's part of it. People need to know what's at stake, not just for the environment but for their own futures. Education is key.", tackleIssueOptionArr)),
+          ("Are there economic issues driving people towards poaching?", new ChoiceBranch(2, "Many folks, including me, see poaching as a quick way to make a living. \nIf you want them to stop, give them alternatives that pay just as well", tackleIssueOptionArr))
+          ,heardEnoughOptionIndex3
+      };
+
+      //4
+      DialogOption[] proposeChangeOptionArr = new DialogOption[]
+      {
+          ("What do you propose to change this?", new ChoiceBranch(1, "Look, if you really want to make a change and stop guys like me, you need to understand the root of the problem", rootOfTheProblemOptionArr)),
+          ("So you do not think this can be changed?", new ChoiceBranch(2, "Look, if you really want to make a change and stop guys like me, you need to understand the root of the problem.",rootOfTheProblemOptionArr))
+          ,heardEnoughOptionIndex3
+      };
+
+      //3
+      DialogOption[] goOnOptionArr = new DialogOption[]
+      {
+      ("Go on, I am listening", new ChoiceBranch(1, "The penalties are high, but the demand for exotic animals and their parts is even higher. \nThe risk seemed worth the potential rewards.",
+          new DialogOption[]
+          {
+              ("Have you considered legal alternatives that could bring financial benefits without harming the environment?", new ChoiceBranch(1, "It's all about the money. Conservation efforts don't put food on the table.\n I don't care about the long-term consequences; I need to survive today", proposeChangeOptionArr)),
+              ("Don't you mind exploiting the natural resources?", new ChoiceBranch(2, "I'm just one person. If I don't exploit the resources, someone else will. The system needs to change if you want people like me to stop.",proposeChangeOptionArr)),
+          }
+      )),
+      heardEnoughOptionIndex2
+      };
+
+      //2
+      DialogOption[] makeHimTalkOptionArr = new DialogOption[]
+      {
+        ("I thought you agreed to talk", new ChoiceBranch(1, "Jobs are limited, and the allure of quick cash from poaching is hard to resist. \nIt's not just about survival; it's about the lack of alternatives.", goOnOptionArr)),
+        ("No, I am just a ranger, but you are in my custody. And I can alter your life in any direction I want!", new ChoiceBranch(2, "Okay, okay. Money's tight, and jobs are scarce. \nI saw an opportunity to make a quick profit by supplying exotic animals and their parts to the black market. It's survival for me, too.", goOnOptionArr )),
+      };
+
+      //1
+      DialogOption talkOption = (
           "If you cooperate and let me see your side of the story, your sentence will be lighter",
           new ChoiceBranch(1, "I am all ears.",
               new DialogOption[] {
-                ("What drove you to become a poacher in this unique environment?", new ChoiceBranch(1, "What are you, a psychologist?")),
-                ("Do you have a history of poaching, or is this a recent turn to illegal activities?", new ChoiceBranch(2, "What are you, a psychologist?",
-                    new DialogOption[]  {
-                        ("I thought you agreed to talk", new ChoiceBranch(1, "Jobs are limited, and the allure of quick cash from poaching is hard to resist. \nIt's not just about survival; it's about the lack of alternatives.")),
-                        ("No, I am just a ranger, but you are in my custody. And I can alter your life in any direction I want!", new ChoiceBranch(2, "Okay, okay. Money's tight, and jobs are scarce. \nI saw an opportunity to make a quick profit by supplying exotic animals and their parts to the black market. It's survival for me, too.",
-                            new DialogOption[] {
-                                ("Go on, I am listening", new ChoiceBranch(1, "The penalties are high, but the demand for exotic animals and their parts is even higher. \nThe risk seemed worth the potential rewards.",
-                                    new DialogOption[]
-                                    {
-                                        ("Have you considered legal alternatives that could bring financial benefits without harming the environment?", new ChoiceBranch(1, "It's all about the money. Conservation efforts don't put food on the table.\n I don't care about the long-term consequences; I need to survive today")),
-                                        ("Don't you mind exploiting the natural resources?", new ChoiceBranch(2, "I'm just one person. If I don't exploit the resources, someone else will. The system needs to change if you want people like me to stop.",
-                                            new DialogOption[]
-                                            {
-                                                ("What do you propose to change this?", new ChoiceBranch(1, "Look, if you really want to make a change and stop guys like me, you need to understand the root of the problem")),
-                                                ("So you do not think this can be changed?", new ChoiceBranch(2, "Look, if you really want to make a change and stop guys like me, you need to understand the root of the problem.",
-                                                    new DialogOption[]
-                                                    {
-                                                        ("What is the root of the problem, is it lack of education?", new ChoiceBranch(1, "That's part of it. People need to know what's at stake, not just for the environment but for their own futures. Education is key.")),
-                                                        ("Are there economic issues driving people towards poaching?", new ChoiceBranch(2, "Many folks, including me, see poaching as a quick way to make a living. \nIf you want them to stop, give them alternatives that pay just as well",
-                                                            new DialogOption[]
-                                                            {
-                                                                ("So, what solution do you propose to tackle these issues?", new ChoiceBranch(1, "Start by investing in sustainable industries. Eco-tourism, for example, can provide jobs without harming the environment. It's about making legal options more appealing.")),
-                                                                ("Do you have anything specific in mind?", new ChoiceBranch(2, "Start by investing in sustainable industries. \nEco-tourism, for example, can provide jobs without harming the environment. \nIt's about making legal options more appealing.",
-                                                                    new DialogOption[] {
-                                                                        ("Are you suggesting we should work together on these solutions?", new ChoiceBranch(1, "I'm no saint, but I know the game. If there's a way for me to make a living without looking over my shoulder, maybe I'd consider it.")),
-                                                                        ("Can you use your experience to help transition poachers to legal, sustainable practices?", new ChoiceBranch(2, "I'm no saint, but I know the game. If there's a way for me to make a living without looking over my shoulder, maybe I'd consider it..",
-                                                                            new DialogOption[]{
-                                                                                ("Welcome aboard, you have been very helpful", new ChoiceBranch(1, "Hope you now understand that there's more to be done than just locking people up. \nIf you really want to stop poaching, you need to change the game.", isItGoodEnding: true))
-                                                                            }
-                                                                        ))
-                                                                    }
-                                                                ))
-                                                            }
-                                                        ))
-                                                    }
-                                                )),
-                                            }
-                                        )),
-                                    }
-                                )),
-                                ("Thank you, I have heard enough", new ChoiceBranch(2, "Hey! What about my sentence. I thought we had an agreement.")),
-                            }
-                        )),
-                    }
-                )),
+                ("What drove you to become a poacher in this unique environment?", new ChoiceBranch(1, "What are you, a psychologist?", makeHimTalkOptionArr)),
+                ("Do you have a history of poaching, or is this a recent turn to illegal activities?", new ChoiceBranch(2, "What are you, a psychologist?", makeHimTalkOptionArr)),
               }
           )
       );
 
-      var doNotTalkOption = ("I am done with you here, your actions will have consequences", new ChoiceBranch(2, "I couldn't care less about your precious environment. \nI will be out soon and your efforts will come in vain. Call my lawyer!"));
-      
+      DialogOption doNotTalkOption = ("I am done with you here, your actions will have consequences", new ChoiceBranch(2, "I couldn't care less about your precious environment. \nI will be out soon and your efforts will come in vain. Call my lawyer!"));
+
       var choices = new DialogOption[] {
         talkOption, // first option so nr 1
         doNotTalkOption, // second option so nr 2
