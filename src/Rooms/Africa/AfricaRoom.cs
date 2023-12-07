@@ -123,12 +123,10 @@ namespace WorldOfZuul.Africa
           GameConsole.Clear();
           Hub.isAfricaCompleted = true;
           continuePlaying = false;
+          Hub.isAfricaCompleted = true;
           return;
         }
 
-
-
-        // Messages.PrintMissionHelp();
         currentRoom?.DisplayShortDescription();
 
         Command? command = Game.AskForCommand();
