@@ -26,6 +26,15 @@ namespace WorldOfZuul
       [MapObjectsEnum.ITEM] = "!",
       [MapObjectsEnum.TREE] = "♧",
       [MapObjectsEnum.TRAP] = "¤",
+      [MapObjectsEnum.GIRAFFE] = "λ",
+      //       [MapObjectsEnum.GIRAFFE] = @"
+      //            _,,
+      //           '-%\~
+      //              %\~
+      //              |% _`,~
+      //              /| ||
+      //             / | | \      
+      // ",
       [MapObjectsEnum.VERTICALWALL] = "\U0000258F", //U0000275A //\U0000258F //'|'
       [MapObjectsEnum.HORIZONTALWALL] = "\U00002E0F", //U0000268A //U00002594 //\U00002581 //\U00002015 //\U00002D67 //\U00002E0F//'-' 
       [MapObjectsEnum.DIAGONALWALL_LEFT] = "\\", //TODO: find better ascii signs!
@@ -41,6 +50,7 @@ namespace WorldOfZuul
       [MapObjectsEnum.PRISON] = FontTheme.Default,
       [MapObjectsEnum.TREE] = FontTheme.Default,
       [MapObjectsEnum.TRAP] = FontTheme.Danger,
+      [MapObjectsEnum.GIRAFFE] = FontTheme.NPC,
       [MapObjectsEnum.VERTICALWALL] = FontTheme.Wall,
       [MapObjectsEnum.HORIZONTALWALL] = FontTheme.Wall,
       [MapObjectsEnum.DIAGONALWALL_LEFT] = FontTheme.Wall,

@@ -15,20 +15,23 @@ namespace WorldOfZuul.Africa
 
     private MissionRoom? submarine;
     private MissionRoom? camp;
-    // private MissionRoom? jungle;
-
+    private MissionRoom? jungle;
     //SUBMARINE NPC
     readonly NPC hal = new("HAL");
 
     //CAMP NPS
     //npc1
-    readonly NPC Kenny = new("");
-    //TODO: create quests
+    private readonly NPC Kenny = new("Kenny");
     //npc2
-    readonly NPC Josh = new("");
+    private readonly NPC Josh = new("Josh");
     //npc3
-    readonly NPC Manadrine = new("");
+    private readonly NPC Manadrine = new("Mandarine");
+    //giraffe
+    private readonly NPC giraffe = new("Elizabeth");
+    private readonly Enemy poachers = new("Gang of poachers");
+    readonly Quest saveTheGiraffe = new Quest("Save the giraffe!", "Elizabeth the giraffe is stuck between the roots of a tree. She can't get out! You need to help her.");
 
+    private bool fireStarted = false;
     MissionGameRooms? JsonAfricaRooms = null;
     bool continuePlaying = true;
 
@@ -67,19 +70,23 @@ namespace WorldOfZuul.Africa
         new Map(width: CAMP_WIDTH, height: 11),
         JsonAfricaRooms.Rooms[(int)AfricaRoomsEnum.CAMP].ExtendedDescription
       );
-      //TODO: add river to thh map
-      InSubmarine();
+
+      jungle = new(
+        JsonAfricaRooms.Rooms[(int)AfricaRoomsEnum.JUNGLE].ShortDesc,
+        JsonAfricaRooms.Rooms[(int)AfricaRoomsEnum.JUNGLE].LongDesc,
+        JsonAfricaRooms.Rooms[(int)AfricaRoomsEnum.JUNGLE].MissionDescription,
+        JsonAfricaRooms.Rooms[(int)AfricaRoomsEnum.JUNGLE].MessageOnArrival,
+        new Map(height: 20)
+
+      );
 
       Messages.PrintMissionHelp();
-      submarine.DisplayMessageOnArrival();
-
       previousRoom = null;
-      // currentRoom = submarine;
-      currentRoom = camp;
-      InCamp();
 
-      Command? cmnd = new Command("map", "on");
-      Actions.DecideAction(ref cmnd, ref currentRoom, ref previousRoom, true);
+      currentRoom = submarine;
+      InSubmarine();
+
+      ShowMap(ref currentRoom, ref previousRoom);
 
       while (continuePlaying)
       {
@@ -87,12 +94,34 @@ namespace WorldOfZuul.Africa
         {
           currentRoom = camp;
           InCamp();
+          ShowMap(ref currentRoom, ref previousRoom);
         }
 
-        if (currentRoom == camp && !camp.RoomMap.mapEntities.IsAnyQuestAvailable())
+        else if (currentRoom == camp && !camp.RoomMap.mapEntities.IsAnyQuestAvailable())
         {
-          Console.WriteLine("Move to jungle");
+          currentRoom = jungle;
+          InJungle();
+          ShowMap(ref currentRoom, ref previousRoom);
         }
+
+        else if (currentRoom == jungle && saveTheGiraffe.IsCompleted && !fireStarted)
+        {
+          //giraffe coords
+          Messages.PrintFaceOfGiraffe();
+          fireStarted = true;
+          BuildPoachers();
+          BuildJungleExit();
+          ShowMap(ref currentRoom, ref previousRoom);
+        }
+
+        else if (currentRoom == jungle && !jungle.RoomMap.mapEntities.IsAnyQuestAvailable())
+        {
+          GameConsole.WriteLine("Finsihed Mission!!");
+          continuePlaying = false;
+          return;
+        }
+
+
 
         // Messages.PrintMissionHelp();
         currentRoom?.DisplayShortDescription();
@@ -102,8 +131,15 @@ namespace WorldOfZuul.Africa
       }
     }
 
+    private void ShowMap(ref Room? currentRoom, ref Room? previousRoom)
+    {
+
+      Command? cmnd = new Command("map", "on");
+      Actions.DecideAction(ref cmnd, ref currentRoom, ref previousRoom, true);
+    }
     private void InSubmarine()
     {
+      submarine?.DisplayMessageOnArrival();
       BuildHal();
       //Submarine quest + hals
       Quest startMission = new("Enbark on a mission!", "Talk to hal in order to start the mission");
@@ -113,7 +149,6 @@ namespace WorldOfZuul.Africa
 
     private void InCamp()
     {
-      //TODO: reset player coordinates 
       Messages.PrintShowcaseOfJungle();
       camp?.DisplayMessageOnArrival();
       BuildCampNpcs();
@@ -146,129 +181,272 @@ namespace WorldOfZuul.Africa
         }
       );
     }
-    //TODO: npc
+    private void InJungle()
+    {
+      jungle?.DisplayMessageOnArrival();
+      jungle?.RoomMap.SetXandY(15, 2);
+      BuildJungleTrees();
+      BuildGiraffes();
+      MapObject giraffeOb = new MapObject(25, 17, MapObjectsEnum.GIRAFFE, true, npc: giraffe, quest: saveTheGiraffe);
+      MapObject exitOb = new MapObject(15, 1, MapObjectsEnum.PLACE);
+
+      jungle?.RoomMap.mapEntities.AddMapObject(exitOb);
+      jungle?.RoomMap.mapEntities.AddMapObject(giraffeOb);
+    }
+    private void BuildJungleExit()
+    {
+      jungle?.RoomMap.mapEntities.RemoveMapObject(15, 1);
+      Quest escapeTheFire = new Quest("Escape from the fire!", "The wildfire kept spreading while you were busy helping the giraffe. Now you have to run!");
+
+      MapObject exitOb = new MapObject(15, 1, MapObjectsEnum.PLACE, true, quest: escapeTheFire);
+
+      jungle?.RoomMap.mapEntities.AddMapObject(exitOb);
+    }
+    private void BuildPoachers()
+    {
+      DialogOption sheWentEastOption =
+                ("she went east", new ChoiceBranch(1, "Well I guess, we will have to believe you. Off you go, we have no more use of you.", isItGoodEnding: true, repGain: 11));
+
+      DialogOption sheWentEastBadOption =
+                ("she went east...", new ChoiceBranch(1, "Well I guess, we will have to believe you. Off you go, we have no more use of you.", isItGoodEnding: true, repGain: -8));
+
+      DialogOption fightOptionPoachers = (
+        "Fight them", new ChoiceBranch(2, "You hit first guy on the left and he drops down like a brick, unconscious. Other two poachers start walking towards you, while their boss kept looking from the distance.", new DialogOption[] {
+          ("Attack the boss", new ChoiceBranch(1, "You plunged towards their cheif, and nearly reached him, but then felt a strong hand grabing you by the collar. Other par of hands grabbed you tight around your arms so that you couldn't move by an inch.\n Now you will tell us where did she go.", new DialogOption[] { sheWentEastBadOption })),
+          ("Fight the two men", new ChoiceBranch(2, "You grab` the guy on the right by his hand arm, pull it as hard as you can and he falls like a wooden toy. His companion looked at now two bodies laying underneath you, spat and said 'I ain't getting beaten over some giraffe', and run. As fast as he could. You looked at their boss, he shrugged his shoulders, turned his back and also run.", isItGoodEnding: true, repGain: 4))
+        })
+      );
+
+      DialogOption talkOptionPoaches =
+          ("Maybe we can try to talk it out?", new ChoiceBranch(1, "What do you want to talk about?! We need HER, and that's it.", new DialogOption[] {
+            ("Why do you do this?", new ChoiceBranch(1, "Haa, if you want to persuade us, and tell us how we can try other, less harmful ways you're wrong. We hate every single thing that walks on this planet. Yes we hunt those animals, the money is good. But we're not desperate, we just don't care.", new DialogOption[] {
+              ("Is there really nothing I can't do?", new ChoiceBranch(1, "We can leave you here die, The fire we've planted, had already scared enough of animals out, that after we hunt them, for us to life in luxury for the next few years.", new DialogOption[] {
+                sheWentEastOption,
+                ("she went north", new ChoiceBranch(2, "DON'T LIE TO US.\nWe came from north, and noone spotted her. Where. Did. She. GO?!" ,
+                new DialogOption[] { sheWentEastOption})),
+                ("she went south (lead them into the fire)", new ChoiceBranch(3, "You want us killed then huh? WE set the fire, we know from which direction it's coming. That is what you get out of noble animal saving 'heros' like you.", new DialogOption[] {
+                  sheWentEastBadOption
+                } ))
+              }))
+            })),
+            fightOptionPoachers,
+          }));
+
+      DialogOption playDumbOptionPoachers = (
+        "What giraffe?", new ChoiceBranch(3, "Do you take us as a band of fools? We know you helped her! The perfect opportunity wasted just because someone wanted to play a hero! Now WHERE DID SHE GO", new DialogOption[] {
+          talkOptionPoaches,
+          fightOptionPoachers
+        })
+      );
+
+
+      var poachersChoices = new DialogOption[] {
+        talkOptionPoaches,
+        fightOptionPoachers,
+        playDumbOptionPoachers
+      };
+
+      poachers.TreeOfChoices = new ChoiceBranch(1, "Tell us where did she go or we won't let you pass!", poachersChoices);
+      Quest fightPoachers = new Quest("Get past the poachers.", "Turning back into the direction you came from, you can see the group of shabby looking men.\nThat can only mean one thing... Poachers.\nThere is no other way. You'll have to face them.");
+      MapObject poachersOb = new MapObject(11, 8, MapObjectsEnum.ENEMY, true, quest: fightPoachers, npc: poachers);
+      jungle?.RoomMap.mapEntities.AddMapObject(poachersOb);
+    }
+
+    private void BuildGiraffes()
+    {
+      DialogOption talkOptionGiraffe = (
+        "Try to pull her leg", new ChoiceBranch(1, "She screams, tries to jump, but her leg is still in the same place. She gets more tense with fire coming closer and closer still.",
+        new DialogOption[] {
+          ("Try to calm her", new ChoiceBranch(1,"As you speak softly, you can feel her leg getting more relaxed.", new DialogOption[] {
+            ("Say her name('elizabeth'), don't worry I'll save you", new ChoiceBranch(1, "Now she can trust you completely, you know her name. Only people who know her name want good for you.", new DialogOption[] {
+              ("Pull her leg out", new ChoiceBranch(1, "She let's you gently put her leg out from between roots. She is greatful", new DialogOption[] {
+                ("Run away girl!", new ChoiceBranch(1, "She runs west as fast as she can", isItGoodEnding: true, repGain: 11)),
+                ("wait here", new ChoiceBranch(2, "She waits for 5 seconds but then sees flames coming towards her. She gets scared and runs west", isItGoodEnding: true, repGain:8))
+              }))
+            })),
+            ("Say her name('Caroline'), don't worry I'll save you", new ChoiceBranch(2, "When she heard you saying name of her biggest enemy Caroline. Elizabeth lost all her trust and stopped cooparating with you."))
+          }))
+        })
+      );
+
+      DialogOption forceOptionGiraffe = (
+        "Push her as hard as you can", new ChoiceBranch(2, "Her leg gets free but it's badly damaged", isItGoodEnding: true, repGain: -2)
+      );
+      DialogOption quitOptionGiraffe = (
+             "leave her", new ChoiceBranch(3, "")
+      );
+      var giraffeChoices = new DialogOption[] {
+        talkOptionGiraffe,
+        forceOptionGiraffe,
+        quitOptionGiraffe
+      };
+
+      giraffe.TreeOfChoices = new ChoiceBranch(1, "You can see giraffes leg entangeled in one of the roots of a tree, she is paralized with fear", giraffeChoices);
+    }
+
+    private void BuildJungleTrees()
+    {
+      jungle?.RoomMap.mapEntities.PopulateMap(
+        new MapObject[]{
+          new(1, 7, MapObjectsEnum.TREE),
+          new(1, 5, MapObjectsEnum.TREE),
+          new(3, 8, MapObjectsEnum.TREE),
+          new(3, 7, MapObjectsEnum.TREE),
+          new(3, 18, MapObjectsEnum.TREE),
+          new(4, 8, MapObjectsEnum.TREE),
+          new(5, 6, MapObjectsEnum.TREE),
+          new(5, 9, MapObjectsEnum.TREE),
+          new(5, 4, MapObjectsEnum.TREE),
+          new(7, 8, MapObjectsEnum.TREE),
+          new(9, 7, MapObjectsEnum.TREE),
+          new(9, 6, MapObjectsEnum.TREE),
+          new(11, 17, MapObjectsEnum.TREE),
+          new(11, 4, MapObjectsEnum.TREE),
+          new(11, 10, MapObjectsEnum.TREE),
+          new(11, 3, MapObjectsEnum.TREE),
+          new(13, 9, MapObjectsEnum.TREE),
+          new(13, 7, MapObjectsEnum.TREE),
+          new(15, 8, MapObjectsEnum.TREE),
+          new(15, 7, MapObjectsEnum.TREE),
+          new(17, 6, MapObjectsEnum.TREE),
+          new(17, 5, MapObjectsEnum.TREE),
+          new(18, 6, MapObjectsEnum.TREE),
+          new(18, 11, MapObjectsEnum.TREE),
+          new(19, 8, MapObjectsEnum.TREE),
+          new(20, 7, MapObjectsEnum.TREE),
+          new(21, 4, MapObjectsEnum.TREE),
+          new(21, 13, MapObjectsEnum.TREE),
+          new(22, 6, MapObjectsEnum.TREE),
+          new(23, 12, MapObjectsEnum.TREE),
+          new(24, 10, MapObjectsEnum.TREE),
+          new(25, 9, MapObjectsEnum.TREE),
+          new(26, 7, MapObjectsEnum.TREE),
+          new(27, 6, MapObjectsEnum.TREE),
+          new(28, 8, MapObjectsEnum.TREE),
+          new(29, 6, MapObjectsEnum.TREE),
+          new(30, 2, MapObjectsEnum.TREE),
+
+
+          new(1, 2, MapObjectsEnum.TREE),
+          new(1, 15, MapObjectsEnum.TREE),
+          new(1, 9, MapObjectsEnum.TREE),
+          new(2, 3, MapObjectsEnum.TREE),
+          new(3, 16, MapObjectsEnum.TREE),
+          new(3, 17, MapObjectsEnum.TREE),
+          new(3, 11, MapObjectsEnum.TREE),
+          new(5, 20, MapObjectsEnum.TREE),
+          new(5, 15, MapObjectsEnum.TREE),
+          new(5, 9, MapObjectsEnum.TREE),
+          new(6, 15, MapObjectsEnum.TREE),
+          new(7, 14, MapObjectsEnum.TREE),
+          new(7, 17, MapObjectsEnum.TREE),
+          new(9, 19, MapObjectsEnum.TREE),
+          new(9, 16, MapObjectsEnum.TREE),
+          new(11, 13, MapObjectsEnum.TREE),
+          new(11, 17, MapObjectsEnum.TREE),
+          new(11, 10, MapObjectsEnum.TREE),
+          new(11, 16, MapObjectsEnum.TREE),
+          new(13, 10, MapObjectsEnum.TREE),
+          new(13, 17, MapObjectsEnum.TREE),
+          new(15, 16, MapObjectsEnum.TREE),
+          new(15, 20, MapObjectsEnum.TREE),
+          new(15, 4, MapObjectsEnum.TREE),
+          new(17, 11, MapObjectsEnum.TREE),
+          new(17, 9, MapObjectsEnum.TREE),
+          new(18, 13, MapObjectsEnum.TREE),
+          new(18, 11, MapObjectsEnum.TREE),
+          new(19, 9, MapObjectsEnum.TREE),
+          new(19, 3,MapObjectsEnum.TREE),
+          new(20, 14, MapObjectsEnum.TREE),
+          new(21, 20, MapObjectsEnum.TREE),
+          new(21, 10, MapObjectsEnum.TREE),
+          new(22, 20, MapObjectsEnum.TREE),
+          new(23, 12, MapObjectsEnum.TREE),
+          new(23, 3, MapObjectsEnum.TREE),
+          new(24, 8, MapObjectsEnum.TREE),
+          new(25, 13, MapObjectsEnum.TREE),
+          new(26, 10, MapObjectsEnum.TREE),
+          new(27, 11, MapObjectsEnum.TREE),
+          new(27, 4, MapObjectsEnum.TREE),
+          new(28, 19, MapObjectsEnum.TREE),
+          new(28, 2, MapObjectsEnum.TREE),
+          new(29, 12, MapObjectsEnum.TREE),
+          new(29, 1, MapObjectsEnum.TREE),
+          new(30, 20, MapObjectsEnum.TREE),
+          new(30, 5, MapObjectsEnum.TREE),
+    }
+    );
+    }
+
     private void BuildCampNpcs()
     {
       BuildKenny();
       BuildJosh();
       BuildMandarine();
     }
-
     public void BuildRiver()
     {
-      MapObject river22 = new(1, 11, MapObjectsEnum.DIAGONALWALL_RIGHT);
-      MapObject river10 = new(3, 10, MapObjectsEnum.VERTICALWALL);
-      MapObject river9 = new(3, 9, MapObjectsEnum.DIAGONALWALL_RIGHT);
-      MapObject river8 = new(5, 8, MapObjectsEnum.VERTICALWALL);
-      MapObject river7 = new(3, 7, MapObjectsEnum.DIAGONALWALL_LEFT);
-      MapObject river6 = new(3, 6, MapObjectsEnum.VERTICALWALL);
-      MapObject river5 = new(3, 5, MapObjectsEnum.DIAGONALWALL_RIGHT);
-      MapObject river4 = new(5, 4, MapObjectsEnum.VERTICALWALL);
-      MapObject river3 = new(5, 3, MapObjectsEnum.DIAGONALWALL_RIGHT);
-      MapObject river2 = new(7, 2, MapObjectsEnum.VERTICALWALL);
-      MapObject river1 = new(5, 1, MapObjectsEnum.DIAGONALWALL_LEFT);
-
-      MapObject river11 = new(11, 1, MapObjectsEnum.DIAGONALWALL_LEFT);
-      MapObject river12 = new(13, 2, MapObjectsEnum.VERTICALWALL);
-      MapObject river13 = new(11, 3, MapObjectsEnum.DIAGONALWALL_RIGHT);
-      MapObject river14 = new(11, 4, MapObjectsEnum.VERTICALWALL);
-      MapObject river15 = new(9, 5, MapObjectsEnum.DIAGONALWALL_RIGHT);
-      MapObject river16 = new(9, 6, MapObjectsEnum.VERTICALWALL);
-      MapObject river17 = new(9, 7, MapObjectsEnum.DIAGONALWALL_LEFT);
-      MapObject river18 = new(11, 8, MapObjectsEnum.VERTICALWALL);
-      MapObject river19 = new(9, 9, MapObjectsEnum.DIAGONALWALL_RIGHT);
-      MapObject river20 = new(9, 10, MapObjectsEnum.VERTICALWALL);
-      MapObject river21 = new(7, 11, MapObjectsEnum.DIAGONALWALL_RIGHT);
       camp?.RoomMap.mapEntities.PopulateMap(
               new MapObject[]{
-                river1,
-                river2,
-                river3,
-                river4,
-                river5,
-                river6,
-                river7,
-                river8,
-                river9,
-                river10,
-                river11,
-                river12,
-                river13,
-                river14,
-                river15,
-                river16,
-                river17,
-                river18,
-                river19,
-                river20,
-                river21,
-                river22
+                new(1, 11, MapObjectsEnum.DIAGONALWALL_RIGHT),
+                new(3, 10, MapObjectsEnum.VERTICALWALL),
+                new(3, 9, MapObjectsEnum.DIAGONALWALL_RIGHT),
+                new(5, 8, MapObjectsEnum.VERTICALWALL),
+                new(3, 7, MapObjectsEnum.DIAGONALWALL_LEFT),
+                new(3, 6, MapObjectsEnum.VERTICALWALL),
+                new(3, 5, MapObjectsEnum.DIAGONALWALL_RIGHT),
+                new(5, 4, MapObjectsEnum.VERTICALWALL),
+                new(5, 3, MapObjectsEnum.DIAGONALWALL_RIGHT),
+                new(7, 2, MapObjectsEnum.VERTICALWALL),
+                new(5, 1, MapObjectsEnum.DIAGONALWALL_LEFT),
+
+                new(11, 1, MapObjectsEnum.DIAGONALWALL_LEFT),
+                new(13, 2, MapObjectsEnum.VERTICALWALL),
+                new(11, 3, MapObjectsEnum.DIAGONALWALL_RIGHT),
+                new(11, 4, MapObjectsEnum.VERTICALWALL),
+                new(9, 5, MapObjectsEnum.DIAGONALWALL_RIGHT),
+                new(9, 6, MapObjectsEnum.VERTICALWALL),
+                new(9, 7, MapObjectsEnum.DIAGONALWALL_LEFT),
+                new(11, 8, MapObjectsEnum.VERTICALWALL),
+                new(9, 9, MapObjectsEnum.DIAGONALWALL_RIGHT),
+                new(9, 10, MapObjectsEnum.VERTICALWALL),
+                new(7, 11, MapObjectsEnum.DIAGONALWALL_RIGHT)
       });
     }
     public void BuildCampHut()
     {
-      MapObject wall4 = new(29, 3, MapObjectsEnum.VERTICALWALL);
-      MapObject wall5 = new(29, 4, MapObjectsEnum.VERTICALWALL);
-      MapObject wall6 = new(29, 5, MapObjectsEnum.VERTICALWALL);
-
-      MapObject wall7 = new(29, 7, MapObjectsEnum.VERTICALWALL);
-      MapObject wall8 = new(29, 8, MapObjectsEnum.VERTICALWALL);
-      MapObject wall9 = new(29, 9, MapObjectsEnum.VERTICALWALL);
-
-      MapObject wall10 = new(29, 2, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall11 = new(30, 2, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall12 = new(31, 2, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall16 = new(32, 2, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall18 = new(33, 2, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall19 = new(34, 2, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall20 = new(35, 2, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall21 = new(36, 2, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall22 = new(37, 2, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall23 = new(38, 2, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall24 = new(39, 2, MapObjectsEnum.HORIZONTALWALL);
-
-      MapObject wall13 = new(29, 9, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall25 = new(30, 9, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall26 = new(31, 9, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall14 = new(32, 9, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall15 = new(33, 9, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall17 = new(34, 9, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall27 = new(35, 9, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall28 = new(36, 9, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall29 = new(37, 9, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall30 = new(38, 9, MapObjectsEnum.HORIZONTALWALL);
-      MapObject wall31 = new(39, 9, MapObjectsEnum.HORIZONTALWALL);
       camp?.RoomMap.mapEntities.PopulateMap(
               new MapObject[]{
-                wall4,
-                wall5,
-                wall6,
-                wall7,
-                wall8,
-                wall9,
-                wall10,
-                wall11,
-                wall12,
-                wall13,
-                wall14,
-                wall15,
-                wall16,
-                wall17,
-                wall18,
-                wall19,
-                wall20,
-                wall21,
-                wall22,
-                wall23,
-                wall24,
-                wall25,
-                wall26,
-                wall27,
-                wall28,
-                wall29,
-                wall30,
-                wall31,
+                new(29, 3, MapObjectsEnum.VERTICALWALL),
+                new(29, 4, MapObjectsEnum.VERTICALWALL),
+                new(29, 5, MapObjectsEnum.VERTICALWALL),
+                new(29, 7, MapObjectsEnum.VERTICALWALL),
+                new(29, 8, MapObjectsEnum.VERTICALWALL),
+                new(29, 9, MapObjectsEnum.VERTICALWALL),
 
+                new(29, 2, MapObjectsEnum.HORIZONTALWALL),
+                new(30, 2, MapObjectsEnum.HORIZONTALWALL),
+                new(31, 2, MapObjectsEnum.HORIZONTALWALL),
+                new(32, 2, MapObjectsEnum.HORIZONTALWALL),
+                new(33, 2, MapObjectsEnum.HORIZONTALWALL),
+                new(34, 2, MapObjectsEnum.HORIZONTALWALL),
+                new(35, 2, MapObjectsEnum.HORIZONTALWALL),
+                new(36, 2, MapObjectsEnum.HORIZONTALWALL),
+                new(37, 2, MapObjectsEnum.HORIZONTALWALL),
+                new(38, 2, MapObjectsEnum.HORIZONTALWALL),
+                new(39, 2, MapObjectsEnum.HORIZONTALWALL),
+
+                new(29, 9, MapObjectsEnum.HORIZONTALWALL),
+                new(30, 9, MapObjectsEnum.HORIZONTALWALL),
+                new(31, 9, MapObjectsEnum.HORIZONTALWALL),
+                new(32, 9, MapObjectsEnum.HORIZONTALWALL),
+                new(33, 9, MapObjectsEnum.HORIZONTALWALL),
+                new(34, 9, MapObjectsEnum.HORIZONTALWALL),
+                new(35, 9, MapObjectsEnum.HORIZONTALWALL),
+                new(36, 9, MapObjectsEnum.HORIZONTALWALL),
+                new(37, 9, MapObjectsEnum.HORIZONTALWALL),
+                new(38, 9, MapObjectsEnum.HORIZONTALWALL),
+                new(39, 9, MapObjectsEnum.HORIZONTALWALL),
       });
 
     }
@@ -284,7 +462,7 @@ namespace WorldOfZuul.Africa
         })
       );
 
-      DialogOption chitchatOptionJosh = ("What's your favourite kind of ice cream?", new ChoiceBranch(2, "I love chocolate ones. At least I used to now it looks like mud to me. You know what? I'll give you advise, for beign nice enough to talk to me. REMEBER: never trust anyone in the jungle. You can't even imagine how sly poachers can be! Anyway thank you for the effort, you're very kind.", isItGoodEnding: true));
+      DialogOption chitchatOptionJosh = ("What's your favourite kind of ice cream?", new ChoiceBranch(2, "I love chocolate ones. At least I used to now it looks like mud to me. You know what? I'll give you advise, for beign nice enough to talk to me. REMEBER: never trust anyone in the jungle. You can't even imagine howλ sly poachers can be! Anyway thank you for the effort, you're very kind.", isItGoodEnding: true));
 
       DialogOption quitOptionJosh = (
              "End conversation", new ChoiceBranch(3, "Nice meeting you. I needed to talk to someone.", isItGoodEnding: true)
@@ -364,7 +542,7 @@ namespace WorldOfZuul.Africa
       if (submarine?.MissionDescription == null) throw new Exception("Submarine Mission Description empty");
 
       DialogOption talkOption = (
-        "Give me a deeper insight of the mission", new ChoiceBranch(1,
+        "Can we start the mission?", new ChoiceBranch(1,
         submarine.MissionDescription,
             new DialogOption[] {
               ("Pick up the earphone", new ChoiceBranch(1, "Great! Now we can start the mission",

@@ -116,6 +116,17 @@ namespace WorldOfZuul
       ");
     }
 
+    public static void PrintFaceOfGiraffe()
+    {
+      GameConsole.WriteLine(@"
+                 _,,
+                '-%\~
+                   %\~
+                   |% _`,~
+                   /| ||
+                  / | | \      
+    ");
+    }
     public static void PrintShowcaseOfMissions()
     {
       string asciiArt =

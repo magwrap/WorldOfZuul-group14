@@ -9,6 +9,7 @@ namespace WorldOfZuul
     PRISON,
     TREE,
     TRAP,
+    GIRAFFE,
     VERTICALWALL,
     HORIZONTALWALL,
     DIAGONALWALL_LEFT,
