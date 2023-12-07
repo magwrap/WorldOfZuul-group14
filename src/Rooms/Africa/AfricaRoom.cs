@@ -116,7 +116,12 @@ namespace WorldOfZuul.Africa
 
         else if (currentRoom == jungle && !jungle.RoomMap.mapEntities.IsAnyQuestAvailable())
         {
-          GameConsole.WriteLine("Finsihed Mission!!");
+          Thread.Sleep(4000);
+          GameConsole.Clear();
+          GameConsole.WriteLine("Congratulations, you finished the mission!", font: FontTheme.Success);
+          Thread.Sleep(3000);
+          GameConsole.Clear();
+          Hub.isAfricaCompleted = true;
           continuePlaying = false;
           return;
         }
