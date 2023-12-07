@@ -6,9 +6,12 @@ namespace WorldOfZuul
     public static bool isAfricaCompleted = false;
     public static bool isPacificCompleted = true;
 
-    private static bool[] missionStatus = {isAsiaCompleted, isAfricaCompleted, isPacificCompleted};
+    
     public static int SelectMission()
     {
+
+      bool[] missionStatus = {isAsiaCompleted, isAfricaCompleted, isPacificCompleted};
+      
       string[] options = { "Asia", "Africa", "Pacific" };
       int selectedOption = 0;
 
