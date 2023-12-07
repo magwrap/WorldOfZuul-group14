@@ -5,8 +5,8 @@ namespace WorldOfZuul
 {
   public class Map
   {
-    private int position_x = 1;
-    private int position_y = 1;
+    public int position_x = 1;
+    public int position_y = 1;
     private int displayedPositionX = 1;
     private bool mapVisible = true;
     private readonly int heightOfMap;
@@ -40,8 +40,6 @@ namespace WorldOfZuul
 
     public void MoveOnMap(string direction, string range = "1")
     {
-      //TODO: add moving a few fields at once for example: south 5, moves you 5 fields down
-
       int newPositionX = position_x;
       int newPositionY = position_y;
 
@@ -85,7 +83,8 @@ namespace WorldOfZuul
           position_x = newPositionX;
           position_y = newPositionY;
 
-          displayedPositionX++;
+          //TODO: fix displayed position x
+          displayedPositionX += position_x - newPositionX;
         }
 
         if (MapVisibility)
@@ -125,7 +124,6 @@ namespace WorldOfZuul
           else
           {
             //TODO: fix walll message bug
-            //Maybe decrease players reputation a bit?
             if (occupyingObject?.MapObjectType is MapObjectsEnum.NPC)
             {
 
@@ -180,7 +178,8 @@ namespace WorldOfZuul
       int rows = heightOfMap + 1; //size of the map rows N/S, added +1 to avoid the bug of going out of the map :)
       int columns = widthOfMap; //size of the map columns W/E
       GameConsole.Clear();
-      GameConsole.WriteLine($"Player pos x: {displayedPositionX} y: {position_y}"); //subtracting 2 from x so it's easier for the player to read
+      //TODO: fix displayedPos than substitude it for postion_x
+      GameConsole.WriteLine($"Player pos x: {position_x} y: {position_y}"); //subtracting 2 from x so it's easier for the player to read
       mapEntities.DisplayCurrentQuest();
 
       for (int i = 0; i <= rows; i++) //int i are for x coordinates  
