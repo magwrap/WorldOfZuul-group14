@@ -12,7 +12,7 @@ namespace WorldOfZuul
 
     public static bool AsiaMission = true;
 
-    public void InProccess(bool isInProcess)
+    public void InProccess()
     {
       AsiaMission = continuePlaying;
     }
@@ -24,10 +24,10 @@ namespace WorldOfZuul
 
     public void CurrentlyInAsiaRoom(ref Room? currentRoom, ref Room? previousRoom)
     {
-      // LoadingAnimation.Loading("Mission Loading");
+      // LoadingAnimation.Loading("Mission Loading"); //uncomment later
       GameConsole.Clear();
 
-      InProccess(true);
+      InProccess();
 
       PrintIntroductionToTheRoom();
       previousRoom = null;
@@ -39,6 +39,8 @@ namespace WorldOfZuul
 
 
       }
+      
+      Hub.isAsiaCompleted = true;
 
     }
     private void CheckForMapChanges()
@@ -70,17 +72,7 @@ namespace WorldOfZuul
     {
       if (AsiaRoom.AsiaMission)
       {
-        //Console.WriteLine("Initializing objects...");
-        //intended asia mission, first all of the base walls are closed - you ahve to enter the operational center for anti-poaching crisis in asia, where you talk to an npc who briefs you 
-        //then after you are finished talking with him, the walls open and you are supposed to capture the poachers
-        //once you capture the poachers you have to bring them back to OCAPCA 
-        //SHIELD Asia
-        // Sustainable
-        // Habitat
-        // Intervention and
-        // Ecological
-        // Law
-        // Defenders
+       
 
         //add quests 
 
@@ -97,21 +89,23 @@ namespace WorldOfZuul
         NPC headRanger = new("Head Ranger");
         InitializeDialogHeadRanger(headRanger);
 
+        Enemy poacher = new("Poacher");
+        InitializeDialogPoacher(poacher);
+
         // Add council to the map with HeadRanger inside it
-        MapObject council = new(5, 3, MapObjectsEnum.PLACE, false, false, "You have entered the operations centre", enterBuilding, headRanger);
+        MapObject council = new(5, 3, MapObjectsEnum.PLACE, false, false, "You have entered the operations centre", enterBuilding, poacher); //head ranger //for the sake of debugging the poacher is now in council, later he will be moved to prison
 
         RoomMap.mapEntities.AddMapObject(council); // First coordinate always uneven!
 
         // Initialize enemy Poacher and set up dialog
-        Enemy poacher = new("Poacher");
-        InitializeDialogPoacher(poacher);
+
 
         // Add poachers to the map with interceptPoachers quest
-        MapObject poachers = new(17, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers, npc: poacher);
+        MapObject poachers = new(17, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers);
         RoomMap.mapEntities.AddMapObject(poachers);
 
         // Add prison to the map with arrestPoachers quest and Poacher inside it
-        MapObject prison = new(7, 1, MapObjectsEnum.PRISON, false, false, "You have entered the prison", arrestPoachers, poacher);
+        MapObject prison = new(7, 1, MapObjectsEnum.PRISON, false, false, "You have entered the prison", arrestPoachers); //poacher 
         RoomMap.mapEntities.AddMapObject(prison);
 
         // Add trap into the forest
@@ -182,7 +176,7 @@ namespace WorldOfZuul
          "Yes", new ChoiceBranch(1, "Love to hear that! Are you familiar with the issues we are currently fighting?",
              new DialogOption[] {
               ("Yeah of course, I have been briefed before the mission", new ChoiceBranch(1, "Great, you will get more information throughout the course of the mission. \nYour first task should be now displayed on your screen shortly. \nGood luck!", isItGoodEnding: true)),
-              ("Unofrtunatelly, I am not quite sure", new ChoiceBranch(2, "Currently we are facing", //display some of the statistics in asia
+              ("Unofrtunatelly, I am not quite sure", new ChoiceBranch(2, "Currently, we are facing a severe poaching crisis in Asia, particularly affecting tigers. \n Illegal trade driven by demand for tiger parts, believed to have medicinal properties and used in luxury goods, poses a grave threat to their existence. \nDespite conservation efforts, habitat loss, and strict law enforcement, the survival of these iconic big cats is in jeopardy. \nCombating the crisis requires international collaboration, anti-poaching measures, community engagement, and a shift in cultural attitudes. \nStriking a balance between economic development and wildlife conservation is essential to secure a future for tigers in the region.", //display some of the statistics in asia
                   new DialogOption[] {
                     ("Thank you, now I am ready!", new ChoiceBranch(1, "Good luck! You will need it.", isItGoodEnding: true)),
                   }
@@ -205,58 +199,60 @@ namespace WorldOfZuul
     private static void InitializeDialogPoacher(Enemy enemy)
     {
       var talkOption = (
-      "If you cooperate and let me see your side of the story, your sentence will be lighter", new ChoiceBranch(1, "I am all ears.",
-          new DialogOption[] {
-                ("What drove you to become a poacher in this unique environment?", new ChoiceBranch(1, "What are you a psychologist?")),
-                ("Do you have a history of poaching, or is this a recent turn to illegal activities?", new ChoiceBranch(2, "What are you a psychologist?",
-                    new DialogOption[] {
-                        ("I though you agreed to talk", new ChoiceBranch(1, "Jobs are limited, and the allure of quick cash from poaching is hard to resist. \nIt's not just about survival; it's about the lack of alternatives.")),
+          "If you cooperate and let me see your side of the story, your sentence will be lighter",
+          new ChoiceBranch(1, "I am all ears.",
+              new DialogOption[] {
+                ("What drove you to become a poacher in this unique environment?", new ChoiceBranch(1, "What are you, a psychologist?")),
+                ("Do you have a history of poaching, or is this a recent turn to illegal activities?", new ChoiceBranch(2, "What are you, a psychologist?",
+                    new DialogOption[]  {
+                        ("I thought you agreed to talk", new ChoiceBranch(1, "Jobs are limited, and the allure of quick cash from poaching is hard to resist. \nIt's not just about survival; it's about the lack of alternatives.")),
                         ("No, I am just a ranger, but you are in my custody. And I can alter your life in any direction I want!", new ChoiceBranch(2, "Okay, okay. Money's tight, and jobs are scarce. \nI saw an opportunity to make a quick profit by supplying exotic animals and their parts to the black market. It's survival for me, too.",
                             new DialogOption[] {
-                                ("Go on, I am listening", new ChoiceBranch(1, "The penalties are high, but the demand for exotic animals and their parts is even higher. \nThe risk seemed worth the potential rewards.", new DialogOption[]
-                                {
-                                  ("Have you considered legal alternatives that could bring financial benefits without harming the environment?", new ChoiceBranch(1, "It's all about the money. Conservation efforts don't put food on the table.\n I don't care about the long-term consequences; I need to survive today")),
-                                  ("Don't you mind exploiting the natural resources?", new ChoiceBranch(2, "I'm just one person. If I don't exploit the resources, someone else will. The system needs to change if you want people like me to stop.", new DialogOption[]
-                                  {
-                                    ("What do you propose to change this?", new ChoiceBranch(1, "Look, if you really want to make a change and stop guys like me, you need to understand the root of the problem")),
-                                    ("So you do not think this can be changed?", new ChoiceBranch(2, "Look, if you really want to make a change and stop guys like me, you need to understand the root of the problem.",
+                                ("Go on, I am listening", new ChoiceBranch(1, "The penalties are high, but the demand for exotic animals and their parts is even higher. \nThe risk seemed worth the potential rewards.",
                                     new DialogOption[]
                                     {
-                                      ("What is the root of the problem, is it lack of education?", new ChoiceBranch(1, "That's part of it. People need to know what's at stake, not just for the environment but for their own futures. Education is key.")),
-                                      ("Are there economic issues driving people towards poaching?", new ChoiceBranch(2, "Many folks, including me see poaching as a quick way to make a living. \nIf you want them to stop, give them alternatives that pay just as well",
-                                      new DialogOption[] {
-                                          ("So, what solution do you propose to tackle these issues?", new ChoiceBranch(1, "Start by investing in sustainable industries. Eco-tourism, for example, can provide jobs without harming the environment. It's about making legal options more appealing.")),
-                                          ("Do you have anything specific in mind?", new ChoiceBranch(2, " Start by investing in sustainable industries. Eco-tourism, for example, can provide jobs without harming the environment. It's about making legal options more appealing.",
-                                          new DialogOption[] {
-                                          ("Are you suggesting we should work together on these solutions?", new ChoiceBranch(1, "I'm no saint, but I know the game. If there's a way for me to make a living without looking over my shoulder, maybe I'd consider it.")),
-                                          ("Can you use your experience to help transition poachers to legal, sustainable practices?", new ChoiceBranch(2, "I'm no saint, but I know the game. If there's a way for me to make a living without looking over my shoulder, maybe I'd consider it..",
-                                          new DialogOption[]{
-                                             ("Welcome aboard, you have been very helpful", new ChoiceBranch(1, "Hope you now understand that, there's more to be done than just locking people up. \nIf you really want to stop poaching, you need to change the game.", isItGoodEnding: true))
-                                          }
-                                          ))
-                                          }
-                                          ))
-
-                                      }
-                                      ))
-
+                                        ("Have you considered legal alternatives that could bring financial benefits without harming the environment?", new ChoiceBranch(1, "It's all about the money. Conservation efforts don't put food on the table.\n I don't care about the long-term consequences; I need to survive today")),
+                                        ("Don't you mind exploiting the natural resources?", new ChoiceBranch(2, "I'm just one person. If I don't exploit the resources, someone else will. The system needs to change if you want people like me to stop.",
+                                            new DialogOption[]
+                                            {
+                                                ("What do you propose to change this?", new ChoiceBranch(1, "Look, if you really want to make a change and stop guys like me, you need to understand the root of the problem")),
+                                                ("So you do not think this can be changed?", new ChoiceBranch(2, "Look, if you really want to make a change and stop guys like me, you need to understand the root of the problem.",
+                                                    new DialogOption[]
+                                                    {
+                                                        ("What is the root of the problem, is it lack of education?", new ChoiceBranch(1, "That's part of it. People need to know what's at stake, not just for the environment but for their own futures. Education is key.")),
+                                                        ("Are there economic issues driving people towards poaching?", new ChoiceBranch(2, "Many folks, including me, see poaching as a quick way to make a living. \nIf you want them to stop, give them alternatives that pay just as well",
+                                                            new DialogOption[]
+                                                            {
+                                                                ("So, what solution do you propose to tackle these issues?", new ChoiceBranch(1, "Start by investing in sustainable industries. Eco-tourism, for example, can provide jobs without harming the environment. It's about making legal options more appealing.")),
+                                                                ("Do you have anything specific in mind?", new ChoiceBranch(2, "Start by investing in sustainable industries. \nEco-tourism, for example, can provide jobs without harming the environment. \nIt's about making legal options more appealing.",
+                                                                    new DialogOption[] {
+                                                                        ("Are you suggesting we should work together on these solutions?", new ChoiceBranch(1, "I'm no saint, but I know the game. If there's a way for me to make a living without looking over my shoulder, maybe I'd consider it.")),
+                                                                        ("Can you use your experience to help transition poachers to legal, sustainable practices?", new ChoiceBranch(2, "I'm no saint, but I know the game. If there's a way for me to make a living without looking over my shoulder, maybe I'd consider it..",
+                                                                            new DialogOption[]{
+                                                                                ("Welcome aboard, you have been very helpful", new ChoiceBranch(1, "Hope you now understand that there's more to be done than just locking people up. \nIf you really want to stop poaching, you need to change the game.", isItGoodEnding: true))
+                                                                            }
+                                                                        ))
+                                                                    }
+                                                                ))
+                                                            }
+                                                        ))
+                                                    }
+                                                )),
+                                            }
+                                        )),
                                     }
-                                    )),
-                                  }
-                                  )),
-                                }
                                 )),
                                 ("Thank you, I have heard enough", new ChoiceBranch(2, "Hey! What about my sentence. I thought we had an agreement.")),
                             }
                         )),
                     }
                 )),
-          }
-        )
+              }
+          )
       );
 
       var doNotTalkOption = ("I am done with you here, your actions will have consequences", new ChoiceBranch(2, "I couldn't care less about your precious environment. \nI will be out soon and your efforts will come in vain. Call my lawyer!"));
-
+      
       var choices = new DialogOption[] {
         talkOption, // first option so nr 1
         doNotTalkOption, // second option so nr 2
@@ -264,5 +260,6 @@ namespace WorldOfZuul
 
       enemy.TreeOfChoices = new ChoiceBranch(1, "You think you can lock me up and stop me? I have been doing this for years!", choices);
     }
+
   }
 }
