@@ -118,12 +118,10 @@ namespace WorldOfZuul.Africa
         {
           GameConsole.WriteLine("Finsihed Mission!!");
           continuePlaying = false;
+          Hub.isAfricaCompleted = true;
           return;
         }
 
-
-
-        // Messages.PrintMissionHelp();
         currentRoom?.DisplayShortDescription();
 
         Command? command = Game.AskForCommand();
