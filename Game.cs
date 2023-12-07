@@ -101,13 +101,13 @@ namespace WorldOfZuul
           case var room when currentRoom.Equals(Asia):
 
             Asia.CurrentlyInAsiaRoom(ref currentRoom, ref previousRoom);
-            GameConsole.WriteLine("Welcome back to the hub", font: FontTheme.Success);
+            GameConsole.WriteLine("Welcome back to the HeadQuarters", font: FontTheme.Success);
             break;
 
           case var room when currentRoom.Equals(Africa):
             Africa.StartAfricaMission(ref currentRoom, ref previousRoom);
 
-            GameConsole.WriteLine("Welcome back to the hub", font: FontTheme.Success);
+            GameConsole.WriteLine("Welcome back to the HeadQuarters", font: FontTheme.Success);
             break;
 
           default:
@@ -121,7 +121,7 @@ namespace WorldOfZuul
         if (Hub.isAsiaCompleted && Hub.isAfricaCompleted && Hub.isPacificCompleted)
         {
           UNRoom.StartLastMission();
-        } 
+        }
 
         //get a command
         command = AskForCommand();
