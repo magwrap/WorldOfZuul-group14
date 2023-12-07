@@ -15,8 +15,10 @@ namespace WorldOfZuul
                 ReputationScore1(); 
             else if(Reputation.ReputationScore < 99)
                 ReputationScore2(); 
-            else
+            else if(Reputation.ReputationScore >99)
                 ReputationScore3();
+            else
+                final();
 
         }
         //optimized PrntDeaker color dialogue
@@ -32,8 +34,10 @@ namespace WorldOfZuul
         private static void ReputationScore1()
         {
         Console.WriteLine(
-                "\nAs the ship docks, a sinking feeling gnaws at you. You sense the subdued atmosphere even before stepping onto the ground. The anticipation of a lukewarm reception weighs heavily, with a tinge of apprehension about facing potential disappointment from your peers.\n" +
-                "You step into the headquarters and the atmosphere feels tepid. Other rangers and employees give hesitant nods and weary glances, their expressions reflecting disappointment. A few grumbles and murmurs linger in the air as you pass by, indicating a sense of discontentment.\n" +
+                "\nAs the ship docks, a sinking feeling gnaws at you. You sense the subdued atmosphere even before stepping onto the ground.\n" + 
+                "The anticipation of a lukewarm reception weighs heavily, with a tinge of apprehension about facing potential disappointment from your peers.\n" +
+                "You step into the headquarters and the atmosphere feels tepid. Other rangers and employees give hesitant nods and weary glances, their expressions reflecting disappointment.\n" +
+                "A few grumbles and murmurs linger in the air as you pass by, indicating a sense of discontentment.\n" +
                 "The reception is lukewarm at best, lacking the usual camaraderie and enthusiasm.Your assistant approaches with a reserved demeanour."
             );
             PrntD("Diana",ConsoleColor.Green,"Welcome back. The council is expecting your presence in the meeting room.");
@@ -74,7 +78,8 @@ namespace WorldOfZuul
                     {
                         case 1:
                             PrntD("Ranger",ConsoleColor. Red,"Any initial reports or feedback from the missions?");
-                            PrntD("Diana",ConsoleColor. Green,"The reports indicate some setbacks. It seems there were concerns raised by our contacts regarding your team's actions during the missions.");
+                            PrntD("Diana",ConsoleColor. Green,"The reports indicate some setbacks.\n" +
+                            "It seems there were concerns raised by our contacts regarding your team's actions during the missions.");
                             PrntD("Ranger",ConsoleColor. Red,"Understood.");
                             optionChosen1 = true;
                             break;
@@ -99,7 +104,7 @@ namespace WorldOfZuul
                             }
                             else
                             {
-                            PrntD("Diana watches the player depart with a visibly concerned expression, then hurriedly adds",ConsoleColor. Green,"They're awaiting your presence in the council room. It's crucial that you join them promptly.");
+                            PrntD("Diana watches the ranger depart with a visibly concerned expression, then hurriedly adds",ConsoleColor. Green,"They're awaiting your presence in the council room. It's crucial that you join them promptly.");
                             exitDialogue1 = true;
                             }
                             break;
@@ -130,18 +135,24 @@ namespace WorldOfZuul
                     switch (meetOption1)
                     {
                         case 1:
-                            Console.WriteLine("You gaze out through the window, but the view fails to captivate you as it usually does. The vastness of the Atlantic seems bleak and uninviting today. The wildlife remains scarce uninterested in the offerings provided by the automatic feeder,\n" +
+                            Console.WriteLine("You gaze out through the window, but the view fails to captivate you as it usually does. The vastness of the Atlantic seems bleak and uninviting today.\n" +
+                            "The wildlife remains scarce uninterested in the offerings provided by the automatic feeder,\n" +
                             "mirroring the tepid atmosphere within the headquarters. The usual awe-inspiring scenes are absent, matching the disappointment you feel.\n" +
-                            "You make your way to the meeting room, but the journey feels lackluster. The corridors seem unusually desolate, reflecting the subdued atmosphere. Few colleagues pass by, offering hesitant nods,\n" +
+                            "You make your way to the meeting room, but the journey feels lackluster. The corridors seem unusually desolate, reflecting the subdued atmosphere.\n" +
+                            "Few colleagues pass by, offering hesitant nods,\n" +
                             "The anticipation for the meeting is tempered by a sense of disappointment in your recent performance.");
                             break;
                         case 2:
                             Console.WriteLine("You make your way to the meeting room, but the journey feels lackluster. The corridors seem unusually desolate, reflecting the subdued atmosphere. Few colleagues pass by, offering hesitant nods.\n" +
                             "The anticipation for the meeting is tempered by a sense of disappointment in your recent performance.");
                             break;
+                        default:
+                            Console.WriteLine("Invalid choice.");
+                            return;
                     }
                 }
-            Console.WriteLine("\nEntering the meeting room, you feel a palpable sense of disappointment in the air. The 13 council members' expressions reflect a blend of concern and reservation. Their greetings are polite but lack warmth, mirroring the tepid reception you've encountered.\n" +
+            Console.WriteLine("\nEntering the meeting room, you feel a palpable sense of disappointment in the air. The 13 council members' expressions reflect a blend of concern and reservation.\n" +
+            "Their greetings are polite but lack warmth, mirroring the tepid reception you've encountered.\n" +
             "As you take your seat, the atmosphere feels strained, indicating a dissatisfaction with recent outcomes.");
 
             PrntD("Council Member 1",ConsoleColor.Green,"The suggestion to send our headmaster ranger to the UN Assembly... do we need to reassess that decision?");
@@ -158,8 +169,10 @@ namespace WorldOfZuul
             PrntD("Council Member 11",ConsoleColor.Green,"It's a tough decision, but their long-standing commitment shouldn't be disregarded.");
             PrntD("Council Member 12",ConsoleColor.Green,"I too support the decision. They're the face of our fight against poaching.");
 
-            Console.WriteLine("\nIn a room filled with varying opinions, the council members engage in a robust discussion regarding the headmaster ranger's representation at the United Nations General Assembly. Disagreements surface, with concerns raised about recent setbacks potentially jeopardizing their representation.\n" +
-            "While some members advocate for reconsideration, emphasizing the need for flawless representation, the majority aligns with acknowledging the ranger's unparalleled dedication and expertise. They highlight the importance of experience and continuity in advocating for the organization's cause on the global stage.\n" +
+            Console.WriteLine("\nIn a room filled with varying opinions, the council members engage in a robust discussion regarding the headmaster ranger's representation at the United Nations General Assembly.\n" +
+            "Disagreements surface, with concerns raised about recent setbacks potentially jeopardizing their representation.\n" +
+            "While some members advocate for reconsideration, emphasizing the need for flawless representation, the majority aligns with acknowledging the ranger's unparalleled dedication and expertise.\n" +
+            "They highlight the importance of experience and continuity in advocating for the organization's cause on the global stage.\n" +
             "Ultimately, the majority of the council leans towards reaffirming their decision, accentuating the ranger's invaluable contribution and expertise despite recent challenges. The decision\n" +
             "reflects a balance between acknowledging recent setbacks and recognizing the ranger's significant role in the fight against poaching.");
 
@@ -191,20 +204,27 @@ namespace WorldOfZuul
                     {
                         case 1:
                             PrntD("Ranger",ConsoleColor.Red,"I'm honored by the council's trust. I assure you, I'll dedicate myself to represent our cause diligently and uphold the integrity of our mission.");
-                            PrntD("Council Member 1",ConsoleColor.Green,"Your dedication and commitment are commendable. We appreciate your assurance. We trust that you'll effectively represent our cause with the same passion and determination you've always shown. Your efforts are crucial to our mission's success.");
+                            PrntD("Council Member 1",ConsoleColor.Green,"Your dedication and commitment are commendable. We appreciate your assurance.\n" +
+                            "We trust that you'll effectively represent our cause with the same passion and determination you've always shown. Your efforts are crucial to our mission's success.");
                             break;
                         case 2:
                             PrntD("Ranger",ConsoleColor.Red,"I hear the concerns, but I'm determined to showcase our efforts on this global stage. Together, we'll make a compelling case for our cause.");
-                            PrntD("Council Member 1",ConsoleColor.Green,"Your dedication and commitment are commendable. We appreciate your assurance. We trust that you'll effectively represent our cause with the same passion and determination you've always shown. Your efforts are crucial to our mission's success.");
+                            PrntD("Council Member 1",ConsoleColor.Green,"Your dedication and commitment are commendable. We appreciate your assurance.\n" +
+                            "We trust that you'll effectively represent our cause with the same passion and determination you've always shown. Your efforts are crucial to our mission's success.");
                             break;
                         case 3:
                             PrntD("Ranger",ConsoleColor.Red,"I understand the reservations. I'm committed to addressing recent setbacks and ensuring that our message resonates effectively at the assembly.");
-                            PrntD("Council Member 1",ConsoleColor.Green,"We understand your apprehension, but don't doubt your capability. Your experience and dedication speak volumes. We acknowledge recent setbacks, but we believe in your ability to rise above them. You've been instrumental in our cause, and we stand behind your capability to represent us effectively.");
+                            PrntD("Council Member 1",ConsoleColor.Green,"We understand your apprehension, but don't doubt your capability. Your experience and dedication speak volumes.\n" +
+                            "We acknowledge recent setbacks, but we believe in your ability to rise above them. You've been instrumental in our cause, and we stand behind your capability to represent us effectively.");
                             break;
                         case 4:
                             PrntD("Ranger",ConsoleColor.Red,"I appreciate the confidence, but recent events have made me question if I'm the best choice for this critical task. I'm worried my recent performance might hinder our cause.");
-                            PrntD("Council Member 1",ConsoleColor.Green,"We understand your apprehension, but don't doubt your capability. Your experience and dedication speak volumes. We acknowledge recent setbacks, but we believe in your ability to rise above them. You've been instrumental in our cause, and we stand behind your capability to represent us effectively.");
+                            PrntD("Council Member 1",ConsoleColor.Green,"We understand your apprehension, but don't doubt your capability. Your experience and dedication speak volumes.\n" +
+                            "We acknowledge recent setbacks, but we believe in your ability to rise above them. You've been instrumental in our cause, and we stand behind your capability to represent us effectively.");
                             break;
+                        default:
+                            Console.WriteLine("Invalid choice.");
+                            return;
                     }
                 }                         
         }
@@ -214,8 +234,11 @@ namespace WorldOfZuul
         private static void ReputationScore2()
         {
            Console.WriteLine(
-                "\nAs the ship glides into the docks, you expect the usual acknowledgment, but uncertainty lingers about whether your performance will meet the anticipated standards. A mix of confidence and subtle nervousness tingles at the edge of your thoughts.\n" +
-                "Upon your return to headquarters, the atmosphere carries an air of anticipation. Fellow rangers and employees nod in acknowledgment, a mix of reserved smiles and neutral expressions greeting your arrival. There's a sense of usual routine in the air, suggesting an expected outcome from your missions.\n" +
+                "\nAs the ship glides into the docks, you expect the usual acknowledgment, but uncertainty lingers about whether your performance will meet the anticipated standards.\n" +
+                "A mix of confidence and subtle nervousness tingles at the edge of your thoughts.\n" +
+                "Upon your return to headquarters, the atmosphere carries an air of anticipation. \n" +
+                "Fellow rangers and employees nod in acknowledgment, a mix of reserved smiles and neutral expressions greeting your arrival. \n" +
+                "There's a sense of usual routine in the air, suggesting an expected outcome from your missions.\n" +
                 "As you make your way through the corridors, your assistant approaches you smiling, maintaining a professional bearing."
             );
             PrntD("Diana",ConsoleColor.Green,"Good to have you back. The Council is awaiting you in the meeting room.");
@@ -280,7 +303,7 @@ namespace WorldOfZuul
                             }
                             else
                             {
-                            PrntD("Diana notices the player's departure, a faint concern evident in her expression, sounding slightly disappointed.",ConsoleColor. Green,"When you're prepared, please head to the council. Your insights matter to them... and to me.");
+                            PrntD("Diana notices the player's departure, a faint concern evident in her expression, sounding slightly disappointed.",ConsoleColor. Green,"\nWhen you're prepared, please head to the council. Your insights matter to them... and to me.");
                             exitDialogue2 = true;
                             }
                             break;
@@ -311,18 +334,25 @@ namespace WorldOfZuul
                     switch (meetOption2)
                     {
                         case 1:
-                            Console.WriteLine("Looking through the window, you observe the familiar expanse of the Atlantic, appreciating the serene beauty of the ocean. Some wildlife tentatively approaches the dispensed food provided by the automatic feeder,\n" +
+                            Console.WriteLine("Looking through the window, you observe the familiar expanse of the Atlantic, appreciating the serene beauty of the ocean.\n" +
+                            "Some wildlife tentatively approaches the dispensed food provided by the automatic feeder,\n" +
                             "drawing mild interest but lacking the usual spectacle. The display is routine neither particularly awe-inspiring nor disappointing.\n" +
-                            "Heading to the meeting room, you traverse the corridors that exude a sense of routine. Colleagues acknowledge your presence with reserved smiles, indicating a familiarity that lacks enthusiasm.\n" +
+                            "Heading to the meeting room, you traverse the corridors that exude a sense of routine.\n" +
+                            "Colleagues acknowledge your presence with reserved smiles, indicating a familiarity that lacks enthusiasm.\n" +
                             "There's a steady pace to your walk, feeling proud you did your job.");
                             break;
                         case 2:
-                            Console.WriteLine("Heading to the meeting room, you traverse the corridors that exude a sense of routine. Colleagues acknowledge your presence with reserved smiles, indicating a familiarity that lacks enthusiasm.\n" +
+                            Console.WriteLine("Heading to the meeting room, you traverse the corridors that exude a sense of routine.\n" +
+                            "Colleagues acknowledge your presence with reserved smiles, indicating a familiarity that lacks enthusiasm.\n" +
                             "There's a steady pace to your walk, feeling proud you did your job.");
                             break;
+                        default:
+                            Console.WriteLine("Invalid choice.");
+                            return;
                     }
                 }
-            Console.WriteLine("\nStepping into the meeting room, there's a familiar air about the place. The 13 council members acknowledge your arrival with composed nods, maintaining a professional demeanour. The greetings are polite but lack any notable excitement, reflecting a subdued response to your performance.\n" +
+            Console.WriteLine("\nStepping into the meeting room, there's a familiar air about the place. The 13 council members acknowledge your arrival with composed nods, maintaining a professional demeanour.\n" +
+            "The greetings are polite but lack any notable excitement, reflecting a subdued response to your performance.\n" +
             "Taking your seat, the atmosphere remains steady, portraying a sense of predictability without much fervor.");
 
             PrntD("Council Member 1",ConsoleColor.Green,"Considering our headmaster ranger for the UN Assembly... any need for reevaluation?");
@@ -339,9 +369,12 @@ namespace WorldOfZuul
             PrntD("Council Member 11",ConsoleColor.Green,"It's a challenging situation, but their commitment speaks volumes.");
             PrntD("Council Member 12",ConsoleColor.Green,"I too back the decision. They epitomize our anti-poaching mission.");
 
-            Console.WriteLine("\nIn the midst of diverging views, the council deliberates on the headmaster ranger's potential representation at the United Nations General Assembly. Concerns arise about recent challenges that might affect their representation.\n" +
-            "While some push for reassessment for flawless representation, the majority stresses the ranger's dedication and experience. They emphasize the significance of experience and consistency in advocating for the organization's cause globally.\n" +
-            "Ultimately, despite acknowledging recent challenges, the majority leans towards reaffirming their decision. This choice reflects trust in the ranger's substantial contribution and expertise, balancing recent setbacks against their significant role in the fight against poaching.");
+            Console.WriteLine("\nIn the midst of diverging views, the council deliberates on the headmaster ranger's potential representation at the United Nations General Assembly.\n" +
+            "Concerns arise about recent challenges that might affect their representation.\n" +
+            "While some push for reassessment for flawless representation, the majority stresses the ranger's dedication and experience.\n" +
+            "They emphasize the significance of experience and consistency in advocating for the organization's cause globally.\n" +
+            "Ultimately, despite acknowledging recent challenges, the majority leans towards reaffirming their decision.\n" +
+            "This choice reflects trust in the ranger's substantial contribution and expertise, balancing recent setbacks against their significant role in the fight against poaching.");
 
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("\n1.");
@@ -368,16 +401,23 @@ namespace WorldOfZuul
                     {
                         case 1:
                             PrntD("Ranger",ConsoleColor.Red,"I'm honored by the council's trust. I assure you, I'll dedicate myself to represent our cause diligently and uphold the integrity of our mission.");
-                            PrntD("Council Member 1",ConsoleColor.Green,"Your dedication and commitment are commendable. We appreciate your assurance. We trust that you'll effectively represent our cause with the same passion and determination you've always shown. Your efforts are crucial to our mission's success.");
+                            PrntD("Council Member 1",ConsoleColor.Green,"Your dedication and commitment are commendable. We appreciate your assurance.\n" +
+                            "We trust that you'll effectively represent our cause with the same passion and determination you've always shown. Your efforts are crucial to our mission's success.");
                             break;
                         case 2:
                             PrntD("Ranger",ConsoleColor.Red,"I hear the concerns, but I'm determined to showcase our efforts on this global stage. Together, we'll make a compelling case for our cause.");
-                            PrntD("Council Member 1",ConsoleColor.Green,"Your dedication and commitment are commendable. We appreciate your assurance. We trust that you'll effectively represent our cause with the same passion and determination you've always shown. Your efforts are crucial to our mission's success.");
+                            PrntD("Council Member 1",ConsoleColor.Green,"Your dedication and commitment are commendable. We appreciate your assurance.\n" +
+                            "We trust that you'll effectively represent our cause with the same passion and determination you've always shown. Your efforts are crucial to our mission's success.");
                             break;
                         case 3:
-                            PrntD("Ranger",ConsoleColor.Red,"I acknowledge the emphasis on flawless representation. My concern is whether my recent contributions suffice for this level of responsibility. I'm worried that despite my efforts, it might not be enough to convey our cause effectively on a global platform.");
-                            PrntD("Council Member 1",ConsoleColor.Green,"We understand your worries. Your recent efforts have been commendable. We recognize the challenges but have faith in your ability to bridge any gaps. Your dedication is commendable, and we're confident in your capacity to represent us effectively.");
+                            PrntD("Ranger",ConsoleColor.Red,"I acknowledge the emphasis on flawless representation. My concern is whether my recent contributions suffice for this level of responsibility.\n" +
+                            "I'm worried that despite my efforts, it might not be enough to convey our cause effectively on a global platform.");
+                            PrntD("Council Member 1",ConsoleColor.Green,"We understand your worries. Your recent efforts have been commendable. We recognize the challenges but have faith in your ability to bridge any gaps.\n" +
+                            "Your dedication is commendable, and we're confident in your capacity to represent us effectively.");
                             break;
+                        default:
+                            Console.WriteLine("Invalid choice.");
+                            return;
                     }
                 }
         }
@@ -386,8 +426,10 @@ namespace WorldOfZuul
         //3 stars scenario
         private static void ReputationScore3()
         {
-            Console.WriteLine("\nThe ship's arrival fills you with an electric buzz of anticipation. You sense an impending celebration, perhaps even a hero's welcome. Confidence swells within you, bolstered by the expectation of recognition and admiration from your colleagues.\n" +
-            "There's a bubbling excitement for the reception awaiting your extraordinary accomplishments. You stride into the headquarters and an electric energy crackles through the air. Cheers erupt, accompanied by enthusiastic clapping and hearty pats on the back from fellow rangers and staff.\n" +
+            Console.WriteLine("\nThe ship's arrival fills you with an electric buzz of anticipation. You sense an impending celebration, perhaps even a hero's welcome.\n" +
+            "Confidence swells within you, bolstered by the expectation of recognition and admiration from your colleagues.\n" +
+            "There's a bubbling excitement for the reception awaiting your extraordinary accomplishments. You stride into the headquarters and an electric energy crackles through the air.\n" +
+            "Cheers erupt, accompanied by enthusiastic clapping and hearty pats on the back from fellow rangers and staff.\n" +
             "The room is filled with an aura of celebration and triumph. Your exceptional performance hasn't gone unnoticed, earning you a hero's welcome. Your assistant rushes to greet you, barely concealing her excitement.");
             PrntD("Diana",ConsoleColor.Green,"Fantastic job out there! The council is eager to hear from you. They asked you to come to the meeting room");
 
@@ -451,7 +493,7 @@ namespace WorldOfZuul
                             }
                             else
                             {
-                            PrntD("Diana notices the player's departure, a faint concern evident in her expression, sounding slightly disappointed.",ConsoleColor. Green,"Your presence is expected in the council room. They're counting on your exceptional input... I was looking forward to hearing your thoughts too.");
+                            PrntD("Diana notices the player's departure, a faint concern evident in her expression, sounding slightly disappointed.",ConsoleColor. Green,"\nYour presence is expected in the council room. They're counting on your exceptional input... I was looking forward to hearing your thoughts too.");
                             exitDialogue3 = true;
                             }
                             break;
@@ -482,8 +524,10 @@ namespace WorldOfZuul
                     switch (meetOption3)
                     {
                         case 1:
-                            Console.WriteLine("Through the window, the majesty of the Atlantic unfolds before you. The wildlife teems around the dispensed food provided by the automatic feeder, a vibrant tapestry of nature in motion.\n" +
-                            "Whales breach, dolphins playfully leap, and various birds create a mesmerizing display. The spectacle outside mirrors the sense of triumph and grandeur you feel within the headquarters, leaving you in awe of the extraordinary sight.\n" +
+                            Console.WriteLine("Through the window, the majesty of the Atlantic unfolds before you.\n" +
+                            "The wildlife teems around the dispensed food provided by the automatic feeder, a vibrant tapestry of nature in motion.\n" +
+                            "Whales breach, dolphins playfully leap, and various birds create a mesmerizing display.\n" +
+                            "The spectacle outside mirrors the sense of triumph and grandeur you feel within the headquarters, leaving you in awe of the extraordinary sight.\n" +
                             "As you stride toward the meeting room, the corridors come alive with bustling activity. Colleagues offer enthusiastic nods and cheerful greetings, buoyed by the celebratory atmosphere.\n" +
                             "Your exceptional performance reflects in the animated interactions, setting a triumphant tone for the meeting ahead. The anticipation builds, resonating with the exhilaration of your recent achievements.");
                             break;
@@ -496,8 +540,10 @@ namespace WorldOfZuul
                             return;
                     }
                 }
-            Console.WriteLine("\nWalking into the meeting room, a wave of admiration and anticipation greets you. The 13 council members offer enthusiastic greetings, their expressions reflecting admiration and respect for your recent accomplishments.\n" +
-            "Their demeanour exudes a sense of excitement and appreciation for your outstanding performance. Taking the central seat, the atmosphere buzzes with excitement, setting the stage for a meeting charged with positive energy.");
+            Console.WriteLine("\nWalking into the meeting room, a wave of admiration and anticipation greets you.\n" +
+            "The 13 council members offer enthusiastic greetings, their expressions reflecting admiration and respect for your recent accomplishments.\n" +
+            "Their demeanour exudes a sense of excitement and appreciation for your outstanding performance.\n" +
+            "Taking the central seat, the atmosphere buzzes with excitement, setting the stage for a meeting charged with positive energy.");
 
             PrntD("Council Member 1",ConsoleColor.Green,"Considering our headmaster ranger for the UN Assembly... their recent performance speaks volumes, don't you agree?");
             PrntD("Council Member 2",ConsoleColor.Green,"Absolutely. Their track record is exceptional.");
@@ -510,7 +556,8 @@ namespace WorldOfZuul
             PrntD("Council Member 9",ConsoleColor.Green,"Their expertise is vital, especially given the global urgency.");
             PrntD("Council Member 1",ConsoleColor.Green,"It's unanimous then. Their exceptional dedication and recent performance make them the clear choice.");
 
-            Console.WriteLine("\nYour exemplary performance has left no room for diverging views or concerns. The council unanimously agrees that your recent accomplishments and track record make you the ideal representative for the upcoming United Nations General Assembly.\n" +
+            Console.WriteLine("\nYour exemplary performance has left no room for diverging views or concerns.\n" +
+            "The council unanimously agrees that your recent accomplishments and track record make you the ideal representative for the upcoming United Nations General Assembly.\n" +
             "The decision is swift and unchallenged, resonating with absolute confidence in your capabilities and contributions.");
 
             Console.ForegroundColor = ConsoleColor.Blue;
@@ -533,19 +580,26 @@ namespace WorldOfZuul
                     switch (councilOption3)
                     {
                         case 1:
-                            PrntD("Ranger",ConsoleColor.Red,"I'm honored by the council's trust. However, I must admit, I'm concerned about the high expectations. I'll strive to meet them, but I hope my recent success won't overshadow our team's collective efforts.");
-                            PrntD("Council Member 1",ConsoleColor.Green,"Your humility is admirable, Ranger. Your concern for the team's efforts reflects your dedication. Remember, your success is our collective achievement. We trust you'll represent us humbly and honorably.");
+                            PrntD("Ranger",ConsoleColor.Red,"I'm honored by the council's trust. However, I must admit, I'm concerned about the high expectations.\n" +
+                            "I'll strive to meet them, but I hope my recent success won't overshadow our team's collective efforts.");
+                            PrntD("Council Member 1",ConsoleColor.Green,"Your humility is admirable, Ranger. Your concern for the team's efforts reflects your dedication.\n" +
+                            "Remember, your success is our collective achievement. We trust you'll represent us humbly and honorably.");
                             break;
                         case 2:
-                            PrntD("Ranger",ConsoleColor.Red,"I appreciate the confidence placed in me. I'm fully committed to representing our cause. My recent achievements only fuel my determination to advocate for our mission on a global platform.");
-                            PrntD("Council Member 1",ConsoleColor.Green,"Confidence suits you well, Ranger. Your determination inspires us. We believe your recent success amplifies our cause. Your commitment assures us that our mission will resonate globally.");
+                            PrntD("Ranger",ConsoleColor.Red,"I appreciate the confidence placed in me. I'm fully committed to representing our cause.\n" +
+                            "My recent achievements only fuel my determination to advocate for our mission on a global platform.");
+                            PrntD("Council Member 1",ConsoleColor.Green,"Confidence suits you well, Ranger. Your determination inspires us. We believe your recent success amplifies our cause.\n" +
+                            "Your commitment assures us that our mission will resonate globally.");
                             break;
                         default:
                             Console.WriteLine("Invalid choice.");
                             return;
                     }
                 }
-        Console.WriteLine("\nYou step back into the Ranger's Reception Hall, a hive of activity in preparation for the upcoming UN General Assembly. Diana is focused, typing away at her computer, while your team stands poised at the entrance, ready and awaiting instructions.\n"+
+            }
+    
+        Console.WriteLine("\nYou step back into the Ranger's Reception Hall, a hive of activity in preparation for the upcoming UN General Assembly.\n" +
+        "Diana is focused, typing away at her computer, while your team stands poised at the entrance, ready and awaiting instructions.\n"+
         "The air hums with purpose and anticipation, each member playing a vital role in the final arrangements for the significant event ahead.");
 
         Console.ForegroundColor = ConsoleColor.Blue;
@@ -560,41 +614,47 @@ namespace WorldOfZuul
         string leaveInput = Console.ReadLine() ?? "";
 
         if (!int.TryParse(leaveInput, out int leaveOption))
-            {
-                Console.WriteLine("Invalid input, please enter a valid option.");
-            }
+        {
+            Console.WriteLine("Invalid input, please enter a valid option.");
+        }
         else
+        {
+            switch (leaveOption)
             {
-                switch (leaveOption)
-                {
-                    case 1:
-                        PrntD("Diana",ConsoleColor.Green,"Everything in order for the assembly?");
-                        PrntD("Ranger",ConsoleColor.Red,"Yes, we're ready. Just tying up loose ends.");
-                        PrntD("Diana",ConsoleColor.Green,"Good to hear. Your presence there will make a difference.");
-                        PrntD("Ranger",ConsoleColor.Red,"I hope so. We're aiming for impact.");
-                        PrntD("Diana",ConsoleColor.Green,"have no doubt you'll represent us well.");
-                        PrntD("Ranger",ConsoleColor.Red,"Thank you. Your support means a lot.");
-                        PrntD("Diana",ConsoleColor.Green,"Safe travels and make us proud.");
-                        PrntD("Ranger",ConsoleColor.Red,"Will do. See you when we return.");
-                        Console.WriteLine("\nYou stride purposefully toward your team, exchanging nods of acknowledgment as you convey swift directives for the imminent departure.\n" +
-                        "With a few crisp instructions and words of encouragement, you set the course for action, leaving the Reception Hall in determined strides, each step echoing readiness and commitment to the forthcoming assembly.");
-                        break;
-                    case 2:
-                        Console.WriteLine("\nYou stride purposefully toward your team, exchanging nods of acknowledgment as you convey swift directives for the imminent departure.\n" +
-                        "With a few crisp instructions and words of encouragement, you set the course for action, leaving the Reception Hall in determined strides, each step echoing readiness and commitment to the forthcoming assembly.");
-                        break;
-                    default:
-                        Console.WriteLine("Invalid choice.");
-                        return;
-                }
+                case 1:
+                    PrntD("Diana",ConsoleColor.Green,"Everything in order for the assembly?");
+                    PrntD("Ranger",ConsoleColor.Red,"Yes, we're ready. Just tying up loose ends.");
+                    PrntD("Diana",ConsoleColor.Green,"Good to hear. Your presence there will make a difference.");
+                    PrntD("Ranger",ConsoleColor.Red,"I hope so. We're aiming for impact.");
+                    PrntD("Diana",ConsoleColor.Green,"have no doubt you'll represent us well.");
+                    PrntD("Ranger",ConsoleColor.Red,"Thank you. Your support means a lot.");
+                    PrntD("Diana",ConsoleColor.Green,"Safe travels and make us proud.");
+                    PrntD("Ranger",ConsoleColor.Red,"Will do. See you when we return.");
+                    Console.WriteLine("\nYou stride purposefully toward your team, exchanging nods of acknowledgment as you convey swift directives for the imminent departure.\n" +
+                    "With a few crisp instructions and words of encouragement, you set the course for action,\n" +
+                    "leaving the Reception Hall in determined strides, each step echoing readiness and commitment to the forthcoming assembly.");
+                    break;
+                case 2:
+                    Console.WriteLine("\nYou stride purposefully toward your team, exchanging nods of acknowledgment as you convey swift directives for the imminent departure.\n" +
+                    "With a few crisp instructions and words of encouragement, you set the course for action,\n" +
+                    "leaving the Reception Hall in determined strides, each step echoing readiness and commitment to the forthcoming assembly.");
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    return;
             }
+        }
 
-        Console.WriteLine("\nStepping into the grand hall of the United Nations assembly, you're met with a sight that embodies global significance. The vast space hums with activity as delegates, and representatives from various nations and organizations converse in hushed tones,\n" +
-            "their discussions blending into a soft murmur that fills the room. The atmosphere is charged with a sense of purpose, underscored by the weight of the impending discussions.\n" +
-            "\nPeople from diverse cultures and backgrounds move about, each person seemingly carrying their own slice of the world's concerns. The grandeur of the surroundings seems to instil a sense of humility, a recognition of the immense responsibility that comes with addressing global issues.\n" +
-            "\nYou notice clusters of individuals engaged in intense conversations, some nodding with understanding, others debating animatedly. The space, though vast, feels intimate with a shared understanding of the importance of the topics at hand.\n" +
-            "\nAs you make your way through the hall, there's a sense of unity amidst diversity—a collective effort poised to address challenges that transcend borders. The anticipation for the upcoming sessions hangs palpably in the air, as each person in attendance represents a crucial voice in shaping the future of global conservation efforts.\n" +
-            "\nYou are given way to the podium and prepare to present your point. Some questions related to the topic of poaching and SDGs 14 and 15 were prepared in advance of your arrival.");
+        Console.WriteLine("\nStepping into the grand hall of the United Nations assembly, you're met with a sight that embodies global significance.\n" +
+        "The vast space hums with activity as delegates, and representatives from various nations and organizations converse in hushed tones,\n" +
+        "their discussions blending into a soft murmur that fills the room. The atmosphere is charged with a sense of purpose, underscored by the weight of the impending discussions.\n" +
+        "\nPeople from diverse cultures and backgrounds move about, each person seemingly carrying their own slice of the world's concerns.\n" +
+        "The grandeur of the surroundings seems to instil a sense of humility, a recognition of the immense responsibility that comes with addressing global issues.\n" +
+        "\nYou notice clusters of individuals engaged in intense conversations, some nodding with understanding, others debating animatedly.\n" +
+        "The space, though vast, feels intimate with a shared understanding of the importance of the topics at hand.\n" +
+        "\nAs you make your way through the hall, there's a sense of unity amidst diversity—a collective effort poised to address challenges that transcend borders.\n" +
+        "The anticipation for the upcoming sessions hangs palpably in the air, as each person in attendance represents a crucial voice in shaping the future of global conservation efforts.\n" +
+        "\nYou are given way to the podium and prepare to present your point. Some questions related to the topic of poaching and SDGs 14 and 15 were prepared in advance of your arrival.");
 
         PrntD("Inquirer",ConsoleColor.Green,"What methods might address the complexities of poaching effectively?");
             
@@ -614,29 +674,29 @@ namespace WorldOfZuul
         string firstQuestion = Console.ReadLine() ?? "";
 
         if (!int.TryParse(firstQuestion, out int firstOption))
-            {
-                Console.WriteLine("Invalid input, please enter a valid option.");
-            }
+        {
+            Console.WriteLine("Invalid input, please enter a valid option.");
+        }
         else
+        {
+            switch (firstOption)
             {
-                switch (firstOption)
-                {
-                        case 1:
-                           Reputation.ReputationScore += 0;
-                            break;
-                        case 2:
-                            Reputation.ReputationScore += 3;
-                            break;
-                        case 3:
-                            Reputation.ReputationScore += 5;
-                            break;
-                        default:
-                            Console.WriteLine("Invalid choice.");
-                            return;
-                    }
-                }
+                case 1:
+                    Reputation.ReputationScore += 0;
+                    break;
+                case 2:
+                    Reputation.ReputationScore += 3;
+                    break;
+                case 3:
+                    Reputation.ReputationScore += 5;
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    return;
+            }
+        }
         PrntD("Inquirer",ConsoleColor.Green,"What strategies are critical for bolstering terrestrial biodiversity under SDG 15?");
-            
+                
         Console.ForegroundColor = ConsoleColor.Blue;
         Console.Write("\n1.");
         Console.ForegroundColor = ConsoleColor.Gray;
@@ -653,29 +713,29 @@ namespace WorldOfZuul
         string secondQuestion = Console.ReadLine() ?? "";
 
         if (!int.TryParse(secondQuestion, out int secondOption))
-            {
-                Console.WriteLine("Invalid input, please enter a valid option.");
-            }
+        {
+            Console.WriteLine("Invalid input, please enter a valid option.");
+        }
         else
+        {
+            switch (secondOption)
             {
-                switch (secondOption)
-                {
-                        case 1:
-                           Reputation.ReputationScore += 0;
-                            break;
-                        case 2:
-                            Reputation.ReputationScore += 3;
-                            break;
-                        case 3:
-                            Reputation.ReputationScore += 5;
-                            break;
-                        default:
-                            Console.WriteLine("Invalid choice.");
-                            return;
-                    }
+                case 1:
+                    Reputation.ReputationScore += 0;
+                    break;
+                case 2:
+                    Reputation.ReputationScore += 3;
+                    break;
+                case 3:
+                    Reputation.ReputationScore += 5;
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    return;
+            }
         }
         PrntD("Inquirer",ConsoleColor.Green,"Which initiatives might effectively curb illegal wildlife trade and poaching?");
-            
+                
         Console.ForegroundColor = ConsoleColor.Blue;
         Console.Write("\n1.");
         Console.ForegroundColor = ConsoleColor.Gray;
@@ -692,29 +752,29 @@ namespace WorldOfZuul
         string thirdQuestion = Console.ReadLine() ?? "";
 
         if (!int.TryParse(thirdQuestion, out int thirdOption))
-            {
-                Console.WriteLine("Invalid input, please enter a valid option.");
-            }
+        {
+            Console.WriteLine("Invalid input, please enter a valid option.");
+        }
         else
+        {
+            switch (thirdOption)
             {
-                switch (thirdOption)
-                {
-                        case 1:
-                           Reputation.ReputationScore += 0;
-                            break;
-                        case 2:
-                            Reputation.ReputationScore += 3;
-                            break;
-                        case 3:
-                            Reputation.ReputationScore += 5;
-                            break;
-                        default:
-                            Console.WriteLine("Invalid choice.");
-                            return;
-                    }
+                case 1:
+                    Reputation.ReputationScore += 0;
+                    break;
+                case 2:
+                    Reputation.ReputationScore += 3;
+                    break;
+                case 3:
+                    Reputation.ReputationScore += 5;
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    return;
+            }
         }
         PrntD("Inquirer",ConsoleColor.Green,"Which approach would effectively combat poaching while aligning with SDG 15 goals?");
-            
+                
         Console.ForegroundColor = ConsoleColor.Blue;
         Console.Write("\n1.");
         Console.ForegroundColor = ConsoleColor.Gray;
@@ -738,20 +798,20 @@ namespace WorldOfZuul
             {
                 switch (fourthOption)
                 {
-                        case 1:
-                           Reputation.ReputationScore += 0;
-                            break;
-                        case 2:
-                            Reputation.ReputationScore += 3;
-                            break;
-                        case 3:
-                            Reputation.ReputationScore += 5;
-                            break;
-                        default:
-                            Console.WriteLine("Invalid choice.");
-                            return;
-                    }
-        }
+                    case 1:
+                        Reputation.ReputationScore += 0;
+                        break;
+                    case 2:
+                        Reputation.ReputationScore += 3;
+                        break;
+                    case 3:
+                        Reputation.ReputationScore += 5;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice.");
+                        return;
+                }
+            }
         PrntD("Inquirer",ConsoleColor.Green,"Which initiatives might effectively curb illegal wildlife trade and poaching?");
             
         Console.ForegroundColor = ConsoleColor.Blue;
@@ -770,43 +830,49 @@ namespace WorldOfZuul
         string fifthQuestion = Console.ReadLine() ?? "";
 
         if (!int.TryParse(fifthQuestion, out int fifthOption))
-            {
-                Console.WriteLine("Invalid input, please enter a valid option.");
-            }
+        {
+            Console.WriteLine("Invalid input, please enter a valid option.");
+        }
         else
+        {
+            switch (fifthOption)
             {
-                switch (fifthOption)
-                {
-                        case 1:
-                           Reputation.ReputationScore += 0;
-                            break;
-                        case 2:
-                            Reputation.ReputationScore += 3;
-                            break;
-                        case 3:
-                            Reputation.ReputationScore += 5;
-                            break;
-                        default:
-                            Console.WriteLine("Invalid choice.");
-                            return;
-                    }
+                case 1:
+                    Reputation.ReputationScore += 0;
+                    break;
+                case 2:
+                    Reputation.ReputationScore += 3;
+                    break;
+                case 3:
+                    Reputation.ReputationScore += 5;
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    return;
+            }
         }
-        if (Reputation.ReputationScore < 40)
+        if (Reputation.ReputationScore < 60)
         {
-            Console.WriteLine("\nAs the assembly concludes, your absence from critical discussions about poaching and the environmental concerns in the ocean is palpable. While your presence was acknowledged, your contributions remained negligible.\n" +
-            "The global efforts for Sustainable Development Goals 14 and 15 feel only partially reinforced, lacking the essential vigor needed to make a profound difference. Your role, though acknowledged, did not significantly impact the resolutions made during the assembly.\n" +
-            "\nBut only time will tell if it had any impact in the world.");
+            Console.WriteLine("\nAs the assembly concludes, your absence from critical discussions about poaching and the environmental concerns in the ocean is palpable.\n" +
+            "While your presence was acknowledged, your contributions remained negligible.\n" +
+            "The global efforts for Sustainable Development Goals 14 and 15 feel only partially reinforced, lacking the essential vigor needed to make a profound difference.\n" +
+            "Your role, though acknowledged, did not significantly impact the resolutions made during the assembly.\n" +
+            "But only time will tell if it had any impact in the world.");
         }
-        else if (Reputation.ReputationScore >= 40 && Reputation.ReputationScore < 65)
+        else if (Reputation.ReputationScore >= 60 && Reputation.ReputationScore < 99)
         {
-            Console.WriteLine("\nYour presence at the assembly was acknowledged, and your contributions to the discussions about poaching and the conservation efforts were recognized. While your efforts were appreciated, their impact remained limited.\n" +
-            "The resolutions adopted during the assembly reflect incremental progress rather than substantial change. Your actions contributed, but the global efforts toward SDGs 14 and 15 could have been more profound with more substantial engagement from all stakeholders.\n" +
+            Console.WriteLine("\nYour presence at the assembly was acknowledged, and your contributions to the discussions about poaching and the conservation efforts were recognized.\n" +
+            "While your efforts were appreciated, their impact remained limited.\n" +
+            "The resolutions adopted during the assembly reflect incremental progress rather than substantial change.\n" +
+            "Your actions contributed, but the global efforts toward SDGs 14 and 15 could have been more profound with more substantial engagement from all stakeholders.\n" +
             "\nBut only time will tell if it had any impact in the world.");
         }
         else 
         {
-            Console.WriteLine("\nYour active engagement and influential contributions during the assembly discussions regarding poaching and ocean conservation had a monumental impact. Your compelling arguments and innovative proposals steered the discussions towards more comprehensive resolutions.\n" +
-            "The assembly adopted pioneering strategies, leveraging your insights, for the successful implementation of Sustainable Development Goals 14 and 15. Your actions significantly accelerated the global efforts, setting a new standard for environmental conservation at a global scale.\n" +
+            Console.WriteLine("\nYour active engagement and influential contributions during the assembly discussions regarding poaching and ocean conservation had a monumental impact.\n" +
+            "Your compelling arguments and innovative proposals steered the discussions towards more comprehensive resolutions.\n" +
+            "The assembly adopted pioneering strategies, leveraging your insights, for the successful implementation of Sustainable Development Goals 14 and 15.\n" +
+            "Your actions significantly accelerated the global efforts, setting a new standard for environmental conservation at a global scale.\n" +
             "\nBut only time will tell if it had any impact in the world.");
         }
         }
