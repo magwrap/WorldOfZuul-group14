@@ -48,7 +48,10 @@ namespace WorldOfZuul.Africa
     }
 
     public void StartAfricaMission(ref Room? currentRoom, ref Room? previousRoom)
-    {
+    { 
+      LoadingAnimation.Loading("Mission Loading"); 
+      GameConsole.Clear();
+
       JsonAfricaRooms = JsonFileReader.GetAfricaRooms();
 
       GameConsole.WriteLine(LongDescription, font: FontTheme.HighligtedText);

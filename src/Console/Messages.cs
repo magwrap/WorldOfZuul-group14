@@ -44,7 +44,7 @@ namespace WorldOfZuul
     public static void PrintMissionHelp()
     {
       GameConsole.WriteLine(
-        "\nNavigate by typing ['north', 'east', 'west', 'south'] + (optional) 'number of steps' to move around the map.\nType 'look' for more details. \nType 'map on' to turn on the map. \nType 'map off' to turn off the map. \nType 'help' to print this message again. \nType 'map help' to get definitions of objects on the map.\nType 'clear' to clear out the console\nType 'quit' to exit the game.\n\n",
+        "\nNavigate by typing ['north', 'east', 'west', 'south'] + (optional) 'number of steps' to move around the map.\nType 'look' for more details. \nType 'map on' to turn on the map. \nType 'map off' to turn off the map. \nType 'help' to print this message again. \nType 'map help' to get definitions of objects on the map.\nType 'clear' to clear out the console\n\n",
          font: FontTheme.Info
         );
     }
