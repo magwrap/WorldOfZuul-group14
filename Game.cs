@@ -130,6 +130,7 @@ namespace WorldOfZuul
         {
           UNRoom.StartLastMission();
           continuePlaying = false;
+          return;
         }
 
         //get a command
