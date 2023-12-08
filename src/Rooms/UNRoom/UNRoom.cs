@@ -4,6 +4,12 @@ namespace WorldOfZuul
 {
   class UNRoom
   {
+    private static Dictionary<int, int> AssembyReputationGain = new Dictionary<int, int>
+    {
+      [1] = 0,
+      [2] = 5,
+      [3] = 10
+    };
     public static void StartLastMission()
     {
       GameConsole.Clear();
@@ -679,21 +685,7 @@ namespace WorldOfZuul
       }
       else
       {
-        switch (firstOption)
-        {
-          case 1:
-            Reputation.ReputationScore += 0;
-            break;
-          case 2:
-            Reputation.ReputationScore += 3;
-            break;
-          case 3:
-            Reputation.ReputationScore += 5;
-            break;
-          default:
-            Console.WriteLine("Invalid choice.");
-            return;
-        }
+        DecideReputationGain(firstOption);
       }
       PrntD("Inquirer", ConsoleColor.Green, "What strategies are critical for bolstering terrestrial biodiversity under SDG 15?");
 
@@ -720,21 +712,9 @@ namespace WorldOfZuul
       }
       else
       {
-        switch (secondOption)
-        {
-          case 1:
-            Reputation.ReputationScore += 0;
-            break;
-          case 2:
-            Reputation.ReputationScore += 3;
-            break;
-          case 3:
-            Reputation.ReputationScore += 5;
-            break;
-          default:
-            Console.WriteLine("Invalid choice.");
-            return;
-        }
+
+        DecideReputationGain(secondOption);
+
       }
       PrntD("Inquirer", ConsoleColor.Green, "Which initiatives might effectively curb illegal wildlife trade and poaching?");
 
@@ -761,21 +741,7 @@ namespace WorldOfZuul
       }
       else
       {
-        switch (thirdOption)
-        {
-          case 1:
-            Reputation.ReputationScore += 0;
-            break;
-          case 2:
-            Reputation.ReputationScore += 3;
-            break;
-          case 3:
-            Reputation.ReputationScore += 5;
-            break;
-          default:
-            Console.WriteLine("Invalid choice.");
-            return;
-        }
+        DecideReputationGain(thirdOption);
       }
       PrntD("Inquirer", ConsoleColor.Green, "Which approach would effectively combat poaching while aligning with SDG 15 goals?");
 
@@ -802,21 +768,8 @@ namespace WorldOfZuul
       }
       else
       {
-        switch (fourthOption)
-        {
-          case 1:
-            Reputation.ReputationScore += 0;
-            break;
-          case 2:
-            Reputation.ReputationScore += 3;
-            break;
-          case 3:
-            Reputation.ReputationScore += 5;
-            break;
-          default:
-            Console.WriteLine("Invalid choice.");
-            return;
-        }
+        DecideReputationGain(fourthOption);
+
       }
       PrntD("Inquirer", ConsoleColor.Green, "Which initiatives might effectively curb illegal wildlife trade and poaching?");
 
@@ -843,21 +796,7 @@ namespace WorldOfZuul
       }
       else
       {
-        switch (fifthOption)
-        {
-          case 1:
-            Reputation.ReputationScore += 0;
-            break;
-          case 2:
-            Reputation.ReputationScore += 3;
-            break;
-          case 3:
-            Reputation.ReputationScore += 5;
-            break;
-          default:
-            Console.WriteLine("Invalid choice.");
-            return;
-        }
+        DecideReputationGain(fifthOption);
       }
       if (Reputation.ReputationScore < 60)
       {
@@ -882,6 +821,21 @@ namespace WorldOfZuul
         "The assembly adopted pioneering strategies, leveraging your insights, for the successful implementation of Sustainable Development Goals 14 and 15.\n" +
         "Your actions significantly accelerated the global efforts, setting a new standard for environmental conservation at a global scale.\n" +
         "\nBut only time will tell if it had any impact in the world.");
+      }
+    }
+
+    private static void DecideReputationGain(int option)
+    {
+      switch (option)
+      {
+        case 1:
+        case 2:
+        case 3:
+          Reputation.ReputationScore += AssembyReputationGain[option];
+          break;
+        default:
+          Console.WriteLine("Invalid choice.");
+          return;
       }
     }
 
