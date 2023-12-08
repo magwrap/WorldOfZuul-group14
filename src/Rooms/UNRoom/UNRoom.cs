@@ -4,20 +4,26 @@ namespace WorldOfZuul
 {
     class UNRoom
     {
+        private static Dictionary<int, int> AssembyReputationGain = new Dictionary<int, int>
+        {
+            [1] = 0,
+            [2] = 5,
+            [3] = 10
+        };
         public static void StartLastMission()
         {
             GameConsole.Clear();
             GameConsole.WriteLine("Congratulations! You have successfully completed all three missions, let's make your work count!", font: FontTheme.Success);
             Thread.Sleep(5000);
             GameConsole.Clear();
-            Reputation.ReputationScore = 5;
+
             if (Reputation.ReputationScore < 50) //number of points that determines the scenario for the player 
                 ReputationScore1();
             else if (Reputation.ReputationScore < 99)
                 ReputationScore2();
             else if (Reputation.ReputationScore > 99)
                 ReputationScore3();
-            
+
             FinalReputation();
 
         }
@@ -69,7 +75,7 @@ namespace WorldOfZuul
                 if (!int.TryParse(dialogueInput1, out int dialogueOption1))
                 {
                     GameConsole.Clear();
-                    GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger);  
+                    GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger);
                     // Handle invalid input scenario here, possibly continue the loop or take appropriate action
                 }
                 else
@@ -131,10 +137,10 @@ namespace WorldOfZuul
             if (!int.TryParse(meetInput1, out int meetOption1))
             {
                 GameConsole.Clear();
-                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger);
             }
             else
-            {   
+            {
                 GameConsole.Clear();
                 switch (meetOption1)
                 {
@@ -197,10 +203,10 @@ namespace WorldOfZuul
             if (!int.TryParse(councilInput1, out int councilOption1))
             {
                 GameConsole.Clear();
-                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger);
             }
             else
-            {   
+            {
                 GameConsole.Clear();
                 switch (councilOption1)
                 {
@@ -267,17 +273,17 @@ namespace WorldOfZuul
                 Console.Write("\n4.");
                 Console.ForegroundColor = ConsoleColor.Gray;
                 Console.WriteLine("Leave conversation");
-                
+
                 System.Console.Write("\n\U000027A4 ");
                 string dialogueInput2 = Console.ReadLine() ?? "\n";
 
                 if (!int.TryParse(dialogueInput2, out int dialogueOption2))
                 {
                     GameConsole.Clear();
-                    GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
+                    GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger);
                 }
                 else
-                {   
+                {
                     GameConsole.Clear();
                     switch (dialogueOption2)
                     {
@@ -336,10 +342,10 @@ namespace WorldOfZuul
             if (!int.TryParse(meetInput2, out int meetOption2))
             {
                 GameConsole.Clear();
-                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger);
             }
             else
-            {   
+            {
                 GameConsole.Clear();
                 switch (meetOption2)
                 {
@@ -401,10 +407,10 @@ namespace WorldOfZuul
             if (!int.TryParse(councilInput2, out int councilOption2))
             {
                 GameConsole.Clear();
-                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger);
             }
             else
-            {   
+            {
                 GameConsole.Clear();
                 switch (councilOption2)
                 {
@@ -469,10 +475,10 @@ namespace WorldOfZuul
                 if (!int.TryParse(dialogueInput3, out int dialogueOption3))
                 {
                     GameConsole.Clear();
-                    GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
+                    GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger);
                 }
                 else
-                {   
+                {
                     GameConsole.Clear();
                     switch (dialogueOption3)
                     {
@@ -529,10 +535,10 @@ namespace WorldOfZuul
             if (!int.TryParse(meetInput3, out int meetOption3))
             {
                 GameConsole.Clear();
-                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger);
             }
             else
-            {   
+            {
                 GameConsole.Clear();
                 switch (meetOption3)
                 {
@@ -586,10 +592,10 @@ namespace WorldOfZuul
             if (!int.TryParse(councilInput3, out int councilOption3))
             {
                 GameConsole.Clear();
-                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger);
             }
             else
-            {   
+            {
                 GameConsole.Clear();
                 switch (councilOption3)
                 {
@@ -632,10 +638,10 @@ namespace WorldOfZuul
             if (!int.TryParse(leaveInput, out int leaveOption))
             {
                 GameConsole.Clear();
-                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger);
             }
             else
-            {   
+            {
                 GameConsole.Clear();
                 switch (leaveOption)
                 {
@@ -690,26 +696,11 @@ namespace WorldOfZuul
             if (!int.TryParse(firstQuestion, out int firstOption))
             {
                 GameConsole.Clear();
-                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger);
             }
             else
-            {   
-                GameConsole.Clear();
-                switch (firstOption)
-                {
-                    case 1:
-                        Reputation.ReputationScore += 0;
-                        break;
-                    case 2:
-                        Reputation.ReputationScore += 3;
-                        break;
-                    case 3:
-                        Reputation.ReputationScore += 5;
-                        break;
-                    default:
-                        Console.WriteLine("Invalid choice.");
-                        return;
-                }
+            {
+                DecideReputationGain(firstOption);
             }
             PrntD("Inquirer", ConsoleColor.Green, "What strategies are critical for bolstering terrestrial biodiversity under SDG 15?");
 
@@ -732,26 +723,13 @@ namespace WorldOfZuul
             if (!int.TryParse(secondQuestion, out int secondOption))
             {
                 GameConsole.Clear();
-                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger);
             }
             else
-            {   
-                GameConsole.Clear();
-                switch (secondOption)
-                {
-                    case 1:
-                        Reputation.ReputationScore += 0;
-                        break;
-                    case 2:
-                        Reputation.ReputationScore += 3;
-                        break;
-                    case 3:
-                        Reputation.ReputationScore += 5;
-                        break;
-                    default:
-                        Console.WriteLine("Invalid choice.");
-                        return;
-                }
+            {
+
+                DecideReputationGain(secondOption);
+
             }
             PrntD("Inquirer", ConsoleColor.Green, "Which initiatives might effectively curb illegal wildlife trade and poaching?");
 
@@ -774,26 +752,11 @@ namespace WorldOfZuul
             if (!int.TryParse(thirdQuestion, out int thirdOption))
             {
                 GameConsole.Clear();
-                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger);
             }
             else
-            {   
-                GameConsole.Clear();
-                switch (thirdOption)
-                {
-                    case 1:
-                        Reputation.ReputationScore += 0;
-                        break;
-                    case 2:
-                        Reputation.ReputationScore += 3;
-                        break;
-                    case 3:
-                        Reputation.ReputationScore += 5;
-                        break;
-                    default:
-                        Console.WriteLine("Invalid choice.");
-                        return;
-                }
+            {
+                DecideReputationGain(thirdOption);
             }
             PrntD("Inquirer", ConsoleColor.Green, "Which approach would effectively combat poaching while aligning with SDG 15 goals?");
 
@@ -816,26 +779,12 @@ namespace WorldOfZuul
             if (!int.TryParse(fourthQuestion, out int fourthOption))
             {
                 GameConsole.Clear();
-                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger);
             }
             else
-            {   
-                GameConsole.Clear();
-                switch (fourthOption)
-                {
-                    case 1:
-                        Reputation.ReputationScore += 0;
-                        break;
-                    case 2:
-                        Reputation.ReputationScore += 3;
-                        break;
-                    case 3:
-                        Reputation.ReputationScore += 5;
-                        break;
-                    default:
-                        Console.WriteLine("Invalid choice.");
-                        return;
-                }
+            {
+                DecideReputationGain(fourthOption);
+
             }
             PrntD("Inquirer", ConsoleColor.Green, "Which initiatives might effectively curb illegal wildlife trade and poaching?");
 
@@ -858,26 +807,11 @@ namespace WorldOfZuul
             if (!int.TryParse(fifthQuestion, out int fifthOption))
             {
                 GameConsole.Clear();
-                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger);
             }
             else
-            {   
-                GameConsole.Clear();
-                switch (fifthOption)
-                {
-                    case 1:
-                        Reputation.ReputationScore += 0;
-                        break;
-                    case 2:
-                        Reputation.ReputationScore += 3;
-                        break;
-                    case 3:
-                        Reputation.ReputationScore += 5;
-                        break;
-                    default:
-                        Console.WriteLine("Invalid choice.");
-                        return;
-                }
+            {
+                DecideReputationGain(fifthOption);
             }
             if (Reputation.ReputationScore < 60)
             {
@@ -902,6 +836,22 @@ namespace WorldOfZuul
                 "The assembly adopted pioneering strategies, leveraging your insights, for the successful implementation of Sustainable Development Goals 14 and 15.\n" +
                 "Your actions significantly accelerated the global efforts, setting a new standard for environmental conservation at a global scale.\n" +
                 "\nBut only time will tell if it had any impact in the world.");
+            }
+        }
+
+        private static void DecideReputationGain(int option)
+        {   
+            GameConsole.Clear();
+            switch (option)
+            {
+                case 1:
+                case 2:
+                case 3:
+                    Reputation.ReputationScore += AssembyReputationGain[option];
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    return;
             }
         }
 

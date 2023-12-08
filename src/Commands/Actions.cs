@@ -79,10 +79,9 @@ namespace WorldOfZuul
           return true;
 
         case "map" when isMissionStarted == true && command.SecondWord == "help":
-          Messages.PrintMapObjectsHelp();
+          Messages.PrintMapObjectsHelp(missionName == "asia");
 
           return true;
-        //TODO: there has to be cleaner way to write this
         case "north" when isMissionStarted == true:
         case "south" when isMissionStarted == true:
         case "east" when isMissionStarted == true:
@@ -124,7 +123,15 @@ namespace WorldOfZuul
           return true;
 
         case "quit":
-          return !GetQuitConfirmation();
+          if (isMissionStarted == true)
+          {
+            Messages.CantQuitInformation();
+          }
+          else
+          {
+            return !GetQuitConfirmation();
+          }
+          return true;
 
         default:
           Messages.PrintUnknownCommandMessage();
@@ -202,18 +209,18 @@ namespace WorldOfZuul
       if (inputConfirmation1 == "yes" || inputConfirmation1 == "y")
       {
         LoadingAnimation.Loading("Quiting");
+        GameConsole.WriteLine();
         return true;
       }
 
-
-      //!this kinda doesn't make sense bcs when you say no the game will again prompt you if you want to quit until you quit so there is no escape but to quit the game
-
-      // else if (inputConfirmation1 != "no" && inputConfirmation1 != "n")
-      // {
-      //   return GetQuitConfirmation();
-      // }
-
       return false;
+    }
+
+    public static void ShowMap(ref Room? currentRoom, ref Room? previousRoom)
+    {
+
+      Command? cmnd = new Command("map", "on");
+      Actions.DecideAction(ref cmnd, ref currentRoom, ref previousRoom, true);
     }
   }
 }

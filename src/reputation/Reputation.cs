@@ -12,11 +12,10 @@ namespace WorldOfZuul.src
 
     public static int NumberOfMissionsFinished { get; set; }
 
-    //TODO: adjust the values of thresholds and rewards/punishments so it's optimal
 
     public static void Initialize()
     {
-      ReputationScore = 50;
+      ReputationScore = 0;
       NumberOfMissionsFinished = 0;
     }
     public static void MadeGoodDecision()

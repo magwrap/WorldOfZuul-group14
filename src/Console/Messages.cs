@@ -29,7 +29,7 @@ namespace WorldOfZuul
 
 ", delay: 1);
       GameConsole.WriteLine(
-        "Welcome to the World of Zuul!\nWorld of Zuul is a new, incredibly boring adventure game.",
+        "Welcome to the World of Zuul!\nFighting against poaching edition.\n",
         fgColor: ConsoleColor.Green
       );
 
@@ -37,18 +37,18 @@ namespace WorldOfZuul
     public static void PrintHelp()
     {
       GameConsole.WriteLine(
-        "\nNavigate by typing 'choose mission'.\nType 'look' for more details.\nType 'back' to go to the previous room.\nType 'help' to print this message again.\nType 'clear' to clear out the console\nType 'quit' to exit the game.",
+        "\nNavigate by typing 'choose mission'.\nType 'look' for more details. \nType 'help' to print this message again.\nType 'clear' to clear out the console\nType 'quit' to exit the game.",
          font: FontTheme.Info
         );
     }
     public static void PrintMissionHelp()
     {
       GameConsole.WriteLine(
-        "\nNavigate by typing ['north', 'east', 'west', 'south'] + (optional) 'number of steps' to move around the map.\nType 'look' for more details.\nType 'back' to go to the previous room.\nType 'map on' to turn on the map\nType 'map off' to turn off the map\nType 'help' to print this message again.Type 'map help' to get definitions of objects on the map.\nType 'clear' to clear out the console\nType 'quit' to exit the game.\n\n",
+        "\nNavigate by typing ['north', 'east', 'west', 'south'] + (optional) 'number of steps' to move around the map.\nType 'look' for more details. \nType 'map on' to turn on the map. \nType 'map off' to turn off the map. \nType 'help' to print this message again. \nType 'map help' to get definitions of objects on the map.\nType 'clear' to clear out the console\n\n",
          font: FontTheme.Info
         );
     }
-    public static void PrintMapObjectsHelp()
+    public static void PrintMapObjectsHelp(bool isAsia = false)
     {
       GameConsole.WriteLine("\n\n\tMAP OBJECTS:", font: FontTheme.Info);
       GameConsole.Write($"{MapObject.MapMarkers[MapObjectsEnum.NPC]}", font: MapObject.MapObjectFonts[MapObjectsEnum.NPC]);
@@ -57,7 +57,19 @@ namespace WorldOfZuul
       GameConsole.Write(" - Enemy\n", font: FontTheme.GameTip);
       GameConsole.Write($"{MapObject.MapMarkers[MapObjectsEnum.PLACE]}", font: MapObject.MapObjectFonts[MapObjectsEnum.PLACE]);
       GameConsole.Write(" - Place\n", font: FontTheme.GameTip);
+      GameConsole.Write($"{MapObject.MapMarkers[MapObjectsEnum.TREE]}", font: MapObject.MapObjectFonts[MapObjectsEnum.TREE]);
+      GameConsole.Write(" - Tree\n", font: FontTheme.GameTip);
+
+      if (isAsia)
+      {
+        GameConsole.Write($"{MapObject.MapMarkers[MapObjectsEnum.PRISON]}", font: MapObject.MapObjectFonts[MapObjectsEnum.PRISON]);
+        GameConsole.Write(" - Prison\n", font: FontTheme.GameTip);
+        GameConsole.Write($"{MapObject.MapMarkers[MapObjectsEnum.TRAP]}", font: MapObject.MapObjectFonts[MapObjectsEnum.TRAP]);
+        GameConsole.Write(" - Trap\n", font: FontTheme.GameTip);
+      }
     }
+
+
 
     public static void PrintUnknownCommandMessage()
     {
@@ -85,6 +97,11 @@ namespace WorldOfZuul
         "Please enter a command",
         fgColor: ConsoleColor.DarkBlue
         );
+    }
+
+    public static void CantQuitInformation()
+    {
+      GameConsole.WriteLine("Mission in progress, can't quit the game.\n", font: FontTheme.Danger);
     }
     public static void PrintGoodbyeMessage()
     {

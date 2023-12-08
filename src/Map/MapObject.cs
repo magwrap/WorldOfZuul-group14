@@ -19,25 +19,16 @@ namespace WorldOfZuul
     //https://symbl.cc/en/unicode/table/#avestan
     public static readonly Dictionary<MapObjectsEnum, string> MapMarkers = new()
     {
-      [MapObjectsEnum.NPC] = "\U0001F464", //'#'
+      [MapObjectsEnum.NPC] = "߽", //'#' //\U0001F464 //\U0001F6C9 //U0001F5E3 //\U0001F574 //\U0001F5E3
       [MapObjectsEnum.ENEMY] = "\U000026A0", //"\U00003020",  //\U0001F5F4 
       [MapObjectsEnum.PLACE] = "\U000023CF", //'^' //⏏
       [MapObjectsEnum.PRISON] = "\U000026EB", //⛫
-      [MapObjectsEnum.ITEM] = "!",
       [MapObjectsEnum.TREE] = "♧",
       [MapObjectsEnum.TRAP] = "¤",
-      [MapObjectsEnum.GIRAFFE] = "λ",
-      //       [MapObjectsEnum.GIRAFFE] = @"
-      //            _,,
-      //           '-%\~
-      //              %\~
-      //              |% _`,~
-      //              /| ||
-      //             / | | \      
-      // ",
+      [MapObjectsEnum.GIRAFFE] = "🦒",
       [MapObjectsEnum.VERTICALWALL] = "\U0000258F", //U0000275A //\U0000258F //'|'
       [MapObjectsEnum.HORIZONTALWALL] = "\U00002E0F", //U0000268A //U00002594 //\U00002581 //\U00002015 //\U00002D67 //\U00002E0F//'-' 
-      [MapObjectsEnum.DIAGONALWALL_LEFT] = "\\", //TODO: find better ascii signs!
+      [MapObjectsEnum.DIAGONALWALL_LEFT] = "\\",
       [MapObjectsEnum.DIAGONALWALL_RIGHT] = "/"
 
     };
@@ -62,11 +53,11 @@ namespace WorldOfZuul
       int mapCordX,
       int mapCordY,
       MapObjectsEnum? mapObjectType,
-       bool isRemovable = false,
-       bool isImpassable = true, // on default items will be Impassable and Unremovable
-       string? occupiedMessage = null,
-       Quest? quest = null,
-       NPC? npc = null)
+      bool isRemovable = false,
+      bool isImpassable = true, // on default items will be Impassable and Unremovable
+      string? occupiedMessage = null,
+      Quest? quest = null,
+      NPC? npc = null)
     {
 
       // X has to be odd number bcs. user moves 2 fields at the time
@@ -82,7 +73,7 @@ namespace WorldOfZuul
       this.Npc = npc;
 
       if ((MapObjectType is MapObjectsEnum.NPC //|| MapObjectType is MapObjectsEnum.ENEMY
-          //|| MapObjectType is MapObjectsEnum.PLACE 
+                                               //|| MapObjectType is MapObjectsEnum.PLACE 
        ) && Npc == null)
       {
         throw new ArgumentException("If you're creating person map object you have to pass NPC/Enemy object");
