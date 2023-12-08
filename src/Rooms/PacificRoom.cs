@@ -106,7 +106,7 @@ namespace WorldOfZuul
     {
       isDecisionBuilt = true;
 
-      GameConsole.WriteLine("The choice before you poses a strategic dilemma: launching an attack now, under the unforgiving daylight, risks alerting the enemy. However, it significantly minimizes the likelihood of their escape. The islands act as a natural barrier, obscuring both your ship from their view and their presence from your sight.\nOn the other hand, waiting for the cover of night offers the possibility of a stealthier approach, capitalizing on the element of surprise. But it comes with a palpable risk—the darkness might provide them with the opportunity to slip away under the shroud of night, evading your grasp.\n\n...\n\nArriving at the designated coordinates, the sun sits high in the sky, casting its luminous glow across the vast expanse of water. However, despite the clear visibility brought by the daylight, your target remains hidden, shielded by a series of islands standing sentinel between your vessel and their location.", fgColor: ConsoleColor.Blue);
+      GameConsole.WriteLine("The choice before you poses a strategic dilemma: launching an attack now, under the unforgiving daylight, risks alerting the enemy. \nHowever, it significantly minimizes the likelihood of their escape. \nThe islands act as a natural barrier, obscuring both your ship from their view and their presence from your sight.\nOn the other hand, waiting for the cover of night offers the possibility of a stealthier approach, capitalizing on the element of surprise. \nBut it comes with a palpable risk—the darkness might provide them with the opportunity to slip away under the shroud of night, evading your grasp.\n\n...\n\nArriving at the designated coordinates, the sun sits high in the sky, casting its luminous glow across the vast expanse of water. \nHowever, despite the clear visibility brought by the daylight, your target remains hidden, shielded by a series of islands standing sentinel between your vessel and their location.", fgColor: ConsoleColor.Blue);
 
       string[] decideText = new string[] { "Decide", "As you grab your silenced handgun and a heartbeat sensor synced with your crew, that allows you to between the vital signs of allies and foes the decision hangs in the balance." };
 
@@ -150,8 +150,8 @@ namespace WorldOfZuul
       ship?.RoomMap.SetXandY(3, 1);
       NPC man = new NPC("Man")
       {
-        TreeOfChoices = new ChoiceBranch(1, "Sir,' he starts, his tone urgent, 'our contacts have sent word—the head of the most notorious whale and shark poaching organization has been sighted near the Cook Islands. Their operations have caused catastrophic damage to the populations in these waters.'", new DialogOption[] {
-        ("...", new ChoiceBranch(1, "The man gestures towards the horizon, emphasizing the gravity of the situation. The ship itself stands as a testament to modern engineering—a sleek, advanced vessel built for speed and stealth. Its streamlined design hints at its purpose: swift and covert movements to intercept those harming the marine life.", isItGoodEnding: true))
+        TreeOfChoices = new ChoiceBranch(1, "Sir,' he starts, his tone urgent, 'our contacts have sent word—the head of the most notorious \nwhale and shark poaching organization has been sighted near the Cook Islands. \nTheir operations have caused catastrophic damage to the populations in these waters.'", new DialogOption[] {
+        ("...", new ChoiceBranch(1, "The man gestures towards the horizon, emphasizing the gravity of the situation. \nThe ship itself stands as a testament to modern engineering—a sleek, advanced vessel built for speed and stealth. \nIts streamlined design hints at its purpose: swift and covert movements to intercept those harming the marine life.", isItGoodEnding: true))
       })
       };
 
