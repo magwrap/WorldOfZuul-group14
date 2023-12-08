@@ -226,7 +226,7 @@ namespace WorldOfZuul
       //6
       DialogOption[] tackleIssueOptionArr = new DialogOption[]
       {
-          ("So, what solution do you propose to tackle these issues?", new ChoiceBranch(1, "Start by investing in sustainable industries. Eco-tourism, for example, can provide jobs without harming the environment. It's about making legal options more appealing.", soulutionsOptionArr)),
+          ("So, what solution do you propose to tackle these issues?", new ChoiceBranch(1, "Start by investing in sustainable industries. \nEco-tourism, for example, can provide jobs without harming the environment. It's about making legal options more appealing.", soulutionsOptionArr)),
           ("Do you have anything specific in mind?", new ChoiceBranch(2, "Start by investing in sustainable industries. \nEco-tourism, for example, can provide jobs without harming the environment. \nIt's about making legal options more appealing.", soulutionsOptionArr))
 
       };
