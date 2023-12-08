@@ -149,6 +149,7 @@ namespace WorldOfZuul
     public static Command AskForCommand()
     {
       //print message asking for command
+      Console.WriteLine($"Reputation: {Reputation.ReputationScore} / 150"); //TODO: delete later
       Messages.PrintAskForCommandMessage();
       Command? userCommand;
 

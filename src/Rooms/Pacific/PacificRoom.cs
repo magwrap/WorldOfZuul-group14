@@ -24,7 +24,7 @@ namespace WorldOfZuul
     }
     public void StartPacificMission(ref Room? currentRoom, ref Room? previousRoom)
     {
-      LoadingAnimation.Loading("Mission Loading"); 
+      LoadingAnimation.Loading("Mission Loading");
       GameConsole.Clear();
 
       GameConsole.WriteLine(LongDescription, font: FontTheme.HighligtedText);

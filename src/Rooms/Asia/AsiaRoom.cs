@@ -1,3 +1,4 @@
+using WorldOfZuul.src;
 using WorldOfZuul.src.Map;
 
 namespace WorldOfZuul
@@ -38,6 +39,7 @@ namespace WorldOfZuul
 
         if (!RoomMap.mapEntities.IsAnyQuestAvailable())
         {
+          Reputation.ReputationScore += 17;
           Thread.Sleep(4000);
           GameConsole.Clear();
           GameConsole.WriteLine("Congratulations, you finished the mission!", font: FontTheme.Success);
@@ -181,10 +183,10 @@ namespace WorldOfZuul
       var talkOption = (
          "Yes", new ChoiceBranch(1, "Love to hear that! Are you familiar with the issues we are currently fighting?",
              new DialogOption[] {
-              ("Yeah of course, I have been briefed before the mission", new ChoiceBranch(1, "Great, you will get more information throughout the course of the mission. \nYour first task should be now displayed on your screen shortly. \nGood luck!", isItGoodEnding: true)),
+              ("Yeah of course, I have been briefed before the mission", new ChoiceBranch(1, "Great, you will get more information throughout the course of the mission. \nYour first task should be now displayed on your screen shortly. \nGood luck!", isItGoodEnding: true, repGain: 10)),
               ("Unofrtunatelly, I am not quite sure", new ChoiceBranch(2, "Currently, we are facing a severe poaching crisis in Asia, particularly affecting tigers. \n Illegal trade driven by demand for tiger parts, believed to have medicinal properties and used in luxury goods, poses a grave threat to their existence. \nDespite conservation efforts, habitat loss, and strict law enforcement, the survival of these iconic big cats is in jeopardy. \nCombating the crisis requires international collaboration, anti-poaching measures, community engagement, and a shift in cultural attitudes. \nStriking a balance between economic development and wildlife conservation is essential to secure a future for tigers in the region.", //display some of the statistics in asia
                   new DialogOption[] {
-                    ("Thank you, now I am ready!", new ChoiceBranch(1, "Good luck! You will need it.", isItGoodEnding: true)),
+                    ("Thank you, now I am ready!", new ChoiceBranch(1, "Good luck! You will need it.", isItGoodEnding: true, repGain: 17)),
                   }
                 )
               )
@@ -210,7 +212,7 @@ namespace WorldOfZuul
       //8
       DialogOption[] endingOptionArr = new DialogOption[]
       {
-        ("Welcome aboard, you have been very helpful", new ChoiceBranch(1, "Hope you now understand that there's more to be done than just locking people up. \nIf you really want to stop poaching, you need to change the game.", isItGoodEnding: true))
+        ("Welcome aboard, you have been very helpful", new ChoiceBranch(1, "Hope you now understand that there's more to be done than just locking people up. \nIf you really want to stop poaching, you need to change the game.", isItGoodEnding: true, repGain: 16))
       };
 
       //7

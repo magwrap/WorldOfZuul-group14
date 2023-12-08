@@ -15,7 +15,7 @@ namespace WorldOfZuul.src
 
     public static void Initialize()
     {
-      ReputationScore = 50;
+      ReputationScore = 0;
       NumberOfMissionsFinished = 0;
     }
     public static void MadeGoodDecision()
