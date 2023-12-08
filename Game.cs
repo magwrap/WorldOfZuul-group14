@@ -150,7 +150,6 @@ namespace WorldOfZuul
     public static Command AskForCommand()
     {
       //print message asking for command
-      Console.WriteLine($"Reputation: {Reputation.ReputationScore} / 150"); //TODO: delete later
       Messages.PrintAskForCommandMessage();
       Command? userCommand;
 
@@ -169,7 +168,7 @@ namespace WorldOfZuul
     /// <param name="initials"></param>
     public static void GetInicialOfThePlayer(string name)
     {
-      PlayerName = name;
+      PlayerName = name[0].ToString().ToUpperInvariant() + name[1..].ToString();
       Initials = name.ToUpper()[..1];
     }
   }

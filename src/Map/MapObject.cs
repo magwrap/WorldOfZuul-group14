@@ -25,7 +25,7 @@ namespace WorldOfZuul
       [MapObjectsEnum.PRISON] = "\U000026EB", //⛫
       [MapObjectsEnum.TREE] = "♧",
       [MapObjectsEnum.TRAP] = "¤",
-      [MapObjectsEnum.GIRAFFE] = "🦒",
+      [MapObjectsEnum.GIRAFFE] = "\b🦒",
       [MapObjectsEnum.VERTICALWALL] = "\U0000258F", //U0000275A //\U0000258F //'|'
       [MapObjectsEnum.HORIZONTALWALL] = "\U00002E0F", //U0000268A //U00002594 //\U00002581 //\U00002015 //\U00002D67 //\U00002E0F//'-' 
       [MapObjectsEnum.DIAGONALWALL_LEFT] = "\\",
