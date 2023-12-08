@@ -7,7 +7,7 @@ namespace WorldOfZuul
         public static void StartLastMission()
         {
             GameConsole.Clear();
-            GameConsole.WriteLine("Congratulations! You have successfully completed all three missions, let's make your work count!");
+            GameConsole.WriteLine("Congratulations! You have successfully completed all three missions, let's make your work count!", font: FontTheme.Success);
             Thread.Sleep(5000);
             GameConsole.Clear();
 
@@ -65,11 +65,13 @@ namespace WorldOfZuul
                 Console.ForegroundColor = ConsoleColor.Gray;
                 Console.WriteLine("Leave conversation");
 
-                string dialogueInput1 = Console.ReadLine() ?? "";
+                System.Console.Write("\n\U000027A4 ");
+                string dialogueInput1 = Console.ReadLine() ?? "\n";
 
                 if (!int.TryParse(dialogueInput1, out int dialogueOption1))
                 {
-                    Console.WriteLine("Invalid input, please enter a valid option.");
+                    
+                    
                     // Handle invalid input scenario here, possibly continue the loop or take appropriate action
                 }
                 else
@@ -124,11 +126,13 @@ namespace WorldOfZuul
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("Go to the meeting room");
 
-            string meetInput1 = Console.ReadLine() ?? "";
+            System.Console.Write("\n\U000027A4 ");
+            string meetInput1 = Console.ReadLine() ?? "\n";
 
             if (!int.TryParse(meetInput1, out int meetOption1))
             {
-                Console.WriteLine("Invalid input, please enter a valid option.");
+                GameConsole.Clear();
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
             {
@@ -193,11 +197,13 @@ namespace WorldOfZuul
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("Manifest doubt");
 
-            string councilInput1 = Console.ReadLine() ?? "";
+            System.Console.Write("\n\U000027A4 ");
+            string councilInput1 = Console.ReadLine() ?? "\n";
 
             if (!int.TryParse(councilInput1, out int councilOption1))
             {
-                Console.WriteLine("Invalid input, please enter a valid option.");
+                GameConsole.Clear();
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
             {
@@ -235,7 +241,7 @@ namespace WorldOfZuul
         private static void ReputationScore2()
         {
             Console.WriteLine(
-                 "\nAs the ship glides into the docks, you expect the usual acknowledgment, but uncertainty lingers about whether your performance will meet the anticipated standards.\n" +
+                 "\nAs the ship glides into the docks, you expect the usual acknowledgment, \nbut uncertainty lingers about whether your performance will meet the anticipated standards.\n" +
                  "A mix of confidence and subtle nervousness tingles at the edge of your thoughts.\n" +
                  "Upon your return to headquarters, the atmosphere carries an air of anticipation. \n" +
                  "Fellow rangers and employees nod in acknowledgment, a mix of reserved smiles and neutral expressions greeting your arrival. \n" +
@@ -266,12 +272,14 @@ namespace WorldOfZuul
                 Console.Write("\n4.");
                 Console.ForegroundColor = ConsoleColor.Gray;
                 Console.WriteLine("Leave conversation");
-
-                string dialogueInput2 = Console.ReadLine() ?? "";
+                
+                System.Console.Write("\n\U000027A4 ");
+                string dialogueInput2 = Console.ReadLine() ?? "\n";
 
                 if (!int.TryParse(dialogueInput2, out int dialogueOption2))
                 {
-                    Console.WriteLine("Invalid input, please enter a valid option.");
+                    GameConsole.Clear();
+                    GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
                 }
                 else
                 {
@@ -324,11 +332,13 @@ namespace WorldOfZuul
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("Go to the meeting room");
 
-            string meetInput2 = Console.ReadLine() ?? "";
+            System.Console.Write("\n\U000027A4 ");
+            string meetInput2 = Console.ReadLine() ?? "\n";
 
             if (!int.TryParse(meetInput2, out int meetOption2))
             {
-                Console.WriteLine("Invalid input, please enter a valid option.");
+                GameConsole.Clear();
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
             {
@@ -390,11 +400,13 @@ namespace WorldOfZuul
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("Concern about perfection");
 
-            string councilInput2 = Console.ReadLine() ?? "";
+            System.Console.Write("\n\U000027A4 ");
+            string councilInput2 = Console.ReadLine() ?? "\n";
 
             if (!int.TryParse(councilInput2, out int councilOption2))
             {
-                Console.WriteLine("Invalid input, please enter a valid option.");
+                GameConsole.Clear();
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
             {
@@ -457,11 +469,13 @@ namespace WorldOfZuul
                 Console.ForegroundColor = ConsoleColor.Gray;
                 Console.WriteLine("Leave conversation");
 
-                string dialogueInput3 = Console.ReadLine() ?? "";
+                System.Console.Write("\n\U000027A4 ");
+                string dialogueInput3 = Console.ReadLine() ?? "\n";
 
                 if (!int.TryParse(dialogueInput3, out int dialogueOption3))
                 {
-                    Console.WriteLine("Invalid input, please enter a valid option.");
+                    GameConsole.Clear();
+                    GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
                 }
                 else
                 {
@@ -514,11 +528,13 @@ namespace WorldOfZuul
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("Go to the meeting room");
 
-            string meetInput3 = Console.ReadLine() ?? "";
+            System.Console.Write("\n\U000027A4 ");
+            string meetInput3 = Console.ReadLine() ?? "\n";
 
             if (!int.TryParse(meetInput3, out int meetOption3))
             {
-                Console.WriteLine("Invalid input, please enter a valid option.");
+                GameConsole.Clear();
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
             {
@@ -570,11 +586,13 @@ namespace WorldOfZuul
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("Express confidence");
 
-            string councilInput3 = Console.ReadLine() ?? "";
+            System.Console.Write("\n\U000027A4 ");
+            string councilInput3 = Console.ReadLine() ?? "\n";
 
             if (!int.TryParse(councilInput3, out int councilOption3))
             {
-                Console.WriteLine("Invalid input, please enter a valid option.");
+                GameConsole.Clear();
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
             {
@@ -613,11 +631,13 @@ namespace WorldOfZuul
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("Go to your team and depart for the Assembly");
 
-            string leaveInput = Console.ReadLine() ?? "";
+            System.Console.Write("\n\U000027A4 ");
+            string leaveInput = Console.ReadLine() ?? "\n";
 
             if (!int.TryParse(leaveInput, out int leaveOption))
             {
-                Console.WriteLine("Invalid input, please enter a valid option.");
+                GameConsole.Clear();
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
             {
@@ -673,11 +693,13 @@ namespace WorldOfZuul
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("Creating alternative livelihoods for local communities coupled with strict law enforcement");
 
-            string firstQuestion = Console.ReadLine() ?? "";
+            System.Console.Write("\n\U000027A4 ");
+            string firstQuestion = Console.ReadLine() ?? "\n";
 
             if (!int.TryParse(firstQuestion, out int firstOption))
             {
-                Console.WriteLine("Invalid input, please enter a valid option.");
+                GameConsole.Clear();
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
             {
@@ -712,11 +734,13 @@ namespace WorldOfZuul
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("Employing ecosystem-based approaches and engaging local communities in sustainable land management practices");
 
-            string secondQuestion = Console.ReadLine() ?? "";
+            System.Console.Write("\n\U000027A4 ");
+            string secondQuestion = Console.ReadLine() ?? "\n";
 
             if (!int.TryParse(secondQuestion, out int secondOption))
             {
-                Console.WriteLine("Invalid input, please enter a valid option.");
+                GameConsole.Clear();
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
             {
@@ -751,11 +775,13 @@ namespace WorldOfZuul
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("Combining robust law enforcement with community engagement and addressing underlying socioeconomic factors");
 
-            string thirdQuestion = Console.ReadLine() ?? "";
+            System.Console.Write("\n\U000027A4 ");
+            string thirdQuestion = Console.ReadLine() ?? "\n";
 
             if (!int.TryParse(thirdQuestion, out int thirdOption))
             {
-                Console.WriteLine("Invalid input, please enter a valid option.");
+                GameConsole.Clear();
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
             {
@@ -790,11 +816,13 @@ namespace WorldOfZuul
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("Employing community-based conservation strategies addressing poaching drivers, involving local communities and fostering biodiversity protection");
 
-            string fourthQuestion = Console.ReadLine() ?? "";
+            System.Console.Write("\n\U000027A4 ");
+            string fourthQuestion = Console.ReadLine() ?? "\n";
 
             if (!int.TryParse(fourthQuestion, out int fourthOption))
             {
-                Console.WriteLine("Invalid input, please enter a valid option.");
+                GameConsole.Clear();
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
             {
@@ -829,11 +857,13 @@ namespace WorldOfZuul
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("Combining robust law enforcement with community engagement and addressing underlying socioeconomic factors");
 
-            string fifthQuestion = Console.ReadLine() ?? "";
+            System.Console.Write("\n\U000027A4 ");
+            string fifthQuestion = Console.ReadLine() ?? "\n";
 
             if (!int.TryParse(fifthQuestion, out int fifthOption))
             {
-                Console.WriteLine("Invalid input, please enter a valid option.");
+                GameConsole.Clear();
+                GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
             {
