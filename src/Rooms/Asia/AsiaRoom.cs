@@ -108,10 +108,6 @@ namespace WorldOfZuul
         MapObject council = new(5, 3, MapObjectsEnum.PLACE, false, false, "You have entered the operations centre", enterBuilding, headRanger); //head ranger
         RoomMap.mapEntities.AddMapObject(council); // First coordinate always uneven!
 
-        MapObject npc = new (7, 4, MapObjectsEnum.NPC, false, false, "", enterBuilding, headRanger);
-         RoomMap.mapEntities.AddMapObject(npc);
-
-        
         // Add poachers to the map with interceptPoachers quest
         MapObject poachers = new(17, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers);
         RoomMap.mapEntities.AddMapObject(poachers);
