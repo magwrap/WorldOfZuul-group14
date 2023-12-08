@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using WorldOfZuul;
 namespace WorldOfZuul.Africa
@@ -35,12 +36,15 @@ namespace WorldOfZuul.Africa
     MissionGameRooms? JsonAfricaRooms = null;
     bool continuePlaying = true;
 
+    readonly string MessageOnArrival = "";
+
     public AfricaRoom(
       string? shortDesc,
       string? longDesc,
       string? msgOnArrival
     ) : base(shortDesc, longDesc)
     {
+      MessageOnArrival = msgOnArrival ?? "";
     }
 
     public void StartAfricaMission(ref Room? currentRoom, ref Room? previousRoom)
@@ -48,6 +52,7 @@ namespace WorldOfZuul.Africa
       JsonAfricaRooms = JsonFileReader.GetAfricaRooms();
 
       GameConsole.WriteLine(LongDescription, font: FontTheme.HighligtedText);
+      GameConsole.WriteLine(MessageOnArrival, font: FontTheme.Success);
 
       if (JsonAfricaRooms == null || JsonAfricaRooms.Rooms == null)
       {
