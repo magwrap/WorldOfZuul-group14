@@ -215,5 +215,12 @@ namespace WorldOfZuul
 
       return false;
     }
+
+    public static void ShowMap(ref Room? currentRoom, ref Room? previousRoom)
+    {
+
+      Command? cmnd = new Command("map", "on");
+      Actions.DecideAction(ref cmnd, ref currentRoom, ref previousRoom, true);
+    }
   }
 }

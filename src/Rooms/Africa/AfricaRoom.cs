@@ -86,7 +86,7 @@ namespace WorldOfZuul.Africa
       currentRoom = submarine;
       InSubmarine();
 
-      ShowMap(ref currentRoom, ref previousRoom);
+      Actions.ShowMap(ref currentRoom, ref previousRoom);
 
       while (continuePlaying)
       {
@@ -94,14 +94,14 @@ namespace WorldOfZuul.Africa
         {
           currentRoom = camp;
           InCamp();
-          ShowMap(ref currentRoom, ref previousRoom);
+          Actions.ShowMap(ref currentRoom, ref previousRoom);
         }
 
         else if (currentRoom == camp && !camp.RoomMap.mapEntities.IsAnyQuestAvailable())
         {
           currentRoom = jungle;
           InJungle();
-          ShowMap(ref currentRoom, ref previousRoom);
+          Actions.ShowMap(ref currentRoom, ref previousRoom);
         }
 
         else if (currentRoom == jungle && saveTheGiraffe.IsCompleted && !fireStarted)
@@ -111,7 +111,7 @@ namespace WorldOfZuul.Africa
           fireStarted = true;
           BuildPoachers();
           BuildJungleExit();
-          ShowMap(ref currentRoom, ref previousRoom);
+          Actions.ShowMap(ref currentRoom, ref previousRoom);
         }
 
         else if (currentRoom == jungle && !jungle.RoomMap.mapEntities.IsAnyQuestAvailable())
@@ -134,12 +134,6 @@ namespace WorldOfZuul.Africa
       }
     }
 
-    private void ShowMap(ref Room? currentRoom, ref Room? previousRoom)
-    {
-
-      Command? cmnd = new Command("map", "on");
-      Actions.DecideAction(ref cmnd, ref currentRoom, ref previousRoom, true);
-    }
     private void InSubmarine()
     {
       submarine?.DisplayMessageOnArrival();
