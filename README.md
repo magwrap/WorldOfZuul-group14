@@ -17,7 +17,6 @@ Here we shine light on poaching, illegal animal trafficking and more.
 There are four main spaces:
 - Asia
 - Africa
-- Europe
 - Pacific Ocean
 
 Inside of each there are different rooms with unique tasks
