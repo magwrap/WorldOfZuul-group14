@@ -31,6 +31,7 @@ namespace WorldOfZuul
 
       PrintIntroductionToTheRoom();
       previousRoom = null;
+
       while (continuePlaying)
       {
         CheckForMapChanges();
@@ -46,10 +47,9 @@ namespace WorldOfZuul
           Hub.isAsiaCompleted = true;
           return;
         }
-
+        
         Command? command = Game.AskForCommand();
         continuePlaying = Actions.DecideAction(ref command, ref currentRoom, ref previousRoom, true, "asia");
-
 
       }
 
@@ -100,17 +100,15 @@ namespace WorldOfZuul
         NPC headRanger = new("Head Ranger");
         InitializeDialogHeadRanger(headRanger);
 
+        // Initialize enemy Poacher and set up dialog
         Enemy poacher = new("Poacher");
         InitializeDialogPoacher(poacher);
 
         // Add council to the map with HeadRanger inside it
-        MapObject council = new(5, 3, MapObjectsEnum.PLACE, false, false, "You have entered the operations centre", enterBuilding, headRanger); //head ranger //for the sake of debugging the poacher is now in council, later he will be moved to prison
-
+        MapObject council = new(5, 3, MapObjectsEnum.PLACE, false, false, "You have entered the operations centre", enterBuilding, headRanger); //head ranger
         RoomMap.mapEntities.AddMapObject(council); // First coordinate always uneven!
 
-        // Initialize enemy Poacher and set up dialog
-
-
+        
         // Add poachers to the map with interceptPoachers quest
         MapObject poachers = new(17, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers);
         RoomMap.mapEntities.AddMapObject(poachers);
@@ -123,8 +121,6 @@ namespace WorldOfZuul
         MapObject trap = new(25, 9, MapObjectsEnum.TRAP, true, false, "That was close! You almost stepped into the trap, great work though, you disassembled the trap.", disassembleTrap);
         RoomMap.mapEntities.AddMapObject(trap);
 
-
-        //left right 1 3 5 7 9 11 13 15 17 19 21  //up down 1 2 3 4 5 6 7 8 9
         //add walls
         MapObject[] mapWalls = new MapObject[]
         {
@@ -187,7 +183,7 @@ namespace WorldOfZuul
          "Yes", new ChoiceBranch(1, "Love to hear that! Are you familiar with the issues we are currently fighting?",
              new DialogOption[] {
               ("Yeah of course, I have been briefed before the mission", new ChoiceBranch(1, "Great, you will get more information throughout the course of the mission. \nYour first task should be now displayed on your screen shortly. \nGood luck!", isItGoodEnding: true)),
-              ("Unofrtunatelly, I am not quite sure", new ChoiceBranch(2, "Currently, we are facing a severe poaching crisis in Asia, particularly affecting tigers. \nIllegal trade driven by demand for tiger parts, believed to have medicinal properties and used in luxury goods, poses a grave threat to their existence. \nDespite conservation efforts, habitat loss, and strict law enforcement, the survival of these iconic big cats is in jeopardy. \nCombating the crisis requires international collaboration, anti-poaching measures, community engagement, and a shift in cultural attitudes. \nStriking a balance between economic development and wildlife conservation is essential to secure a future for tigers in the region.", //display some of the statistics in asia
+              ("Unofrtunatelly, I am not quite sure", new ChoiceBranch(2, "Currently, we are facing a severe poaching crisis in Asia, particularly affecting tigers. \n Illegal trade driven by demand for tiger parts, believed to have medicinal properties and used in luxury goods, poses a grave threat to their existence. \nDespite conservation efforts, habitat loss, and strict law enforcement, the survival of these iconic big cats is in jeopardy. \nCombating the crisis requires international collaboration, anti-poaching measures, community engagement, and a shift in cultural attitudes. \nStriking a balance between economic development and wildlife conservation is essential to secure a future for tigers in the region.", //display some of the statistics in asia
                   new DialogOption[] {
                     ("Thank you, now I am ready!", new ChoiceBranch(1, "Good luck! You will need it.", isItGoodEnding: true)),
                   }
@@ -210,8 +206,7 @@ namespace WorldOfZuul
     private static void InitializeDialogPoacher(Enemy enemy)
     {
 
-      DialogOption heardEnoughOptionIndex2 = ("Thank you, I have heard enough", new ChoiceBranch(2, "Hey! What about my sentence. I thought we had an agreement."));
-      //DialogOption heardEnoughOptionIndex3 = ("Thank you, I have heard enough", new ChoiceBranch(3, "Hey! What about my sentence. I thought we had an agreement."));
+      //DialogOption heardEnoughOptionIndex2 = ("Thank you, I have heard enough", new ChoiceBranch(2, "Hey! What about my sentence. I thought we had an agreement."));
 
       //8
       DialogOption[] endingOptionArr = new DialogOption[]
@@ -261,7 +256,7 @@ namespace WorldOfZuul
               ("Don't you mind exploiting the natural resources?", new ChoiceBranch(2, "I'm just one person. If I don't exploit the resources, someone else will. The system needs to change if you want people like me to stop.",proposeChangeOptionArr)),
           }
       )),
-      heardEnoughOptionIndex2
+      ("Thank you, I have heard enough", new ChoiceBranch(2, "Hey! What about my sentence. I thought we had an agreement."))
       };
 
       //2

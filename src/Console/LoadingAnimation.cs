@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using WorldOfZuul;
 
 class LoadingAnimation
 {
@@ -20,5 +21,15 @@ class LoadingAnimation
 
     }
     // Console.Clear();
+  }
+  public static void CreateCountDown(int seconds)
+  { 
+    for (int i = seconds; i > 0; i--)
+    {
+      GameConsole.Write("Game starts in: ", font: FontTheme.Success);
+      GameConsole.Write(i + "\r");
+      Thread.Sleep(1000); // Pause for 1 second
+    }
+    GameConsole.Clear(); 
   }
 }
