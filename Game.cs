@@ -80,7 +80,7 @@ namespace WorldOfZuul
          font: FontTheme.Info
       );
 
-      //t TODO: uncomment
+
       LoadingAnimation.CreateCountDown(5); //game countdown animation
 
       GameConsole.WriteLine("\n" + currentRoom?.LongDescription);
