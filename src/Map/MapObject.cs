@@ -23,18 +23,9 @@ namespace WorldOfZuul
       [MapObjectsEnum.ENEMY] = "\U000026A0", //"\U00003020",  //\U0001F5F4 
       [MapObjectsEnum.PLACE] = "\U000023CF", //'^' //⏏
       [MapObjectsEnum.PRISON] = "\U000026EB", //⛫
-      [MapObjectsEnum.ITEM] = "!",
       [MapObjectsEnum.TREE] = "♧",
       [MapObjectsEnum.TRAP] = "¤",
       [MapObjectsEnum.GIRAFFE] = "🦒",
-      //       [MapObjectsEnum.GIRAFFE] = @"
-      //            _,,
-      //           '-%\~
-      //              %\~
-      //              |% _`,~
-      //              /| ||
-      //             / | | \      
-      // ",
       [MapObjectsEnum.VERTICALWALL] = "\U0000258F", //U0000275A //\U0000258F //'|'
       [MapObjectsEnum.HORIZONTALWALL] = "\U00002E0F", //U0000268A //U00002594 //\U00002581 //\U00002015 //\U00002D67 //\U00002E0F//'-' 
       [MapObjectsEnum.DIAGONALWALL_LEFT] = "\\",

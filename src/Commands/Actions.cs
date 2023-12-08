@@ -79,7 +79,7 @@ namespace WorldOfZuul
           return true;
 
         case "map" when isMissionStarted == true && command.SecondWord == "help":
-          Messages.PrintMapObjectsHelp();
+          Messages.PrintMapObjectsHelp(missionName == "asia");
 
           return true;
         case "north" when isMissionStarted == true:
@@ -123,10 +123,12 @@ namespace WorldOfZuul
           return true;
 
         case "quit":
-          if(isMissionStarted == true){
+          if (isMissionStarted == true)
+          {
             Messages.CantQuitInformation();
           }
-          else{
+          else
+          {
             return !GetQuitConfirmation();
           }
           return true;
