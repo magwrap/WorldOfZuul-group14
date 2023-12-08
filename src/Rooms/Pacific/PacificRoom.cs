@@ -60,6 +60,7 @@ namespace WorldOfZuul
 
         if (currentRoom == poachersShip && !poachersShip.RoomMap.mapEntities.IsAnyQuestAvailable())
         {
+          GameConsole.GetEnterConfirmation();
           Thread.Sleep(4000);
           GameConsole.Clear();
           GameConsole.WriteLine("Congratulations, you finished the mission!", font: FontTheme.Success);
@@ -67,7 +68,6 @@ namespace WorldOfZuul
           GameConsole.Clear();
           continuePlaying = false;
           Hub.isPacificCompleted = true;
-          GameConsole.GetEnterConfirmation();
           return;
         }
 

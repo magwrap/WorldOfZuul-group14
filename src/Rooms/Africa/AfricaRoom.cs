@@ -160,7 +160,7 @@ namespace WorldOfZuul.Africa
       BuildRiver();
       BuildCampHut();
 
-      camp?.RoomMap.SetXandY(25, 6);
+      camp?.RoomMap.SetXandY(28, 6);
 
       //quests
       Quest talkToKennyQuest = new("Talk to the boss!", "It seems that Kenny is the chief of whole operation, I should talk to him.");
@@ -488,11 +488,9 @@ namespace WorldOfZuul.Africa
       DialogOption[] talkOptionsMandarine = new DialogOption[]{
         ("Overall goal", new ChoiceBranch(1, camp.MissionDescription , new DialogOption[] {
           ("What is she like?", new ChoiceBranch(1, camp.ExtendedDescription + sendToJosh, isItGoodEnding: true, repGain: 5)),
-          ("What is your number ;)", new ChoiceBranch(2, "You've crossed a line. Bye."))
         })),
         ("What is she like?", new ChoiceBranch(2, camp.ExtendedDescription, new DialogOption[] {
           ("Overall goal", new ChoiceBranch(1, camp.MissionDescription + sendToJosh, isItGoodEnding: true, repGain: 5)),
-          ("What is your number ;)", new ChoiceBranch(2, "You've crossed a line. Bye."))
         })),
         ("What is your number ;)", new ChoiceBranch(3, "You've crossed a line. Bye."))
       };

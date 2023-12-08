@@ -7,7 +7,7 @@
       "ShortDesc": "Submarine",
       "MessageOnArrival": "The first words you can hear through buzzing speakers are of the ship's AI:\nHello I'm Hal! I will take you to the surface ship, which will transport you directly to the shores of West Africa and then down the Congo River.\nBut first, you will need some background on your mission topic.\nDue to the increasing surface temperature, wildfires arouse more and more often in the jungles of Africa.\nOur newest study has revealed that with a pace of only two deaths of giraffes per year, the spicies would go distinct in just 15 years.\nIts overall population stands at around 2,300 individuals. As you can see, these numbers are rather dreadful.\nThat is why this mission is crucial for preserving our planet's biodiversity.” It says, with its emotionless robotic voice.",
       "LongDesc": "Submarine is small, but quaint in front of you there is a big terminal, earphone",
-      "MissionDescription": "d\nIn front of you there is a earphone, you can ask me to repeat my directions whenever you forget them.\nGood Luck!"
+      "MissionDescription": "In front of you there is a earphone, you can ask me to repeat my directions whenever you forget them.\nGood Luck!"
     },
     {
       "Id": 1,
