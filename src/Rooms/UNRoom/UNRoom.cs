@@ -819,7 +819,7 @@ namespace WorldOfZuul
         "Your role, though acknowledged, did not significantly impact the resolutions made during the assembly.\n" +
         "But only time will tell if it had any impact in the world.");
       }
-      else if (Reputation.ReputationScore >= 60 && Reputation.ReputationScore < 99)
+      else if (Reputation.ReputationScore >= 60 && Reputation.ReputationScore < 125)
       {
         Console.WriteLine("\nYour presence at the assembly was acknowledged, and your contributions to the discussions about poaching and the conservation efforts were recognized.\n" +
         "While your efforts were appreciated, their impact remained limited.\n" +
