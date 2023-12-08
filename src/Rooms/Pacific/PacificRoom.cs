@@ -30,7 +30,7 @@ namespace WorldOfZuul
       GameConsole.WriteLine(LongDescription, font: FontTheme.HighligtedText);
       GameConsole.WriteLine(MessageOnArrival, font: FontTheme.Success);
 
-      ship = new MissionRoom("Battle ship", "As you take in the surroundings, the ship's impressive features underscore the severity of the threat. The urgency in the man's voice resonates with the high-tech equipment and the dedicated crew bustling around, preparing for the mission ahead. The fate of these endangered creatures hangs in the balance, and the responsibility to protect them weighs heavily on your shoulders.", "", "", new Map(4, 6));
+      ship = new MissionRoom("Battle ship", "As you take in the surroundings, the ship's impressive features underscore the severity of the threat.\nThe urgency in the man's voice resonates with the high-tech equipment and the dedicated crew bustling around, preparing for the mission ahead.\nThe fate of these endangered creatures hangs in the balance, and the responsibility to protect them weighs heavily on your shoulders.", "", "", new Map(4, 6));
 
       poachersShip = new MissionRoom("Poachers capitan cabin", "Normal ship cabin... Nothing special", "", "", new Map(3, 9));
 
@@ -67,6 +67,7 @@ namespace WorldOfZuul
           GameConsole.Clear();
           continuePlaying = false;
           Hub.isPacificCompleted = true;
+          GameConsole.GetEnterConfirmation();
           return;
         }
 

@@ -35,7 +35,7 @@ namespace WorldOfZuul
 
       Asia = new("Asia Mission", "Asia");
 
-      Africa = new("Africa Mission", "Africa", "As you approach the middle screen, the mission description says ”SAFE ENDANGERED KORDOFAN GIRAFFE FROM A WILDFIRE” You scream the keyword ”Africa!”. The floor below you opens, and you fall into the pipe. As you go down, it takes a sharp twist left, and you suddenly find yourself on the comfortable leather chair of a small submarine");
+      Africa = new("Africa Mission", "Africa", "As you approach the middle screen, the mission description says ”SAFE ENDANGERED KORDOFAN GIRAFFE FROM A WILDFIRE” You scream the keyword ”Africa!”.\nThe floor below you opens, and you fall into the pipe.\nAs you go down, it takes a sharp twist left, and you suddenly find yourself on the comfortable leather chair of a small submarine");
 
       Pacific = new("Pacific Ocean", "", "As you step onto the ship, a sense of urgency hangs in the air. \nA man swiftly approaches you, his weathered face etched with concern, his voice carrying the weight of the news he brings.");
 
