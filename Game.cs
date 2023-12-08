@@ -18,6 +18,7 @@ namespace WorldOfZuul
 
     private bool continuePlaying = true;
     public static string? Initials { get; set; }
+    public static string? PlayerName { get; set; }
 
     public Game()
     {
@@ -50,10 +51,7 @@ namespace WorldOfZuul
 
 
 
-      // currentRoom = HeadQuarters;
-      // currentRoom = Africa;
-      // currentRoom = Asia;
-      currentRoom = Pacific;
+      currentRoom = HeadQuarters;
     }
 
     /// <summary>
@@ -83,7 +81,7 @@ namespace WorldOfZuul
       );
 
       //t TODO: uncomment
-      // LoadingAnimation.CreateCountDown(5); //game countdown animation
+      LoadingAnimation.CreateCountDown(5); //game countdown animation
 
       GameConsole.WriteLine("\n" + currentRoom?.LongDescription);
 
@@ -169,6 +167,7 @@ namespace WorldOfZuul
     /// <param name="initials"></param>
     public static void GetInicialOfThePlayer(string name)
     {
+      PlayerName = name;
       Initials = name.ToUpper()[..1];
     }
   }
