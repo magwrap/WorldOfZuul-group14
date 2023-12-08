@@ -1,17 +1,17 @@
 namespace WorldOfZuul
 {
   class Hub
-  { 
+  {
     public static bool isAsiaCompleted = false;
     public static bool isAfricaCompleted = false;
-    public static bool isPacificCompleted = true;
+    public static bool isPacificCompleted = false;
 
-    
+
     public static int SelectMission()
     {
 
-      bool[] missionStatus = {isAsiaCompleted, isAfricaCompleted, isPacificCompleted};
-      
+      bool[] missionStatus = { isAsiaCompleted, isAfricaCompleted, isPacificCompleted };
+
       string[] options = { "Asia", "Africa", "Pacific" };
       int selectedOption = 0;
 
@@ -27,21 +27,21 @@ namespace WorldOfZuul
 
         for (int i = 0; i < options.Length; i++)
         {
-            if (i == selectedOption)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkBlue;
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Gray;
-            }
+          if (i == selectedOption)
+          {
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+          }
+          else
+          {
+            Console.ForegroundColor = ConsoleColor.Gray;
+          }
 
-            string statusSymbol = missionStatus[i] ? "✔" : "🗙";
-            Console.Write($"{(i == selectedOption ? "\U000027A4 " : " ")} {options[i]} {statusSymbol}");
+          string statusSymbol = missionStatus[i] ? "✔" : "🗙";
+          Console.Write($"{(i == selectedOption ? "\U000027A4 " : " ")} {options[i]} {statusSymbol}");
 
-            // Reset background color after printing each line
-            Console.ResetColor();
-            Console.WriteLine();
+          // Reset background color after printing each line
+          Console.ResetColor();
+          Console.WriteLine();
         }
 
         var key = GameConsole.ReadKey().Key;
@@ -59,17 +59,17 @@ namespace WorldOfZuul
           case ConsoleKey.Enter:
             GameConsole.Clear();
             PrintMap(selectedOption + 1);
-            if(missionStatus[selectedOption] == false)
+            if (missionStatus[selectedOption] == false)
             {
               GameConsole.WriteLine($"You chose: {options[selectedOption]}");
               loop = false;
             }
-            else 
+            else
             {
               GameConsole.WriteLine($"You already completed this mission", font: FontTheme.Danger);
               Thread.Sleep(3000);
             }
-            
+
             break;
         }
       }

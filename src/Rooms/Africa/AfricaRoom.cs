@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using WorldOfZuul;
 namespace WorldOfZuul.Africa
@@ -35,12 +36,15 @@ namespace WorldOfZuul.Africa
     MissionGameRooms? JsonAfricaRooms = null;
     bool continuePlaying = true;
 
+    readonly string MessageOnArrival = "";
+
     public AfricaRoom(
       string? shortDesc,
       string? longDesc,
       string? msgOnArrival
     ) : base(shortDesc, longDesc)
     {
+      MessageOnArrival = msgOnArrival ?? "";
     }
 
     public void StartAfricaMission(ref Room? currentRoom, ref Room? previousRoom)
@@ -48,6 +52,7 @@ namespace WorldOfZuul.Africa
       JsonAfricaRooms = JsonFileReader.GetAfricaRooms();
 
       GameConsole.WriteLine(LongDescription, font: FontTheme.HighligtedText);
+      GameConsole.WriteLine(MessageOnArrival, font: FontTheme.Success);
 
       if (JsonAfricaRooms == null || JsonAfricaRooms.Rooms == null)
       {
@@ -86,7 +91,7 @@ namespace WorldOfZuul.Africa
       currentRoom = submarine;
       InSubmarine();
 
-      ShowMap(ref currentRoom, ref previousRoom);
+      Actions.ShowMap(ref currentRoom, ref previousRoom);
 
       while (continuePlaying)
       {
@@ -94,14 +99,14 @@ namespace WorldOfZuul.Africa
         {
           currentRoom = camp;
           InCamp();
-          ShowMap(ref currentRoom, ref previousRoom);
+          Actions.ShowMap(ref currentRoom, ref previousRoom);
         }
 
         else if (currentRoom == camp && !camp.RoomMap.mapEntities.IsAnyQuestAvailable())
         {
           currentRoom = jungle;
           InJungle();
-          ShowMap(ref currentRoom, ref previousRoom);
+          Actions.ShowMap(ref currentRoom, ref previousRoom);
         }
 
         else if (currentRoom == jungle && saveTheGiraffe.IsCompleted && !fireStarted)
@@ -111,7 +116,7 @@ namespace WorldOfZuul.Africa
           fireStarted = true;
           BuildPoachers();
           BuildJungleExit();
-          ShowMap(ref currentRoom, ref previousRoom);
+          Actions.ShowMap(ref currentRoom, ref previousRoom);
         }
 
         else if (currentRoom == jungle && !jungle.RoomMap.mapEntities.IsAnyQuestAvailable())
@@ -134,12 +139,6 @@ namespace WorldOfZuul.Africa
       }
     }
 
-    private void ShowMap(ref Room? currentRoom, ref Room? previousRoom)
-    {
-
-      Command? cmnd = new Command("map", "on");
-      Actions.DecideAction(ref cmnd, ref currentRoom, ref previousRoom, true);
-    }
     private void InSubmarine()
     {
       submarine?.DisplayMessageOnArrival();
