@@ -24,7 +24,7 @@ namespace WorldOfZuul
 
     public void CurrentlyInAsiaRoom(ref Room? currentRoom, ref Room? previousRoom)
     {
-      // LoadingAnimation.Loading("Mission Loading"); //uncomment later
+      LoadingAnimation.Loading("Mission Loading"); 
       GameConsole.Clear();
 
       InProccess();
@@ -107,6 +107,9 @@ namespace WorldOfZuul
         // Add council to the map with HeadRanger inside it
         MapObject council = new(5, 3, MapObjectsEnum.PLACE, false, false, "You have entered the operations centre", enterBuilding, headRanger); //head ranger
         RoomMap.mapEntities.AddMapObject(council); // First coordinate always uneven!
+
+        MapObject npc = new (7, 4, MapObjectsEnum.NPC, false, false, "", enterBuilding, headRanger);
+         RoomMap.mapEntities.AddMapObject(npc);
 
         
         // Add poachers to the map with interceptPoachers quest
