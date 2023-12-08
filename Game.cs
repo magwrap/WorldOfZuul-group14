@@ -76,7 +76,7 @@ namespace WorldOfZuul
 
       //Greet user
       GameConsole.WriteLine(
-        $"\nHello {inputName}, just a little reminder, for better game experience, do not forget to make your terminal fullscreen. Enjoy!",
+        $"\nHello {inputName[0].ToString().ToUpperInvariant() + inputName[1..].ToString()}, just a little reminder, for better game experience, do not forget to make your terminal fullscreen. Enjoy!",
          font: FontTheme.Info
       );
 
