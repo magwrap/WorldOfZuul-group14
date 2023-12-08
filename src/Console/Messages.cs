@@ -52,7 +52,7 @@ namespace WorldOfZuul
     {
       GameConsole.WriteLine("\n\n\tMAP OBJECTS:", font: FontTheme.Info);
       GameConsole.Write($"{MapObject.MapMarkers[MapObjectsEnum.NPC]}", font: MapObject.MapObjectFonts[MapObjectsEnum.NPC]);
-      GameConsole.Write("- Npc\n", font: FontTheme.GameTip);
+      GameConsole.Write(" - Npc\n", font: FontTheme.GameTip);
       GameConsole.Write($"{MapObject.MapMarkers[MapObjectsEnum.ENEMY]}", font: MapObject.MapObjectFonts[MapObjectsEnum.ENEMY]);
       GameConsole.Write(" - Enemy\n", font: FontTheme.GameTip);
       GameConsole.Write($"{MapObject.MapMarkers[MapObjectsEnum.PLACE]}", font: MapObject.MapObjectFonts[MapObjectsEnum.PLACE]);

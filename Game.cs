@@ -130,6 +130,7 @@ namespace WorldOfZuul
         {
           UNRoom.StartLastMission();
           continuePlaying = false;
+          Messages.PrintGoodbyeMessage();
           return;
         }
 
@@ -139,8 +140,7 @@ namespace WorldOfZuul
         //Action dispatcher returns true or false depending if the player wants to quit the game
         continuePlaying = Actions.DecideAction(ref command, ref currentRoom, ref previousRoom);
       }
-
-      Messages.PrintGoodbyeMessage();
+     
     }
 
     /// <summary>
