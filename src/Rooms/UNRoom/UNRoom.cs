@@ -10,7 +10,7 @@ namespace WorldOfZuul
             GameConsole.WriteLine("Congratulations! You have successfully completed all three missions, let's make your work count!", font: FontTheme.Success);
             Thread.Sleep(5000);
             GameConsole.Clear();
-
+            Reputation.ReputationScore = 5;
             if (Reputation.ReputationScore < 50) //number of points that determines the scenario for the player 
                 ReputationScore1();
             else if (Reputation.ReputationScore < 99)
@@ -68,12 +68,13 @@ namespace WorldOfZuul
 
                 if (!int.TryParse(dialogueInput1, out int dialogueOption1))
                 {
-                    
-                    
+                    GameConsole.Clear();
+                    GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger);  
                     // Handle invalid input scenario here, possibly continue the loop or take appropriate action
                 }
                 else
                 {
+                    GameConsole.Clear();
                     switch (dialogueOption1)
                     {
                         case 1:
@@ -133,7 +134,8 @@ namespace WorldOfZuul
                 GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
-            {
+            {   
+                GameConsole.Clear();
                 switch (meetOption1)
                 {
                     case 1:
@@ -198,7 +200,8 @@ namespace WorldOfZuul
                 GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
-            {
+            {   
+                GameConsole.Clear();
                 switch (councilOption1)
                 {
                     case 1:
@@ -274,7 +277,8 @@ namespace WorldOfZuul
                     GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
                 }
                 else
-                {
+                {   
+                    GameConsole.Clear();
                     switch (dialogueOption2)
                     {
                         case 1:
@@ -315,6 +319,8 @@ namespace WorldOfZuul
                 }
             }
 
+            GameConsole.Clear();
+
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("\n1.");
             Console.ForegroundColor = ConsoleColor.Gray;
@@ -333,7 +339,8 @@ namespace WorldOfZuul
                 GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
-            {
+            {   
+                GameConsole.Clear();
                 switch (meetOption2)
                 {
                     case 1:
@@ -351,6 +358,9 @@ namespace WorldOfZuul
                         return;
                 }
             }
+
+            GameConsole.Clear();
+
             Console.WriteLine("\nStepping into the meeting room, the 13 council members acknowledge your arrival with composed nods, maintaining a professional demeanour.\n" +
             "Taking your seat, the atmosphere remains steady, portraying a sense of predictability without much fervor.");
 
@@ -394,7 +404,8 @@ namespace WorldOfZuul
                 GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
-            {
+            {   
+                GameConsole.Clear();
                 switch (councilOption2)
                 {
                     case 1:
@@ -461,7 +472,8 @@ namespace WorldOfZuul
                     GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
                 }
                 else
-                {
+                {   
+                    GameConsole.Clear();
                     switch (dialogueOption3)
                     {
                         case 1:
@@ -520,7 +532,8 @@ namespace WorldOfZuul
                 GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
-            {
+            {   
+                GameConsole.Clear();
                 switch (meetOption3)
                 {
                     case 1:
@@ -576,7 +589,8 @@ namespace WorldOfZuul
                 GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
-            {
+            {   
+                GameConsole.Clear();
                 switch (councilOption3)
                 {
                     case 1:
@@ -621,7 +635,8 @@ namespace WorldOfZuul
                 GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
-            {
+            {   
+                GameConsole.Clear();
                 switch (leaveOption)
                 {
                     case 1:
@@ -678,7 +693,8 @@ namespace WorldOfZuul
                 GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
-            {
+            {   
+                GameConsole.Clear();
                 switch (firstOption)
                 {
                     case 1:
@@ -719,7 +735,8 @@ namespace WorldOfZuul
                 GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
-            {
+            {   
+                GameConsole.Clear();
                 switch (secondOption)
                 {
                     case 1:
@@ -760,7 +777,8 @@ namespace WorldOfZuul
                 GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
-            {
+            {   
+                GameConsole.Clear();
                 switch (thirdOption)
                 {
                     case 1:
@@ -801,7 +819,8 @@ namespace WorldOfZuul
                 GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
-            {
+            {   
+                GameConsole.Clear();
                 switch (fourthOption)
                 {
                     case 1:
@@ -842,7 +861,8 @@ namespace WorldOfZuul
                 GameConsole.WriteLine("Invalid input, please enter number of a valid option.", font: FontTheme.Danger); 
             }
             else
-            {
+            {   
+                GameConsole.Clear();
                 switch (fifthOption)
                 {
                     case 1:
