@@ -1,3 +1,4 @@
+using WorldOfZuul.src;
 using WorldOfZuul.src.Map;
 
 namespace WorldOfZuul
@@ -24,23 +25,35 @@ namespace WorldOfZuul
 
     public void CurrentlyInAsiaRoom(ref Room? currentRoom, ref Room? previousRoom)
     {
-      // LoadingAnimation.Loading("Mission Loading"); //uncomment later
+      LoadingAnimation.Loading("Mission Loading");
       GameConsole.Clear();
 
       InProccess();
 
       PrintIntroductionToTheRoom();
       previousRoom = null;
+
       while (continuePlaying)
       {
         CheckForMapChanges();
+
+        if (!RoomMap.mapEntities.IsAnyQuestAvailable())
+        {
+          Reputation.ReputationScore += 17;
+          Thread.Sleep(4000);
+          GameConsole.Clear();
+          GameConsole.WriteLine("Congratulations, you finished the mission!", font: FontTheme.Success);
+          Thread.Sleep(3000);
+          GameConsole.Clear();
+          continuePlaying = false;
+          Hub.isAsiaCompleted = true;
+          return;
+        }
+
         Command? command = Game.AskForCommand();
         continuePlaying = Actions.DecideAction(ref command, ref currentRoom, ref previousRoom, true, "asia");
 
-
       }
-
-      Hub.isAsiaCompleted = true;
 
     }
     private void CheckForMapChanges()
@@ -55,6 +68,7 @@ namespace WorldOfZuul
         RoomMap.mapEntities.RemoveMapObject(23, 7);
         RoomMap.mapEntities.RemoveMapObject(24, 8);
       }
+
     }
     public static void PrintIntroductionToTheRoom()
     {
@@ -73,7 +87,6 @@ namespace WorldOfZuul
       if (AsiaRoom.AsiaMission)
       {
 
-
         //add quests 
 
         // Define quests
@@ -89,31 +102,26 @@ namespace WorldOfZuul
         NPC headRanger = new("Head Ranger");
         InitializeDialogHeadRanger(headRanger);
 
+        // Initialize enemy Poacher and set up dialog
         Enemy poacher = new("Poacher");
         InitializeDialogPoacher(poacher);
 
         // Add council to the map with HeadRanger inside it
-        MapObject council = new(5, 3, MapObjectsEnum.PLACE, false, false, "You have entered the operations centre", enterBuilding, poacher); //head ranger //for the sake of debugging the poacher is now in council, later he will be moved to prison
-
+        MapObject council = new(5, 3, MapObjectsEnum.PLACE, false, false, "You have entered the operations centre", enterBuilding, headRanger); //head ranger
         RoomMap.mapEntities.AddMapObject(council); // First coordinate always uneven!
-
-        // Initialize enemy Poacher and set up dialog
-
 
         // Add poachers to the map with interceptPoachers quest
         MapObject poachers = new(17, 6, MapObjectsEnum.ENEMY, true, false, "You intercepted poachers", interceptPoachers);
         RoomMap.mapEntities.AddMapObject(poachers);
 
         // Add prison to the map with arrestPoachers quest and Poacher inside it
-        MapObject prison = new(7, 1, MapObjectsEnum.PRISON, false, false, "You have entered the prison", arrestPoachers); //poacher 
+        MapObject prison = new(7, 1, MapObjectsEnum.PRISON, false, false, "You have entered the prison", arrestPoachers, poacher); //poacher 
         RoomMap.mapEntities.AddMapObject(prison);
 
         // Add trap into the forest
-        MapObject trap = new(25, 9, MapObjectsEnum.TRAP, true, false, "That was close! You almost stepped into the trap, great work though, just disassemble the trap.", disassembleTrap);
+        MapObject trap = new(25, 9, MapObjectsEnum.TRAP, true, false, "That was close! You almost stepped into the trap, great work though, you disassembled the trap.", disassembleTrap);
         RoomMap.mapEntities.AddMapObject(trap);
 
-
-        //left right 1 3 5 7 9 11 13 15 17 19 21  //up down 1 2 3 4 5 6 7 8 9
         //add walls
         MapObject[] mapWalls = new MapObject[]
         {
@@ -175,10 +183,10 @@ namespace WorldOfZuul
       var talkOption = (
          "Yes", new ChoiceBranch(1, "Love to hear that! Are you familiar with the issues we are currently fighting?",
              new DialogOption[] {
-              ("Yeah of course, I have been briefed before the mission", new ChoiceBranch(1, "Great, you will get more information throughout the course of the mission. \nYour first task should be now displayed on your screen shortly. \nGood luck!", isItGoodEnding: true)),
+              ("Yeah of course, I have been briefed before the mission", new ChoiceBranch(1, "Great, you will get more information throughout the course of the mission. \nYour first task should be now displayed on your screen shortly. \nGood luck!", isItGoodEnding: true, repGain: 10)),
               ("Unofrtunatelly, I am not quite sure", new ChoiceBranch(2, "Currently, we are facing a severe poaching crisis in Asia, particularly affecting tigers. \n Illegal trade driven by demand for tiger parts, believed to have medicinal properties and used in luxury goods, poses a grave threat to their existence. \nDespite conservation efforts, habitat loss, and strict law enforcement, the survival of these iconic big cats is in jeopardy. \nCombating the crisis requires international collaboration, anti-poaching measures, community engagement, and a shift in cultural attitudes. \nStriking a balance between economic development and wildlife conservation is essential to secure a future for tigers in the region.", //display some of the statistics in asia
                   new DialogOption[] {
-                    ("Thank you, now I am ready!", new ChoiceBranch(1, "Good luck! You will need it.", isItGoodEnding: true)),
+                    ("Thank you, now I am ready!", new ChoiceBranch(1, "Good luck! You will need it.", isItGoodEnding: true, repGain: 17)),
                   }
                 )
               )
@@ -199,13 +207,12 @@ namespace WorldOfZuul
     private static void InitializeDialogPoacher(Enemy enemy)
     {
 
-      DialogOption heardEnoughOptionIndex2 = ("Thank you, I have heard enough", new ChoiceBranch(2, "Hey! What about my sentence. I thought we had an agreement."));
-      DialogOption heardEnoughOptionIndex3 = ("Thank you, I have heard enough", new ChoiceBranch(3, "Hey! What about my sentence. I thought we had an agreement."));
+      //DialogOption heardEnoughOptionIndex2 = ("Thank you, I have heard enough", new ChoiceBranch(2, "Hey! What about my sentence. I thought we had an agreement."));
 
       //8
       DialogOption[] endingOptionArr = new DialogOption[]
       {
-        ("Welcome aboard, you have been very helpful", new ChoiceBranch(1, "Hope you now understand that there's more to be done than just locking people up. \nIf you really want to stop poaching, you need to change the game.", isItGoodEnding: true))
+        ("Welcome aboard, you have been very helpful", new ChoiceBranch(1, "Hope you now understand that there's more to be done than just locking people up. \nIf you really want to stop poaching, you need to change the game.", isItGoodEnding: true, repGain: 16))
       };
 
       //7
@@ -213,7 +220,7 @@ namespace WorldOfZuul
       {
         ("Are you suggesting we should work together on these solutions?", new ChoiceBranch(1, "I'm no saint, but I know the game. If there's a way for me to make a living without looking over my shoulder, maybe I'd consider it.", endingOptionArr)),
         ("Can you use your experience to help transition poachers to legal, sustainable practices?", new ChoiceBranch(2, "I'm no saint, but I know the game. If there's a way for me to make a living without looking over my shoulder, maybe I'd consider it..", endingOptionArr))
-        ,heardEnoughOptionIndex3
+
       };
 
       //6
@@ -221,7 +228,7 @@ namespace WorldOfZuul
       {
           ("So, what solution do you propose to tackle these issues?", new ChoiceBranch(1, "Start by investing in sustainable industries. Eco-tourism, for example, can provide jobs without harming the environment. It's about making legal options more appealing.", soulutionsOptionArr)),
           ("Do you have anything specific in mind?", new ChoiceBranch(2, "Start by investing in sustainable industries. \nEco-tourism, for example, can provide jobs without harming the environment. \nIt's about making legal options more appealing.", soulutionsOptionArr))
-          ,heardEnoughOptionIndex3
+
       };
 
       //5
@@ -229,7 +236,7 @@ namespace WorldOfZuul
       {
           ("What is the root of the problem, is it lack of education?", new ChoiceBranch(1, "That's part of it. People need to know what's at stake, not just for the environment but for their own futures. Education is key.", tackleIssueOptionArr)),
           ("Are there economic issues driving people towards poaching?", new ChoiceBranch(2, "Many folks, including me, see poaching as a quick way to make a living. \nIf you want them to stop, give them alternatives that pay just as well", tackleIssueOptionArr))
-          ,heardEnoughOptionIndex3
+
       };
 
       //4
@@ -237,7 +244,7 @@ namespace WorldOfZuul
       {
           ("What do you propose to change this?", new ChoiceBranch(1, "Look, if you really want to make a change and stop guys like me, you need to understand the root of the problem", rootOfTheProblemOptionArr)),
           ("So you do not think this can be changed?", new ChoiceBranch(2, "Look, if you really want to make a change and stop guys like me, you need to understand the root of the problem.",rootOfTheProblemOptionArr))
-          ,heardEnoughOptionIndex3
+
       };
 
       //3
@@ -250,7 +257,7 @@ namespace WorldOfZuul
               ("Don't you mind exploiting the natural resources?", new ChoiceBranch(2, "I'm just one person. If I don't exploit the resources, someone else will. The system needs to change if you want people like me to stop.",proposeChangeOptionArr)),
           }
       )),
-      heardEnoughOptionIndex2
+      ("Thank you, I have heard enough", new ChoiceBranch(2, "Hey! What about my sentence. I thought we had an agreement."))
       };
 
       //2

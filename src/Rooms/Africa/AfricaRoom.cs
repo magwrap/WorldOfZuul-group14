@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using WorldOfZuul;
 namespace WorldOfZuul.Africa
@@ -35,19 +36,26 @@ namespace WorldOfZuul.Africa
     MissionGameRooms? JsonAfricaRooms = null;
     bool continuePlaying = true;
 
+    readonly string MessageOnArrival = "";
+
     public AfricaRoom(
       string? shortDesc,
       string? longDesc,
       string? msgOnArrival
     ) : base(shortDesc, longDesc)
     {
+      MessageOnArrival = msgOnArrival ?? "";
     }
 
     public void StartAfricaMission(ref Room? currentRoom, ref Room? previousRoom)
-    {
+    { 
+      LoadingAnimation.Loading("Mission Loading"); 
+      GameConsole.Clear();
+
       JsonAfricaRooms = JsonFileReader.GetAfricaRooms();
 
       GameConsole.WriteLine(LongDescription, font: FontTheme.HighligtedText);
+      GameConsole.WriteLine(MessageOnArrival, font: FontTheme.Success);
 
       if (JsonAfricaRooms == null || JsonAfricaRooms.Rooms == null)
       {
@@ -86,7 +94,7 @@ namespace WorldOfZuul.Africa
       currentRoom = submarine;
       InSubmarine();
 
-      ShowMap(ref currentRoom, ref previousRoom);
+      Actions.ShowMap(ref currentRoom, ref previousRoom);
 
       while (continuePlaying)
       {
@@ -94,14 +102,14 @@ namespace WorldOfZuul.Africa
         {
           currentRoom = camp;
           InCamp();
-          ShowMap(ref currentRoom, ref previousRoom);
+          Actions.ShowMap(ref currentRoom, ref previousRoom);
         }
 
         else if (currentRoom == camp && !camp.RoomMap.mapEntities.IsAnyQuestAvailable())
         {
           currentRoom = jungle;
           InJungle();
-          ShowMap(ref currentRoom, ref previousRoom);
+          Actions.ShowMap(ref currentRoom, ref previousRoom);
         }
 
         else if (currentRoom == jungle && saveTheGiraffe.IsCompleted && !fireStarted)
@@ -111,12 +119,17 @@ namespace WorldOfZuul.Africa
           fireStarted = true;
           BuildPoachers();
           BuildJungleExit();
-          ShowMap(ref currentRoom, ref previousRoom);
+          Actions.ShowMap(ref currentRoom, ref previousRoom);
         }
 
         else if (currentRoom == jungle && !jungle.RoomMap.mapEntities.IsAnyQuestAvailable())
         {
-          GameConsole.WriteLine("Finsihed Mission!!");
+          Thread.Sleep(4000);
+          GameConsole.Clear();
+          GameConsole.WriteLine("Congratulations, you finished the mission!", font: FontTheme.Success);
+          Thread.Sleep(3000);
+          GameConsole.Clear();
+          Hub.isAfricaCompleted = true;
           continuePlaying = false;
           Hub.isAfricaCompleted = true;
           return;
@@ -129,12 +142,6 @@ namespace WorldOfZuul.Africa
       }
     }
 
-    private void ShowMap(ref Room? currentRoom, ref Room? previousRoom)
-    {
-
-      Command? cmnd = new Command("map", "on");
-      Actions.DecideAction(ref cmnd, ref currentRoom, ref previousRoom, true);
-    }
     private void InSubmarine()
     {
       submarine?.DisplayMessageOnArrival();
@@ -203,15 +210,15 @@ namespace WorldOfZuul.Africa
     private void BuildPoachers()
     {
       DialogOption sheWentEastOption =
-                ("she went east", new ChoiceBranch(1, "Well I guess, we will have to believe you. Off you go, we have no more use of you.", isItGoodEnding: true, repGain: 11));
+                ("she went east", new ChoiceBranch(1, "Well I guess, we will have to believe you. Off you go, we have no more use of you.", isItGoodEnding: true, repGain: 12));
 
       DialogOption sheWentEastBadOption =
-                ("she went east...", new ChoiceBranch(1, "Well I guess, we will have to believe you. Off you go, we have no more use of you.", isItGoodEnding: true, repGain: -8));
+                ("she went east...", new ChoiceBranch(1, "Well I guess, we will have to believe you. Off you go, we have no more use of you.", isItGoodEnding: true, repGain: 2));
 
       DialogOption fightOptionPoachers = (
         "Fight them", new ChoiceBranch(2, "You hit first guy on the left and he drops down like a brick, unconscious. Other two poachers start walking towards you, while their boss kept looking from the distance.", new DialogOption[] {
           ("Attack the boss", new ChoiceBranch(1, "You plunged towards their cheif, and nearly reached him, but then felt a strong hand grabing you by the collar. Other par of hands grabbed you tight around your arms so that you couldn't move by an inch.\n Now you will tell us where did she go.", new DialogOption[] { sheWentEastBadOption })),
-          ("Fight the two men", new ChoiceBranch(2, "You grab` the guy on the right by his hand arm, pull it as hard as you can and he falls like a wooden toy. His companion looked at now two bodies laying underneath you, spat and said 'I ain't getting beaten over some giraffe', and run. As fast as he could. You looked at their boss, he shrugged his shoulders, turned his back and also run.", isItGoodEnding: true, repGain: 4))
+          ("Fight the two men", new ChoiceBranch(2, "You grab` the guy on the right by his hand arm, pull it as hard as you can and he falls like a wooden toy. His companion looked at now two bodies laying underneath you, spat and said 'I ain't getting beaten over some giraffe', and run. As fast as he could. You looked at their boss, he shrugged his shoulders, turned his back and also run.", isItGoodEnding: true, repGain: 5))
         })
       );
 
@@ -253,12 +260,12 @@ namespace WorldOfZuul.Africa
     private void BuildGiraffes()
     {
       DialogOption talkOptionGiraffe = (
-        "Try to pull her leg", new ChoiceBranch(1, "She screams, tries to jump, but her leg is still in the same place. She gets more tense with fire coming closer and closer still.",
+        "Try gently to pull her leg", new ChoiceBranch(1, "She screams, tries to jump, but her leg is still in the same place. She gets more tense with fire coming closer and closer still.",
         new DialogOption[] {
           ("Try to calm her", new ChoiceBranch(1,"As you speak softly, you can feel her leg getting more relaxed.", new DialogOption[] {
             ("Say her name('elizabeth'), don't worry I'll save you", new ChoiceBranch(1, "Now she can trust you completely, you know her name. Only people who know her name want good for you.", new DialogOption[] {
               ("Pull her leg out", new ChoiceBranch(1, "She let's you gently put her leg out from between roots. She is greatful", new DialogOption[] {
-                ("Run away girl!", new ChoiceBranch(1, "She runs west as fast as she can", isItGoodEnding: true, repGain: 11)),
+                ("Run away girl!", new ChoiceBranch(1, "She runs west as fast as she can", isItGoodEnding: true, repGain: 12)),
                 ("wait here", new ChoiceBranch(2, "She waits for 5 seconds but then sees flames coming towards her. She gets scared and runs west", isItGoodEnding: true, repGain:8))
               }))
             })),
@@ -268,7 +275,7 @@ namespace WorldOfZuul.Africa
       );
 
       DialogOption forceOptionGiraffe = (
-        "Push her as hard as you can", new ChoiceBranch(2, "Her leg gets free but it's badly damaged", isItGoodEnding: true, repGain: -2)
+        "Push her as hard as you can", new ChoiceBranch(2, "Her leg gets free but it's badly damaged", isItGoodEnding: true, repGain: 2)
       );
       DialogOption quitOptionGiraffe = (
              "leave her", new ChoiceBranch(3, "")
@@ -454,16 +461,16 @@ namespace WorldOfZuul.Africa
         "Hello mister?", new ChoiceBranch(1, "Ah yes! you must be the guy!",
         new DialogOption[] {
           ("Which guy?", new ChoiceBranch(1,"You know the guy! One who will solve all of our problems just by showing up and talking to people!", new DialogOption[] {
-            ("Are you making fun of me?", new ChoiceBranch(1, "Never! I really admire you. But it's hard for me to believe that one man can make a difference... Sadly.", isItGoodEnding: true)),
-            ("That's me! You've described me perfectly.", new ChoiceBranch(2, "Of course I'm never mistaken. Thank you for talking with me, it means a lot to me.", isItGoodEnding: true))
+            ("Are you making fun of me?", new ChoiceBranch(1, "Never! I really admire you. But it's hard for me to believe that one man can make a difference... Sadly.", isItGoodEnding: true, repGain: 5)),
+            ("That's me! You've described me perfectly.", new ChoiceBranch(2, "Of course I'm never mistaken. Thank you for talking with me, it means a lot to me.", isItGoodEnding: true, repGain: 3))
           }))
         })
       );
 
-      DialogOption chitchatOptionJosh = ("What's your favourite kind of ice cream?", new ChoiceBranch(2, "I love chocolate ones. At least I used to now it looks like mud to me. You know what? I'll give you advise, for beign nice enough to talk to me. REMEBER: never trust anyone in the jungle. You can't even imagine howλ sly poachers can be! Anyway thank you for the effort, you're very kind.", isItGoodEnding: true));
+      DialogOption chitchatOptionJosh = ("What's your favourite kind of ice cream?", new ChoiceBranch(2, "I love chocolate ones. At least I used to now it looks like mud to me. You know what? I'll give you advise, for beign nice enough to talk to me. REMEBER: never trust anyone in the jungle. You can't even imagine howλ sly poachers can be! Anyway thank you for the effort, you're very kind.", isItGoodEnding: true, repGain: 7));
 
       DialogOption quitOptionJosh = (
-             "End conversation", new ChoiceBranch(3, "Nice meeting you. I needed to talk to someone.", isItGoodEnding: true)
+             "End conversation", new ChoiceBranch(3, "Nice meeting you. I needed to talk to someone.", isItGoodEnding: true, repGain: 1)
       );
       var joshChoices = new DialogOption[] {
         talkOptionJosh,
@@ -480,11 +487,11 @@ namespace WorldOfZuul.Africa
       string sendToJosh = "\nBy the way... Josh is not feeling good. Could you just drop by and say hi to him?";
       DialogOption[] talkOptionsMandarine = new DialogOption[]{
         ("Overall goal", new ChoiceBranch(1, camp.MissionDescription , new DialogOption[] {
-          ("What is she like?", new ChoiceBranch(1, camp.ExtendedDescription + sendToJosh, isItGoodEnding: true)),
+          ("What is she like?", new ChoiceBranch(1, camp.ExtendedDescription + sendToJosh, isItGoodEnding: true, repGain: 5)),
           ("What is your number ;)", new ChoiceBranch(2, "You've crossed a line. Bye."))
         })),
         ("What is she like?", new ChoiceBranch(2, camp.ExtendedDescription, new DialogOption[] {
-          ("Overall goal", new ChoiceBranch(1, camp.MissionDescription + sendToJosh, isItGoodEnding: true)),
+          ("Overall goal", new ChoiceBranch(1, camp.MissionDescription + sendToJosh, isItGoodEnding: true, repGain: 5)),
           ("What is your number ;)", new ChoiceBranch(2, "You've crossed a line. Bye."))
         })),
         ("What is your number ;)", new ChoiceBranch(3, "You've crossed a line. Bye."))
@@ -514,7 +521,7 @@ namespace WorldOfZuul.Africa
           new DialogOption[] {
             ("I'm here to help. Could you introduce me to the whole situation that's going on in here?", new ChoiceBranch(1, "Sure I can.",
               new DialogOption[] {
-                ("so.....?", new ChoiceBranch(1, "OK FINE, I'll tell you. Ekhem...\nemmm we are... helping animals? ...\nYou know what. Don't bother me with such a nonsens. Why don't you ask Mandarine? She loves to talk about all those THINGS. pff", isItGoodEnding: true))
+                ("so.....?", new ChoiceBranch(1, "OK FINE, I'll tell you. Ekhem...\nemmm we are... helping animals? ...\nYou know what. Don't bother me with such a nonsens. Why don't you ask Mandarine? She loves to talk about all those THINGS. pff", isItGoodEnding: true, repGain: 1))
               }
             )),
             ("Tell me all the stuff and let me be gone from here!", new ChoiceBranch(2, "Oh no, no, no. I won't accept this kind of rudness. I won't talk with you any longer!"))
@@ -545,7 +552,7 @@ namespace WorldOfZuul.Africa
             new DialogOption[] {
               ("Pick up the earphone", new ChoiceBranch(1, "Great! Now we can start the mission",
                    new DialogOption[] {
-                      ("Let's go!", new ChoiceBranch(1, "You feel sudden jerk and submarine starts getting closer to the surffice faster than you'd expect. Hal tells you to move to the other ship and your journey begins...", isItGoodEnding: true)),
+                      ("Let's go!", new ChoiceBranch(1, "You feel sudden jerk and submarine starts getting closer to the surffice faster than you'd expect. Hal tells you to move to the other ship and your journey begins...", isItGoodEnding: true, repGain: 12)),
                    }
               )),
               ("Hit the steering panel", new ChoiceBranch(2, "Auuch! What are you doing??"))
