@@ -52,6 +52,10 @@ namespace WorldOfZuul.src.Map
       if (mapObjects.ContainsKey((x, y)))
       {
         mapObjects.Remove((x, y));
+        if (MapObjectsQuestsKeysQueue.Contains((x, y)))
+        {
+          MapObjectsQuestsKeysQueue = new Queue<(int X, int Y)>(MapObjectsQuestsKeysQueue.Where(s => s != (x, y)));
+        }
       }
     }
     public bool IsAnyQuestAvailable()

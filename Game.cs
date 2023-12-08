@@ -12,12 +12,13 @@ namespace WorldOfZuul
     private Room? previousRoom;
     private AsiaRoom? Asia;
     private Room? HeadQuarters;
-    private Room? Pacific;
     private AfricaRoom? Africa;
+    private PacificRoom? Pacific;
     private Command? command;
 
     private bool continuePlaying = true;
     public static string? Initials { get; set; }
+    public static string? PlayerName { get; set; }
 
     public Game()
     {
@@ -36,7 +37,7 @@ namespace WorldOfZuul
 
       Africa = new("Africa Mission", "Africa", "As you approach the middle screen, the mission description says ”SAFE ENDANGERED KORDOFAN GIRAFFE FROM A WILDFIRE” You scream the keyword ”Africa!”. The floor below you opens, and you fall into the pipe. As you go down, it takes a sharp twist left, and you suddenly find yourself on the comfortable leather chair of a small submarine");
 
-      Pacific = new("Ocean", "You are standing now in the pacific ocean. From now you have to decide either going to the warship or to the submarine.To the east you have to nuke the proachers, to the south you have to cut the proacher's lines, and to the west you have to flip their ship.");
+      Pacific = new("Pacific Ocean", "", "As you step onto the ship, a sense of urgency hangs in the air. A man swiftly approaches you, his weathered face etched with concern, his voice carrying the weight of the news he brings.");
 
 
 
@@ -51,8 +52,6 @@ namespace WorldOfZuul
 
 
       currentRoom = HeadQuarters;
-      // currentRoom = Africa;
-      // currentRoom = Asia;
     }
 
     /// <summary>
@@ -81,7 +80,8 @@ namespace WorldOfZuul
          font: FontTheme.Info
       );
 
-      //LoadingAnimation.CreateCountDown(5); //game countdown animation
+
+      LoadingAnimation.CreateCountDown(5); //game countdown animation
 
       GameConsole.WriteLine("\n" + currentRoom?.LongDescription);
 
@@ -112,6 +112,12 @@ namespace WorldOfZuul
             GameConsole.WriteLine("Welcome back to the HeadQuarters", font: FontTheme.Success);
             break;
 
+          case var room when currentRoom.Equals(Pacific):
+            Pacific.StartPacificMission(ref currentRoom, ref previousRoom);
+
+            GameConsole.WriteLine("Welcome back to the HeadQuarters", font: FontTheme.Success);
+            break;
+
           default:
             break;
         }
@@ -124,7 +130,7 @@ namespace WorldOfZuul
         {
           UNRoom.StartLastMission();
           continuePlaying = false;
-        } 
+        }
 
         //get a command
         command = AskForCommand();
@@ -161,6 +167,7 @@ namespace WorldOfZuul
     /// <param name="initials"></param>
     public static void GetInicialOfThePlayer(string name)
     {
+      PlayerName = name;
       Initials = name.ToUpper()[..1];
     }
   }
