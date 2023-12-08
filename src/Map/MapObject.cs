@@ -37,7 +37,7 @@ namespace WorldOfZuul
       // ",
       [MapObjectsEnum.VERTICALWALL] = "\U0000258F", //U0000275A //\U0000258F //'|'
       [MapObjectsEnum.HORIZONTALWALL] = "\U00002E0F", //U0000268A //U00002594 //\U00002581 //\U00002015 //\U00002D67 //\U00002E0F//'-' 
-      [MapObjectsEnum.DIAGONALWALL_LEFT] = "\\", //TODO: find better ascii signs!
+      [MapObjectsEnum.DIAGONALWALL_LEFT] = "\\",
       [MapObjectsEnum.DIAGONALWALL_RIGHT] = "/"
 
     };
@@ -82,7 +82,7 @@ namespace WorldOfZuul
       this.Npc = npc;
 
       if ((MapObjectType is MapObjectsEnum.NPC //|| MapObjectType is MapObjectsEnum.ENEMY
-          //|| MapObjectType is MapObjectsEnum.PLACE 
+                                               //|| MapObjectType is MapObjectsEnum.PLACE 
        ) && Npc == null)
       {
         throw new ArgumentException("If you're creating person map object you have to pass NPC/Enemy object");

@@ -82,7 +82,6 @@ namespace WorldOfZuul
           Messages.PrintMapObjectsHelp();
 
           return true;
-        //TODO: there has to be cleaner way to write this
         case "north" when isMissionStarted == true:
         case "south" when isMissionStarted == true:
         case "east" when isMissionStarted == true:
