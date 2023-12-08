@@ -48,7 +48,7 @@ namespace WorldOfZuul
          font: FontTheme.Info
         );
     }
-    public static void PrintMapObjectsHelp()
+    public static void PrintMapObjectsHelp(bool isAsia = false)
     {
       GameConsole.WriteLine("\n\n\tMAP OBJECTS:", font: FontTheme.Info);
       GameConsole.Write($"{MapObject.MapMarkers[MapObjectsEnum.NPC]}", font: MapObject.MapObjectFonts[MapObjectsEnum.NPC]);
@@ -57,7 +57,19 @@ namespace WorldOfZuul
       GameConsole.Write(" - Enemy\n", font: FontTheme.GameTip);
       GameConsole.Write($"{MapObject.MapMarkers[MapObjectsEnum.PLACE]}", font: MapObject.MapObjectFonts[MapObjectsEnum.PLACE]);
       GameConsole.Write(" - Place\n", font: FontTheme.GameTip);
+      GameConsole.Write($"{MapObject.MapMarkers[MapObjectsEnum.TREE]}", font: MapObject.MapObjectFonts[MapObjectsEnum.TREE]);
+      GameConsole.Write(" - Tree\n", font: FontTheme.GameTip);
+
+      if (isAsia)
+      {
+        GameConsole.Write($"{MapObject.MapMarkers[MapObjectsEnum.PRISON]}", font: MapObject.MapObjectFonts[MapObjectsEnum.PRISON]);
+        GameConsole.Write(" - Prison\n", font: FontTheme.GameTip);
+        GameConsole.Write($"{MapObject.MapMarkers[MapObjectsEnum.TRAP]}", font: MapObject.MapObjectFonts[MapObjectsEnum.TRAP]);
+        GameConsole.Write(" - Trap\n", font: FontTheme.GameTip);
+      }
     }
+
+
 
     public static void PrintUnknownCommandMessage()
     {
@@ -90,7 +102,7 @@ namespace WorldOfZuul
     public static void CantQuitInformation()
     {
       GameConsole.WriteLine("Mission in progress, can't quit the game.\n", font: FontTheme.Danger);
-    } 
+    }
     public static void PrintGoodbyeMessage()
     {
       GameConsole.WriteLine("Thank you for playing World of Zuul!", fgColor: ConsoleColor.Green);

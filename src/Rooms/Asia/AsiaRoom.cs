@@ -24,6 +24,8 @@ namespace WorldOfZuul
 
     public void CurrentlyInAsiaRoom(ref Room? currentRoom, ref Room? previousRoom)
     {
+      LoadingAnimation.Loading("Mission Loading");
+      GameConsole.Clear();
 
       InProccess();
 
@@ -45,7 +47,7 @@ namespace WorldOfZuul
           Hub.isAsiaCompleted = true;
           return;
         }
-        
+
         Command? command = Game.AskForCommand();
         continuePlaying = Actions.DecideAction(ref command, ref currentRoom, ref previousRoom, true, "asia");
 
