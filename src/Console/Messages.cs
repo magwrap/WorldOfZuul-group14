@@ -29,7 +29,7 @@ namespace WorldOfZuul
 
 ", delay: 1);
       GameConsole.WriteLine(
-        "Welcome to the World of Zuul!\nWorld of Zuul is a new, incredibly boring adventure game.",
+        "Welcome to the World of Zuul!\nFighting against poaching edition.\n",
         fgColor: ConsoleColor.Green
       );
 
@@ -37,14 +37,14 @@ namespace WorldOfZuul
     public static void PrintHelp()
     {
       GameConsole.WriteLine(
-        "\nNavigate by typing 'choose mission'.\nType 'look' for more details.\nType 'back' to go to the previous room.\nType 'help' to print this message again.\nType 'clear' to clear out the console\nType 'quit' to exit the game.",
+        "\nNavigate by typing 'choose mission'.\nType 'look' for more details. \nType 'help' to print this message again.\nType 'clear' to clear out the console\nType 'quit' to exit the game.",
          font: FontTheme.Info
         );
     }
     public static void PrintMissionHelp()
     {
       GameConsole.WriteLine(
-        "\nNavigate by typing ['north', 'east', 'west', 'south'] + (optional) 'number of steps' to move around the map.\nType 'look' for more details.\nType 'back' to go to the previous room.\nType 'map on' to turn on the map\nType 'map off' to turn off the map\nType 'help' to print this message again.Type 'map help' to get definitions of objects on the map.\nType 'clear' to clear out the console\nType 'quit' to exit the game.\n\n",
+        "\nNavigate by typing ['north', 'east', 'west', 'south'] + (optional) 'number of steps' to move around the map.\nType 'look' for more details. \nType 'map on' to turn on the map. \nType 'map off' to turn off the map. \nType 'help' to print this message again. \nType 'map help' to get definitions of objects on the map.\nType 'clear' to clear out the console\nType 'quit' to exit the game.\n\n",
          font: FontTheme.Info
         );
     }

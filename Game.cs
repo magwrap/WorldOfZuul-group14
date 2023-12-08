@@ -81,7 +81,9 @@ namespace WorldOfZuul
          font: FontTheme.Info
       );
 
-      GameConsole.WriteLine("\n" + currentRoom?.LongDescription, fgColor: ConsoleColor.DarkYellow, breakline: false);
+      LoadingAnimation.CreateCountDown(5); //game countdown animation
+
+      GameConsole.WriteLine("\n" + currentRoom?.LongDescription);
 
       Messages.PrintShowcaseOfMissions();
 
@@ -121,7 +123,8 @@ namespace WorldOfZuul
         if (Hub.isAsiaCompleted && Hub.isAfricaCompleted && Hub.isPacificCompleted)
         {
           UNRoom.StartLastMission();
-        }
+          continuePlaying = false;
+        } 
 
         //get a command
         command = AskForCommand();
