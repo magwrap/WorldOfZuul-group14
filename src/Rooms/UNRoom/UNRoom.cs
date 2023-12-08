@@ -34,12 +34,10 @@ namespace WorldOfZuul
         private static void ReputationScore1()
         {
             Console.WriteLine(
-                    "\nAs the ship docks, a sinking feeling gnaws at you. You sense the subdued atmosphere even before stepping onto the ground.\n" +
-                    "The anticipation of a lukewarm reception weighs heavily, with a tinge of apprehension about facing potential disappointment from your peers.\n" +
-                    "You step into the headquarters and the atmosphere feels tepid. Other rangers and employees give hesitant nods and weary glances, their expressions reflecting disappointment.\n" +
-                    "A few grumbles and murmurs linger in the air as you pass by, indicating a sense of discontentment.\n" +
-                    "The reception is lukewarm at best, lacking the usual camaraderie and enthusiasm.Your assistant approaches with a reserved demeanour."
-                );
+                "\nAs the ship docks, a sinking feeling hits. You anticipate a lukewarm reception and potential disappointment from peers.\n" +
+                "Inside headquarters, the atmosphere feels tepid, with hesitant nods and weary glances reflecting disappointment.\n" +
+                "Grumbles and murmurs linger, indicating discontentment. The reception lacks usual camaraderie as your assistant approaches reservedly.");
+
             PrntD("Diana", ConsoleColor.Green, "Welcome back. The council is expecting your presence in the meeting room.");
 
             // Dialogue options
@@ -139,15 +137,13 @@ namespace WorldOfZuul
                 switch (meetOption1)
                 {
                     case 1:
-                        Console.WriteLine("You gaze out through the window, but the view fails to captivate you as it usually does. The vastness of the Atlantic seems bleak and uninviting today.\n" +
-                        "The wildlife remains scarce uninterested in the offerings provided by the automatic feeder,\n" +
-                        "mirroring the tepid atmosphere within the headquarters. The usual awe-inspiring scenes are absent, matching the disappointment you feel.\n" +
-                        "You make your way to the meeting room, but the journey feels lackluster. The corridors seem unusually desolate, reflecting the subdued atmosphere.\n" +
-                        "Few colleagues pass by, offering hesitant nods,\n" +
+                        Console.WriteLine("The Atlantic view fails to captivate; wildlife ignores offerings, echoing the headquarters' tepid atmosphere.\n" +
+                        "\nYou make your way to the meeting room, but the journey feels lackluster. The corridors seem unusually desolate, reflecting the subdued atmosphere.\n" +
                         "The anticipation for the meeting is tempered by a sense of disappointment in your recent performance.");
+
                         break;
                     case 2:
-                        Console.WriteLine("You make your way to the meeting room, but the journey feels lackluster. The corridors seem unusually desolate, reflecting the subdued atmosphere. Few colleagues pass by, offering hesitant nods.\n" +
+                        Console.WriteLine("You make your way to the meeting room, but the journey feels lackluster. The corridors seem unusually desolate, reflecting the subdued atmosphere.\n" +
                         "The anticipation for the meeting is tempered by a sense of disappointment in your recent performance.");
                         break;
                     default:
@@ -156,7 +152,6 @@ namespace WorldOfZuul
                 }
             }
             Console.WriteLine("\nEntering the meeting room, you feel a palpable sense of disappointment in the air. The 13 council members' expressions reflect a blend of concern and reservation.\n" +
-            "Their greetings are polite but lack warmth, mirroring the tepid reception you've encountered.\n" +
             "As you take your seat, the atmosphere feels strained, indicating a dissatisfaction with recent outcomes.");
 
             PrntD("Council Member 1", ConsoleColor.Green, "The suggestion to send our headmaster ranger to the UN Assembly... do we need to reassess that decision?");
@@ -173,12 +168,9 @@ namespace WorldOfZuul
             PrntD("Council Member 11", ConsoleColor.Green, "It's a tough decision, but their long-standing commitment shouldn't be disregarded.");
             PrntD("Council Member 12", ConsoleColor.Green, "I too support the decision. They're the face of our fight against poaching.");
 
-            Console.WriteLine("\nIn a room filled with varying opinions, the council members engage in a robust discussion regarding the headmaster ranger's representation at the United Nations General Assembly.\n" +
-            "Disagreements surface, with concerns raised about recent setbacks potentially jeopardizing their representation.\n" +
-            "While some members advocate for reconsideration, emphasizing the need for flawless representation, the majority aligns with acknowledging the ranger's unparalleled dedication and expertise.\n" +
-            "They highlight the importance of experience and continuity in advocating for the organization's cause on the global stage.\n" +
-            "Ultimately, the majority of the council leans towards reaffirming their decision, accentuating the ranger's invaluable contribution and expertise despite recent challenges. The decision\n" +
-            "reflects a balance between acknowledging recent setbacks and recognizing the ranger's significant role in the fight against poaching.");
+            Console.WriteLine("\nCouncil members debate the headmaster ranger's UN representation, amid concerns about recent setbacks.\n" +
+            "Some push for reconsideration, emphasizing flawless representation, while others stress the ranger's dedication and expertise.\n" +
+            "Despite setbacks, they emphasize the ranger's invaluable role in fighting poaching.");
 
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("\n1.");
@@ -346,24 +338,20 @@ namespace WorldOfZuul
                 {
                     case 1:
                         Console.WriteLine("Looking through the window, you observe the familiar expanse of the Atlantic, appreciating the serene beauty of the ocean.\n" +
-                        "Some wildlife tentatively approaches the dispensed food provided by the automatic feeder,\n" +
-                        "drawing mild interest but lacking the usual spectacle. The display is routine neither particularly awe-inspiring nor disappointing.\n" +
-                        "Heading to the meeting room, you traverse the corridors that exude a sense of routine.\n" +
-                        "Colleagues acknowledge your presence with reserved smiles, indicating a familiarity that lacks enthusiasm.\n" +
-                        "There's a steady pace to your walk, feeling proud you did your job.");
+                        "Some wildlife tentatively approaches the dispensed food provided by the automatic feeder, though it lacks the usual spectacle.\n" +
+                        "\nHeading to the meeting room, you traverse the corridors that exude a sense of routine.\n" +
+                        "Colleagues acknowledge your presence with reserved smiles, indicating a familiarity that lacks enthusiasm.");
                         break;
                     case 2:
                         Console.WriteLine("Heading to the meeting room, you traverse the corridors that exude a sense of routine.\n" +
-                        "Colleagues acknowledge your presence with reserved smiles, indicating a familiarity that lacks enthusiasm.\n" +
-                        "There's a steady pace to your walk, feeling proud you did your job.");
+                        "Colleagues acknowledge your presence with reserved smiles, indicating a familiarity that lacks enthusiasm.");
                         break;
                     default:
                         Console.WriteLine("Invalid choice.");
                         return;
                 }
             }
-            Console.WriteLine("\nStepping into the meeting room, there's a familiar air about the place. The 13 council members acknowledge your arrival with composed nods, maintaining a professional demeanour.\n" +
-            "The greetings are polite but lack any notable excitement, reflecting a subdued response to your performance.\n" +
+            Console.WriteLine("\nStepping into the meeting room, the 13 council members acknowledge your arrival with composed nods, maintaining a professional demeanour.\n" +
             "Taking your seat, the atmosphere remains steady, portraying a sense of predictability without much fervor.");
 
             PrntD("Council Member 1", ConsoleColor.Green, "Considering our headmaster ranger for the UN Assembly... any need for reevaluation?");
@@ -381,11 +369,8 @@ namespace WorldOfZuul
             PrntD("Council Member 12", ConsoleColor.Green, "I too back the decision. They epitomize our anti-poaching mission.");
 
             Console.WriteLine("\nIn the midst of diverging views, the council deliberates on the headmaster ranger's potential representation at the United Nations General Assembly.\n" +
-            "Concerns arise about recent challenges that might affect their representation.\n" +
             "While some push for reassessment for flawless representation, the majority stresses the ranger's dedication and experience.\n" +
-            "They emphasize the significance of experience and consistency in advocating for the organization's cause globally.\n" +
-            "Ultimately, despite acknowledging recent challenges, the majority leans towards reaffirming their decision.\n" +
-            "This choice reflects trust in the ranger's substantial contribution and expertise, balancing recent setbacks against their significant role in the fight against poaching.");
+            "Ultimately, despite acknowledging recent challenges, the majority leans towards reaffirming their decision.");
 
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("\n1.");
@@ -440,10 +425,8 @@ namespace WorldOfZuul
         private static void ReputationScore3()
         {
             Console.WriteLine("\nThe ship's arrival fills you with an electric buzz of anticipation. You sense an impending celebration, perhaps even a hero's welcome.\n" +
-            "Confidence swells within you, bolstered by the expectation of recognition and admiration from your colleagues.\n" +
             "There's a bubbling excitement for the reception awaiting your extraordinary accomplishments. You stride into the headquarters and an electric energy crackles through the air.\n" +
-            "Cheers erupt, accompanied by enthusiastic clapping and hearty pats on the back from fellow rangers and staff.\n" +
-            "The room is filled with an aura of celebration and triumph. Your exceptional performance hasn't gone unnoticed, earning you a hero's welcome. Your assistant rushes to greet you, barely concealing her excitement.");
+            "Cheers erupt, accompanied by enthusiastic clapping and hearty pats on the back from fellow rangers and staff.");
             PrntD("Diana", ConsoleColor.Green, "Fantastic job out there! The council is eager to hear from you. They asked you to come to the meeting room");
 
             // Dialogue options
@@ -542,7 +525,6 @@ namespace WorldOfZuul
                 {
                     case 1:
                         Console.WriteLine("Through the window, the majesty of the Atlantic unfolds before you.\n" +
-                        "The wildlife teems around the dispensed food provided by the automatic feeder, a vibrant tapestry of nature in motion.\n" +
                         "Whales breach, dolphins playfully leap, and various birds create a mesmerizing display.\n" +
                         "The spectacle outside mirrors the sense of triumph and grandeur you feel within the headquarters, leaving you in awe of the extraordinary sight.\n" +
                         "As you stride toward the meeting room, the corridors come alive with bustling activity. Colleagues offer enthusiastic nods and cheerful greetings, buoyed by the celebratory atmosphere.\n" +
@@ -559,7 +541,6 @@ namespace WorldOfZuul
             }
             Console.WriteLine("\nWalking into the meeting room, a wave of admiration and anticipation greets you.\n" +
             "The 13 council members offer enthusiastic greetings, their expressions reflecting admiration and respect for your recent accomplishments.\n" +
-            "Their demeanour exudes a sense of excitement and appreciation for your outstanding performance.\n" +
             "Taking the central seat, the atmosphere buzzes with excitement, setting the stage for a meeting charged with positive energy.");
 
             PrntD("Council Member 1", ConsoleColor.Green, "Considering our headmaster ranger for the UN Assembly... their recent performance speaks volumes, don't you agree?");
@@ -668,14 +649,9 @@ namespace WorldOfZuul
             }
 
             Console.WriteLine("\nStepping into the grand hall of the United Nations assembly, you're met with a sight that embodies global significance.\n" +
-            "The vast space hums with activity as delegates, and representatives from various nations and organizations converse in hushed tones,\n" +
-            "their discussions blending into a soft murmur that fills the room. The atmosphere is charged with a sense of purpose, underscored by the weight of the impending discussions.\n" +
             "\nPeople from diverse cultures and backgrounds move about, each person seemingly carrying their own slice of the world's concerns.\n" +
             "The grandeur of the surroundings seems to instil a sense of humility, a recognition of the immense responsibility that comes with addressing global issues.\n" +
             "\nYou notice clusters of individuals engaged in intense conversations, some nodding with understanding, others debating animatedly.\n" +
-            "The space, though vast, feels intimate with a shared understanding of the importance of the topics at hand.\n" +
-            "\nAs you make your way through the hall, there's a sense of unity amidst diversity—a collective effort poised to address challenges that transcend borders.\n" +
-            "The anticipation for the upcoming sessions hangs palpably in the air, as each person in attendance represents a crucial voice in shaping the future of global conservation efforts.\n" +
             "\nYou are given way to the podium and prepare to present your point. Some questions related to the topic of poaching and SDGs 14 and 15 were prepared in advance of your arrival.");
 
             PrntD("Inquirer", ConsoleColor.Green, "What methods might address the complexities of poaching effectively?");
