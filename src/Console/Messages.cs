@@ -86,6 +86,11 @@ namespace WorldOfZuul
         fgColor: ConsoleColor.DarkBlue
         );
     }
+
+    public static void CantQuitInformation()
+    {
+      GameConsole.WriteLine("Mission in progress, can't quit the game.\n", font: FontTheme.Danger);
+    } 
     public static void PrintGoodbyeMessage()
     {
       GameConsole.WriteLine("Thank you for playing World of Zuul!", fgColor: ConsoleColor.Green);
