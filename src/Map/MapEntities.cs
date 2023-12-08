@@ -96,7 +96,7 @@ namespace WorldOfZuul.src.Map
 
       if (mapObject.MapObjectType is MapObjectsEnum.NPC || mapObject.MapObjectType is MapObjectsEnum.ENEMY || mapObject.MapObjectType is MapObjectsEnum.PLACE || mapObject.MapObjectType is MapObjectsEnum.PRISON || mapObject.MapObjectType is MapObjectsEnum.GIRAFFE)
       {
-        return mapObject?.Npc?.TreeOfChoices?.StartDialog();
+        return mapObject?.Npc?.TreeOfChoices?.StartDialog(mapObject.Npc.Name + ": ");
       }
       return true;
     }
